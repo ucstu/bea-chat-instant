@@ -13,8 +13,11 @@
     "fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx,vue}\" && stylelint --fix \"src/**/*.{css,scss,sass,less,styl,vue}\""
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.6",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.4",
+    "react-router-dom": "6"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -30,6 +33,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^18.8.5",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
@@ -40,6 +44,7 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
+    "redux-persist": "^6.0.0",
     "sass": "^1.55.0",
     "stylelint": "^14.13.0",
     "stylelint-config-prettier": "^9.0.3",
