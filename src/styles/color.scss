@@ -1,0 +1,114 @@
+// color.scss
+// colors
+$default-color: (
+  primary: #007fff,
+  gray: #8a94a6,
+  dgray: #0a1f44,
+  blue: #007fff,
+  yellow: #f07300,
+  red: #dd2727,
+  green: #0bb07b,
+  white: #fff,
+  light: #f9f9f9,
+  black: #0a1f44,
+  line: #f1f2f4,
+);
+$gray: (
+  100: #fcfcfd,
+  200: #f8f9fb,
+  300: #f1f2f4,
+  400: #e1e4e8,
+  500: #c9ced6,
+  600: #b5bbc6,
+  700: #a6aebc,
+  800: #98a1b1,
+  900: #8a94a6,
+);
+$dgray: (
+  100: #758196,
+  200: #6c798f,
+  300: #5d6c84,
+  400: #53627c,
+  500: #445571,
+  600: #364866,
+  700: #273a5b,
+  800: #182c4f,
+  900: #0a1f44,
+);
+$blue: (
+  100: #f5faff,
+  200: #ebf5ff,
+  300: #cce6ff,
+  400: #9cf,
+  500: #5aacff,
+  600: #007fff,
+  700: #0c66ff,
+  800: #0d55cf,
+  900: #0a44a5,
+);
+$green: (
+  100: #f7fffd,
+  200: #e9fff8,
+  300: #92eccf,
+  400: #6ddfba,
+  500: #3ed3a3,
+  600: #22c993,
+  700: #0bb07b,
+  800: #00865a,
+  900: #006242,
+);
+$yellow: (
+  100: #fffcf5,
+  200: #fff6e4,
+  300: #ffecc7,
+  400: #ffdc99,
+  500: #ffca65,
+  600: #ffbb38,
+  700: #ffad0d,
+  800: #ff8f00,
+  900: #f07300,
+);
+$red: (
+  100: #fff8f8,
+  200: #ffeaea,
+  300: #ffc2c2,
+  400: #ff8d8d,
+  500: #ff5d5d,
+  600: #f03d3d,
+  700: #dd2727,
+  800: #bd0303,
+  900: #a50000,
+);
+$colors: (
+  red: $red,
+  gray: $gray,
+  dgray: $dgray,
+  yellow: $yellow,
+  green: $green,
+  blue: $blue,
+);
+
+// text-red bg-red
+@each $colorKey, $color in $default-color {
+  .text-#{"" + $colorKey} {
+    color: $color;
+  }
+  .bg-#{"" + $colorKey} {
+    background: $color;
+  }
+}
+
+// text-red-100 bg-red-100 ...
+@each $colorKey, $colorDic in $colors {
+  @each $index, $color in $colorDic {
+    .text-#{"" + $colorKey}-#{$index} {
+      color: $color;
+    }
+    .bg-#{"" + $colorKey}-#{$index} {
+      background: $color;
+    }
+    .border-#{"" + $colorKey}-#{$index} {
+      border-color: $color;
+    }
+  }
+}

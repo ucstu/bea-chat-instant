@@ -21,8 +21,9 @@ export default function WQRoute() {
           path="/"
           element={<AuthOrNot Component={LazyLoad("../views/Main")} />}
         >
-          <Route path="message" element={LazyLoad("../pages/Chart")} />
-          <Route path="contact" element={LazyLoad("../pages/List")} />
+          <Route index element={<Navigate to="/message" />} />
+          <Route path="message" element={LazyLoad("../pages/Message")} />
+          <Route path="contact" element={LazyLoad("../pages/Contact")} />
           <Route path="mine" element={LazyLoad("../pages/Mine")} />
         </Route>
         <Route path="/login" element={LazyLoad("../pages/Login")} />
