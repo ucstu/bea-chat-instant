@@ -22,7 +22,7 @@ export default defineConfig({
       ],
     },
     modules: {
-      localsConvention: "camelCase",
+      localsConvention: "camelCaseOnly",
     },
   },
   plugins: [

@@ -9,14 +9,14 @@ import styles from "./styles/TabBar.module.scss";
 
 export default function TabBar() {
   return (
-    <div className={styles.navbar}>
+    <div className={styles.navbarItem}>
       <NavLink
         to="/message"
         className={({ isActive }) =>
           isActive ? styles.navbarItemActive : styles.navbarItem
         }
       >
-        <div className="text-center text-gray-500 relative">
+        <div className="text-center text-gray-500 relative navbar b bg">
           <FontAwesomeIcon icon={faUserXmark} />
           <Title />
         </div>
