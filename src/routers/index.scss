@@ -1,0 +1,31 @@
+.page-enter {
+  animation: page-enter 0.1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes page-enter {
+  0% {
+    transform: translateX(50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.page-exit {
+  animation: page-exit 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes page-exit {
+  0% {
+    // opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    // opacity: 0;
+    transform: translateX(-100%);
+  }
+}

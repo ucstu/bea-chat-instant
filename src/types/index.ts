@@ -14,6 +14,7 @@ export interface Message {
   dateTime: Dayjs;
   msgType: Message.MessageType;
   content: string;
+  animation: boolean;
 }
 
 export interface MainState {

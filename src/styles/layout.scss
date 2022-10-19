@@ -10,9 +10,9 @@ $count: 100;
 
 // top, right, left, bottom
 @each $val in (top, right, left, bottom) {
-  @for $i from 1 through $count {
-    .#{$val} {
-      #{$val}: $i;
+  @for $i from 0 through $count {
+    .#{$val}-#{$i} {
+      #{$val}: #{$i}px;
     }
   }
 }
@@ -35,7 +35,7 @@ $count: 100;
   overflow: hidden;
 }
 
-.verflow-scroll {
+.overflow-scroll {
   overflow: scroll;
 }
 

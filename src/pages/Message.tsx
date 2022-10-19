@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./styles/Message.module.scss";
-
 export default function Message() {
   const [list, setList] = useState([1, 2, 3, 4, 5, 6]);
+  const userId = 123;
+  const navigate = useNavigate();
+  function intoChartPage() {
+    navigate("/chart/" + userId);
+  }
+
+  const [inProp, setInProp] = useState(false);
+  const nodeRef = useRef(null);
+
   return (
-    <div className={styles.message}>
+    <div ref={nodeRef} className={styles.message} onClick={intoChartPage}>
       {list.map((item, index) => {
         return <MessageItem key={index} />;
       })}
@@ -14,7 +23,7 @@ export default function Message() {
 
 function MessageItem() {
   return (
-    <div className={styles.message}>
+    <div className={styles.messageItem}>
       <div className="p">
         <img
           className={styles.messageItemAvatar}
@@ -24,7 +33,9 @@ function MessageItem() {
       </div>
       <div className={styles.messageItemRight}>
         <div className="userName">姓名</div>
-        <div className="content">聊天内容</div>
+        <div className={styles.messageItemContent}>
+          聊天内容第四u烦恼是富士康返回非凡的四点九四但是
+        </div>
       </div>
     </div>
   );
