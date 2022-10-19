@@ -13,12 +13,18 @@ type HeaderProps = {
   leftIcon?: IconProp;
 }, "left", "leftIcon">
 
-export default function Header({ left, leftIcon, middle, title = "微Q", right }: HeaderProps) {
+export default function Header({
+  left,
+  leftIcon,
+  middle,
+  title = "Bea",
+  right,
+}: HeaderProps) {
   return (
     <div className="bg-gray-300 h-50 flex justify-around bg-red-600">
       <div>{left || (leftIcon && <FontAwesomeIcon icon={leftIcon} />)}</div>
       <div>{middle || title}</div>
       <div>{right}</div>
     </div>
-  )
+  );
 }

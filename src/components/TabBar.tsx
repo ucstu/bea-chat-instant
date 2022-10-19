@@ -9,14 +9,14 @@ import styles from "./styles/TabBar.module.scss";
 
 export default function TabBar() {
   return (
-    <div className={styles.navbarItem}>
+    <div className={styles.navbar}>
       <NavLink
         to="/message"
         className={({ isActive }) =>
           isActive ? styles.navbarItemActive : styles.navbarItem
         }
       >
-        <div className="text-center text-gray-500 relative bg-blue">
+        <div className="text-center text-gray-500 relative">
           <FontAwesomeIcon icon={faUserXmark} />
           <Title />
         </div>
@@ -49,7 +49,7 @@ export default function TabBar() {
 }
 function Title() {
   return (
-    <div className="w-13 h-13 bg-red-900 absolute top-1 left-14 rounded-7 text-12 leading-13  ">
+    <div className="w-13 h-13 bg-red-900 absolute top-1 left-14 rounded-7 text-12 leading-13">
       <span>1</span>
     </div>
   );
