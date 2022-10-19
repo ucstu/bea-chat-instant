@@ -16,7 +16,7 @@ export default function TabBar() {
           isActive ? styles.navbarItemActive : styles.navbarItem
         }
       >
-        <div className="text-center text-gray-500 relative navbar b bg">
+        <div className="text-center text-gray-500 relative bg-blue">
           <FontAwesomeIcon icon={faUserXmark} />
           <Title />
         </div>
