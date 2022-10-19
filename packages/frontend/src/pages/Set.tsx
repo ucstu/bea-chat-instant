@@ -1,37 +1,43 @@
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import ItemCard from "./ItemCard";
-const itemArr = ["账号与安全", "青少年模式", "关怀模式"];
-const itemArr2 = ["个人信息与权限", "个人信息收集清单", "第三方信息共享清单"];
-const arr = [
+import ItemCard from "../components/ItemCard";
+
+const itemArr = [
   {
-    category: "隐私",
-    options: {
-      name: "书店你",
-    },
+    options: [
+      { name: "账号与安全" },
+      { name: "青少年模式" },
+      { name: "关怀模式" },
+    ],
   },
   {
-    options: {
-      name: "大苏打",
-      angleLeft: false,
-    },
+    category: "隐私",
+    options: [
+      { name: "个人信息与权限" },
+      { name: "个人信息收集清单" },
+      { name: "第三方信息共享清单" },
+    ],
   },
 ];
 export default function set() {
   return (
     <div>
       <Title />
-      <ItemCard configure={arr} />
-      <div>
-        {itemArr.map((item, index) => {
-          return <div key={index}>{item}</div>;
-        })}
-      </div>
-      <div>
-        {itemArr2.map((item, index) => (
-          <div>{item}</div>
-        ))}
+      <ItemCard configure={itemArr} />
+      <div className="w-full text-center absolute bottom-0">
+        <button
+          className="w-full h-40 mt-5"
+          style={{ border: 0, padding: 0, backgroundColor: "#fdfdfd" }}
+        >
+          切换账号
+        </button>
+        <div
+          className="w-full h-40 mt-5 "
+          style={{ backgroundColor: "#fdfdfd" }}
+        >
+          退出
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 {
   "recommendations": [
     "eamodio.gitlens",
-    "mrmlnc.vscode-scss",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "pranaygp.vscode-css-peek",

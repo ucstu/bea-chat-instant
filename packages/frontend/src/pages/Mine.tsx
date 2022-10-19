@@ -1,7 +1,18 @@
 import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-const itemArr = ["收藏", "朋友圈", "卡包", "表情"];
+import ItemCard from "../components/ItemCard";
+
+const itemArr = [
+  {
+    options: [
+      { name: "收藏" },
+      { name: "朋友圈" },
+      { name: "卡包" },
+      { name: "表情" },
+    ],
+  },
+];
 export default function Mine() {
   const navigate = useNavigate();
 
@@ -9,7 +20,7 @@ export default function Mine() {
     <div style={{ backgroundColor: "#f9f9f9", height: "calc(100vh - 50px)" }}>
       {/* {个人信息头部} */}
       <div
-        className=" flex  w-full  pl-10 pr-10"
+        className=" flex  w-full  pl-10 pr-10 mb-10"
         style={{
           boxSizing: "border-box",
           height: "150px",
@@ -40,27 +51,7 @@ export default function Mine() {
         </div>
       </div>
       {/* {卡片item} */}
-      <div
-        className="pl-10 mt-10"
-        style={{ fontWeight: "bold", backgroundColor: "#fdfdfd" }}
-      >
-        {itemArr.map((item, index) => (
-          <div
-            key={index}
-            className="w-full h-50 relative"
-            style={{
-              borderBottom: "1px solid #f7f7f7",
-              lineHeight: "50px",
-              boxSizing: "border-box",
-            }}
-          >
-            {item}
-            <span className="absolute right-20" style={{ color: "#bfbfbf" }}>
-              {">"}
-            </span>
-          </div>
-        ))}
-      </div>
+      <ItemCard configure={itemArr} />
       <div
         className="w-full h-50 mt-10 pl-10"
         style={{
