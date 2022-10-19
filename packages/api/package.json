@@ -1,0 +1,44 @@
+{
+  "name": "@bea-chat/monitor-api",
+  "description": "Api for bea chat",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
+  "types": "types/index.d.ts",
+  "source": "src/index.ts",
+  "scripts": {
+    "pre-commit": "lint-staged",
+    "generate": "scripty",
+    "build": "scripty"
+  },
+  "devDependencies": {
+    "del-cli": "^5.0.0",
+    "openapi-typescript-codegen": "^0.23.0",
+    "rexreplace": "^7.0.7",
+    "rollup": "^2.77.2",
+    "rollup-plugin-ts": "^3.0.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,yaml,yml,md}": [
+      "prettier --write"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      "defaults",
+      "not IE 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "last 1 edge version",
+      "last 1 ie version"
+    ]
+  }
+}

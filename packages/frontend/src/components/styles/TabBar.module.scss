@@ -1,0 +1,12 @@
+.navbar {
+  &-item {
+    padding-top: 10px;
+    font-size: 17px;
+    line-height: 17px;
+    text-decoration: none;
+
+    &-active {
+      color: rgb(17 144 30) !important;
+    }
+  }
+}
