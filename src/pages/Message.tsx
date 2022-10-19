@@ -1,6 +1,8 @@
-import { useRef, useState } from "react";
+import Header from "@/components/Header";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles/Message.module.scss";
+
 export default function Message() {
   const [list, setList] = useState([1, 2, 3, 4, 5, 6]);
   const userId = 123;
@@ -9,15 +11,15 @@ export default function Message() {
     navigate("/chart/" + userId);
   }
 
-  const [inProp, setInProp] = useState(false);
-  const nodeRef = useRef(null);
-
   return (
-    <div ref={nodeRef} className={styles.message} onClick={intoChartPage}>
-      {list.map((item, index) => {
-        return <MessageItem key={index} />;
-      })}
-    </div>
+    <>
+      <Header title="hello" />
+      <div className={styles.message} onClick={intoChartPage}>
+        {list.map((item, index) => {
+          return <MessageItem key={index} />;
+        })}
+      </div>
+    </>
   );
 }
 

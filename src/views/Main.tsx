@@ -11,7 +11,7 @@ export default function Main() {
         style={{
           width: "100vw",
           height: "calc(100vh - 50px)",
-          overflow: "scroll",
+          overflow: "hidden",
         }}
       >
         <Outlet></Outlet>

@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import postcssPresetEnv from "postcss-preset-env";
 import { defineConfig } from "vite";
-// import sassDts from "vite-plugin-sass-dts";
+import sassDts from "vite-plugin-sass-dts";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -29,6 +29,6 @@ export default defineConfig({
   plugins: [
     react(),
     legacy(),
-    // sassDts()
+    sassDts()
   ],
 });
