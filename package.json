@@ -2,6 +2,8 @@
   "name": "bea-chat",
   "version": "1.0.0",
   "description": "Bea Chat application",
+  "author": "Bea Team",
+  "license": "MIT",
   "scripts": {
     "format": "pnpm run format -w",
     "lint": "pnpm run lint -w",
@@ -13,8 +15,6 @@
   "gitHooks": {
     "pre-commit": "pnpm lint-staged -w"
   },
-  "author": "Bea Team",
-  "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "eslint": "^8.25.0",

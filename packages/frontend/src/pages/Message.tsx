@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./styles/Message.module.scss";
 
 export default function Message() {
-  // ! 这是一个键为对方用户ID的对象 (作用等同于Map)
+  // !这是一个键为对方用户ID的对象 (作用等同于Map)
   const messages = useSelector((state: MessageState) => state);
   const navigate = useNavigate();
   const gotoChat = useCallback((userID: string) => {
@@ -63,5 +63,5 @@ const MessageItem = React.memo(
         </div>
       </div>
     );
-  };
+  }
 );

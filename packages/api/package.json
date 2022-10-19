@@ -1,5 +1,5 @@
 {
-  "name": "@bea-chat/monitor-api",
+  "name": "@bea-chat/api",
   "description": "Api for bea chat",
   "version": "1.0.0",
   "license": "MIT",
@@ -8,7 +8,6 @@
   "types": "types/index.d.ts",
   "source": "src/index.ts",
   "scripts": {
-    "pre-commit": "lint-staged",
     "generate": "scripty",
     "build": "scripty"
   },
