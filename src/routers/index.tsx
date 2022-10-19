@@ -54,6 +54,7 @@ export default function WQRoute() {
         <Route path="/login" element={LazyLoad("../pages/Login")} />
         <Route path="/register" element={LazyLoad("../pages/Register")} />
         <Route path="/chart/:userId" element={<Chart />} />
+        <Route path="/chart/set" element={LazyLoad("../pages/Set")} />
       </Routes>
     </div>
   );

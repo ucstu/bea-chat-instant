@@ -7,14 +7,14 @@ export default function Message() {
   const [list, setList] = useState([1, 2, 3, 4, 5, 6]);
   const userId = 123;
   const navigate = useNavigate();
-  function intoChartPage() {
-    navigate("/chart/" + userId);
-  }
 
   return (
     <>
       <Header title="hello" />
-      <div className={styles.message} onClick={intoChartPage}>
+      <div
+        className={styles.message}
+        onClick={() => navigate("/chart/" + userId)}
+      >
         {list.map((item, index) => {
           return <MessageItem key={index} />;
         })}
