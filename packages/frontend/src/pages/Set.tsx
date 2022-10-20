@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ItemCard from "../components/ItemCard";
-
+import Title from '../components/Title'
 const itemArr = [
   {
     options: [
@@ -30,6 +30,10 @@ export default function set() {
     setIsShow(show);
     (nodeRef.current as unknown as HTMLElement).style.backgroundColor =
       "#e6e3e3";
+      setTimeout(() => {
+          (nodeRef.current as unknown as HTMLElement).style.backgroundColor =
+      "#fdfdfd";
+      }, 200);
     (maskNode.current as unknown as HTMLElement).style.display = "block";
   }
   function cancelQuit() {
@@ -37,7 +41,7 @@ export default function set() {
   }
   return (
     <div className="relative" style={{ height: "100vh", width: "100vw" }}>
-      <Title />
+      <Title title='设置' />
       <ItemCard configure={itemArr} />
       <div className="w-full text-center absolute bottom-0">
         <button
@@ -77,18 +81,6 @@ export default function set() {
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-function Title() {
-  const navigate = useNavigate();
-  return (
-    <div className="relative w-full h-50 bg-blue-400 leading-50">
-      <div className="absolute left-10 " onClick={() => navigate("/mine")}>
-        <FontAwesomeIcon icon={faAngleLeft} />
-      </div>
-
-      <div style={{ textAlign: "center" }}>设置</div>
     </div>
   );
 }

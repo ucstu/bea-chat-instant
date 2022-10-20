@@ -2,7 +2,7 @@ import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import ItemCard from "../components/ItemCard";
-
+import itemClickHandle  from '../utils/itemClickHandle'
 const itemArr = [
   {
     options: [
@@ -15,7 +15,6 @@ const itemArr = [
 ];
 export default function Mine() {
   const navigate = useNavigate();
-
   return (
     <div style={{ backgroundColor: "#f9f9f9", height: "calc(100vh - 50px)" }}>
       {/* {个人信息头部} */}
@@ -58,8 +57,10 @@ export default function Mine() {
           backgroundColor: "#fdfdfd",
           lineHeight: "50px",
           fontWeight: "bold",
+          boxSizing:'border-box'
         }}
-        onClick={() => navigate("/chart/set")}
+        onClick={() => navigate("/chat/set")}
+
       >
         设置
         <span className="absolute right-20" style={{ color: "#bfbfbf" }}>
