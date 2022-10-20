@@ -4,7 +4,7 @@ export interface UserInfo {
   /* 用户头像 */
   avatar: string;
   /* 用户ID */
-  userId: string;
+  userID: string;
 }
 
 export interface MainState {

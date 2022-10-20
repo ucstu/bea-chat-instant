@@ -23,7 +23,7 @@ export default function WQRoute() {
 
   return (
     <div
-      className={`${transitionStage} w-full h-full`}
+      className={`${transitionStage} w-full h-full flex-col`}
       onAnimationEnd={() => {
         if (transitionStage === styles.pageExit) {
           setTransitionStage(styles.pageEnter);

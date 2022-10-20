@@ -2,6 +2,15 @@
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -9,8 +18,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "typescript.tsdk": "node_modules/typescript/lib",
-  "html-css-class-completion.excludeGlobPattern":"node_modules/**/*",
-   "editor.quickSuggestions": {
+  "html-css-class-completion.excludeGlobPattern": "node_modules/**/*",
+  "editor.quickSuggestions": {
     "other": true,
     "comments": false,
     "strings": true

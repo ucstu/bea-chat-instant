@@ -4,13 +4,7 @@ import { Outlet } from "react-router-dom";
 export default function Main() {
   return (
     <>
-      <div
-        style={{
-          width: "100vw",
-          height: "calc(100vh - 50px)",
-          overflow: "scroll",
-        }}
-      >
+      <div className="flex-auto">
         <Outlet></Outlet>
       </div>
       <TabBar></TabBar>

@@ -20,11 +20,12 @@
         "eamodio.gitlens",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "pranaygp.vscode-css-peek",
         "EditorConfig.EditorConfig",
+        "bradlc.vscode-tailwindcss",
         "stylelint.vscode-stylelint",
+        "clinyong.vscode-css-modules",
         "formulahendry.auto-rename-tag",
-        "Zignd.html-css-class-completion",
+        "dsznajder.es7-react-js-snippets",
         "christian-kohler.npm-intellisense",
         "streetsidesoftware.code-spell-checker"
       ]

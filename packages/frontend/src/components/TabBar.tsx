@@ -28,7 +28,7 @@ function getNavLinkClassName({ isActive }: GetNLCNameParm): string | undefined {
 
 export default React.memo(() => {
   return (
-    <div className="fixed bottom-0 flex justify-space-around w-full h-50 bg-gray-200">
+    <div className="w-full h-14 fixed bottom-0 flex justify-around bg-gray-200">
       <NavLink to="/message" className={getNavLinkClassName}>
         <NavLinkItem icon={faUserXmark} badge name="消息" />
       </NavLink>
