@@ -15,5 +15,5 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "references": [{ "path": "./tsconfig.eslint.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
