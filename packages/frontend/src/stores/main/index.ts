@@ -1,7 +1,7 @@
 import { PartialExcluded } from "@/types";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { MainState, UserInfo } from ".";
+import type { MainState, UserInfo } from "../types/main";
 
 const initialState: MainState = {
   token:

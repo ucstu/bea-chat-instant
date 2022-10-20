@@ -1,4 +1,4 @@
-import { setToken } from "@/stores/main/main";
+import { setToken } from "@/stores/main";
 import type { MainState } from "@/stores/types/main";
 import { useDispatch, useSelector } from "react-redux";
 

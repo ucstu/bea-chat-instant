@@ -1,4 +1,4 @@
-import { MainState } from "../main";
+import { MainState } from "./main";
 import { MessageState } from "./message";
 
 export interface Store {
