@@ -1,0 +1,23 @@
+{
+  "root": true,
+  "env": {
+    "es2021": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "tsconfigRootDir": "./",
+    "project": ["./tsconfig.json","./tsconfig.node.json"]
+  },
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "prettier"
+  ],
+  "ignorePatterns": ["**/dist", "**/types"],
+  "rules": {
+    "@typescript-eslint/no-var-requires": "off",
+    "no-console": "warn"
+  }
+}

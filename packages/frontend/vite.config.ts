@@ -25,8 +25,5 @@ export default defineConfig({
       localsConvention: "camelCaseOnly",
     },
   },
-  plugins: [
-    react(),
-    legacy()
-  ],
+  plugins: [react(), legacy()],
 });

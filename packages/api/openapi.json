@@ -24,9 +24,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "性能监控"
-        ],
+        "tags": ["性能监控"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -93,16 +91,8 @@
                       "description": "状态描述"
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
+                  "required": ["timestamp", "status", "message"],
+                  "x-apifox-orders": ["timestamp", "status", "message"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -127,9 +117,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "性能监控"
-        ],
+        "tags": ["性能监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -308,18 +296,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -384,9 +362,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "性能监控"
-        ],
+        "tags": ["性能监控"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -462,16 +438,8 @@
                       "description": "状态描述"
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
+                  "required": ["timestamp", "status", "message"],
+                  "x-apifox-orders": ["timestamp", "status", "message"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -496,9 +464,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "性能监控"
-        ],
+        "tags": ["性能监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -677,18 +643,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -735,9 +691,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "性能监控"
-        ],
+        "tags": ["性能监控"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -815,16 +769,8 @@
                       "description": "状态描述"
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
+                  "required": ["timestamp", "status", "message"],
+                  "x-apifox-orders": ["timestamp", "status", "message"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -849,9 +795,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "性能监控"
-        ],
+        "tags": ["性能监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -1030,18 +974,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -1080,9 +1014,7 @@
                             "99EcCFAc-27e1-1EdB-8B7A-B32DFDA3669e",
                             "7EF22dE9-829a-eF27-93dc-a7d8fd85cAF2"
                           ],
-                          "pageList": [
-                            "http://gpyvohq.sk/huwqei"
-                          ]
+                          "pageList": ["http://gpyvohq.sk/huwqei"]
                         },
                         {
                           "url": "http://smjboly.lb/qohgfxx",
@@ -1097,9 +1029,7 @@
                             "98bBFdd5-2286-9466-c7Fa-35a84CeDE39F",
                             "14edFe3B-e92e-f5D2-bdc6-ba9e98c03cb7"
                           ],
-                          "pageList": [
-                            "http://dijvlpjnf.as/dynxwbbx"
-                          ]
+                          "pageList": ["http://dijvlpjnf.as/dynxwbbx"]
                         },
                         {
                           "url": "http://movhtoutfs.by/hejh",
@@ -1138,9 +1068,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -1224,16 +1152,8 @@
                       "description": "状态描述"
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
+                  "required": ["timestamp", "status", "message"],
+                  "x-apifox-orders": ["timestamp", "status", "message"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -1258,9 +1178,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -1437,18 +1355,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -1486,12 +1394,8 @@
                           "average": 87.718297,
                           "userCount": 77,
                           "pageCount": 89,
-                          "userList": [
-                            "c8e09dD2-Abe4-d5C1-c3fB-EDb9275C9a4f"
-                          ],
-                          "pageList": [
-                            "http://rowh.org/rspfhfskt"
-                          ]
+                          "userList": ["c8e09dD2-Abe4-d5C1-c3fB-EDb9275C9a4f"],
+                          "pageList": ["http://rowh.org/rspfhfskt"]
                         },
                         {
                           "url": "http://fcibnz.si/xnsvebxeo",
@@ -1532,9 +1436,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "性能监控"
-        ],
+        "tags": ["性能监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -1697,18 +1599,8 @@
                       "maxItems": 5
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -1845,9 +1737,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "暂时只统计慢接口",
-        "tags": [
-          "性能监控"
-        ],
+        "tags": ["性能监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -2020,18 +1910,8 @@
                       "maxItems": 5
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -2231,9 +2111,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "暂时只统计慢资源",
-        "tags": [
-          "性能监控"
-        ],
+        "tags": ["性能监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -2390,18 +2268,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -2448,9 +2316,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -2617,18 +2483,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -2671,9 +2527,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -2765,16 +2619,8 @@
                       "description": "状态描述"
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
+                  "required": ["timestamp", "status", "message"],
+                  "x-apifox-orders": ["timestamp", "status", "message"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -2799,9 +2645,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -2999,18 +2843,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -3055,9 +2889,7 @@
                             "ef708EFF-59dc-3D46-6Bd0-fC6Bbae698AA",
                             "c2957DBE-52Fe-FE8e-c7c9-A81C8DfeBCF3"
                           ],
-                          "pageList": [
-                            "http://uvso.bm/ohlckdz"
-                          ],
+                          "pageList": ["http://uvso.bm/ohlckdz"],
                           "msg": "irij*",
                           "line": 93,
                           "column": 64
@@ -3080,9 +2912,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -3132,16 +2962,8 @@
                       "description": "状态描述"
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
+                  "required": ["timestamp", "status", "message"],
+                  "x-apifox-orders": ["timestamp", "status", "message"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -3166,9 +2988,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -3345,18 +3165,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -3473,9 +3283,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -3551,16 +3359,8 @@
                       "description": "状态描述"
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
+                  "required": ["timestamp", "status", "message"],
+                  "x-apifox-orders": ["timestamp", "status", "message"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -3585,9 +3385,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -3711,30 +3509,14 @@
                           "description": "总条数"
                         }
                       },
-                      "x-apifox-orders": [
-                        "items",
-                        "totalCount"
-                      ],
-                      "required": [
-                        "items",
-                        "totalCount"
-                      ],
+                      "x-apifox-orders": ["items", "totalCount"],
+                      "required": ["items", "totalCount"],
                       "x-apifox-ignore-properties": [],
                       "description": ""
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -3811,9 +3593,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -3990,18 +3770,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -4045,9 +3815,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -4214,18 +3982,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -4269,9 +4027,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "行为监控"
-        ],
+        "tags": ["行为监控"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -4329,16 +4085,8 @@
                       "description": "状态描述"
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
+                  "required": ["timestamp", "status", "message"],
+                  "x-apifox-orders": ["timestamp", "status", "message"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -4363,9 +4111,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "行为监控"
-        ],
+        "tags": ["行为监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -4542,18 +4288,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -4589,9 +4325,7 @@
                           "average": 67.920872198,
                           "userCount": 73,
                           "pageCount": 72,
-                          "userList": [
-                            "7F5f135f-eB11-a663-61fF-b8821C3b5EeD"
-                          ],
+                          "userList": ["7F5f135f-eB11-a663-61fF-b8821C3b5EeD"],
                           "pageList": [
                             "http://kpnol.net.cn/wnxxld",
                             "http://qldlxu.md/umhrim",
@@ -4637,9 +4371,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -4796,18 +4528,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -4851,9 +4573,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "行为监控"
-        ],
+        "tags": ["行为监控"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -4932,16 +4652,8 @@
                       "description": "状态描述"
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
+                  "required": ["timestamp", "status", "message"],
+                  "x-apifox-orders": ["timestamp", "status", "message"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -4966,9 +4678,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "行为监控"
-        ],
+        "tags": ["行为监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -5152,18 +4862,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -5208,9 +4908,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "行为监控"
-        ],
+        "tags": ["行为监控"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -5270,16 +4968,8 @@
                       "description": "状态描述"
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
+                  "required": ["timestamp", "status", "message"],
+                  "x-apifox-orders": ["timestamp", "status", "message"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -5304,9 +4994,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "行为监控"
-        ],
+        "tags": ["行为监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -5490,18 +5178,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -5518,9 +5196,7 @@
                           "average": 66.4256644,
                           "userCount": 81,
                           "pageCount": 73,
-                          "userList": [
-                            "8acBb4d3-5920-Ea82-7177-e3F867fbA6FA"
-                          ],
+                          "userList": ["8acBb4d3-5920-Ea82-7177-e3F867fbA6FA"],
                           "pageList": [
                             "http://eihjsbz.fr/pnelw",
                             "http://oqzj.cg/ukhzk"
@@ -5567,9 +5243,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "行为监控"
-        ],
+        "tags": ["行为监控"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -5669,16 +5343,8 @@
                       "description": "状态描述"
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message"
-                  ],
+                  "required": ["timestamp", "status", "message"],
+                  "x-apifox-orders": ["timestamp", "status", "message"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -5703,9 +5369,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "行为监控"
-        ],
+        "tags": ["行为监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -5889,18 +5553,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -5967,9 +5621,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "行为监控"
-        ],
+        "tags": ["行为监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -6126,18 +5778,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -6181,9 +5823,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -6360,18 +6000,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -6415,9 +6045,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "错误监控"
-        ],
+        "tags": ["错误监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -6604,18 +6232,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -6659,9 +6277,7 @@
                             "ddC9E3c6-d733-aAd2-8cF2-F2BaFFf2f1eA",
                             "1C9AaDc1-2a72-CA9f-B698-784F737A6DbF"
                           ],
-                          "pageList": [
-                            "http://ohven.ht/vrkegpnlge"
-                          ]
+                          "pageList": ["http://ohven.ht/vrkegpnlge"]
                         }
                       ]
                     }
@@ -6681,9 +6297,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "查询指定用户的行为列表",
-        "tags": [
-          "行为监控"
-        ],
+        "tags": ["行为监控"],
         "parameters": [
           {
             "name": "app_id",
@@ -6750,18 +6364,8 @@
                       }
                     }
                   },
-                  "required": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-apifox-orders": [
-                    "timestamp",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["timestamp", "status", "message", "data"],
+                  "x-apifox-orders": ["timestamp", "status", "message", "data"],
                   "x-apifox-ignore-properties": []
                 },
                 "examples": {
@@ -6796,12 +6400,7 @@
           "mainType": {
             "title": "行为类型",
             "type": "integer",
-            "enum": [
-              1,
-              2,
-              3,
-              4
-            ],
+            "enum": [1, 2, 3, 4],
             "x-apifox": {
               "enumDescriptions": {
                 "1": "BasicBehavior",
@@ -6821,15 +6420,7 @@
           "subType": {
             "title": "子行为类型",
             "type": "integer",
-            "enum": [
-              1001,
-              1002,
-              1003,
-              1004,
-              2001,
-              3001,
-              4001
-            ],
+            "enum": [1001, 1002, 1003, 1004, 2001, 3001, 4001],
             "x-apifox": {
               "enumDescriptions": {
                 "1001": "PV",
@@ -6926,12 +6517,7 @@
           "mainType": {
             "title": "行为类型",
             "type": "integer",
-            "enum": [
-              1,
-              2,
-              3,
-              4
-            ],
+            "enum": [1, 2, 3, 4],
             "x-apifox": {
               "enumDescriptions": {
                 "1": "BasicBehavior",
@@ -6951,15 +6537,7 @@
           "subType": {
             "title": "子行为类型",
             "type": "integer",
-            "enum": [
-              1001,
-              1002,
-              1003,
-              1004,
-              2001,
-              3001,
-              4001
-            ],
+            "enum": [1001, 1002, 1003, 1004, 2001, 3001, 4001],
             "x-apifox": {
               "enumDescriptions": {
                 "1001": "PV",
@@ -7042,12 +6620,7 @@
           "mainType": {
             "title": "行为类型",
             "type": "integer",
-            "enum": [
-              1,
-              2,
-              3,
-              4
-            ],
+            "enum": [1, 2, 3, 4],
             "x-apifox": {
               "enumDescriptions": {
                 "1": "BasicBehavior",
@@ -7067,15 +6640,7 @@
           "subType": {
             "title": "子行为类型",
             "type": "integer",
-            "enum": [
-              1001,
-              1002,
-              1003,
-              1004,
-              2001,
-              3001,
-              4001
-            ],
+            "enum": [1001, 1002, 1003, 1004, 2001, 3001, 4001],
             "x-apifox": {
               "enumDescriptions": {
                 "1001": "PV",
@@ -7151,12 +6716,7 @@
           "mainType": {
             "title": "行为类型",
             "type": "integer",
-            "enum": [
-              1,
-              2,
-              3,
-              4
-            ],
+            "enum": [1, 2, 3, 4],
             "x-apifox": {
               "enumDescriptions": {
                 "1": "BasicBehavior",
@@ -7176,15 +6736,7 @@
           "subType": {
             "title": "子行为类型",
             "type": "integer",
-            "enum": [
-              1001,
-              1002,
-              1003,
-              1004,
-              2001,
-              3001,
-              4001
-            ],
+            "enum": [1001, 1002, 1003, 1004, 2001, 3001, 4001],
             "x-apifox": {
               "enumDescriptions": {
                 "1001": "PV",
@@ -7288,12 +6840,7 @@
           "mainType": {
             "title": "错误类型",
             "type": "integer",
-            "enum": [
-              1,
-              2,
-              3,
-              4
-            ],
+            "enum": [1, 2, 3, 4],
             "x-apifox": {
               "enumDescriptions": {
                 "1": "ResourceError",
@@ -7313,12 +6860,7 @@
           "subType": {
             "title": "子错误类型",
             "type": "integer",
-            "enum": [
-              1001,
-              2001,
-              3001,
-              4001
-            ],
+            "enum": [1001, 2001, 3001, 4001],
             "x-apifox": {
               "enumDescriptions": {
                 "1001": "ResourceError",
@@ -7388,12 +6930,7 @@
           "mainType": {
             "title": "错误类型",
             "type": "integer",
-            "enum": [
-              1,
-              2,
-              3,
-              4
-            ],
+            "enum": [1, 2, 3, 4],
             "x-apifox": {
               "enumDescriptions": {
                 "1": "ResourceError",
@@ -7413,12 +6950,7 @@
           "subType": {
             "title": "子错误类型",
             "type": "integer",
-            "enum": [
-              1001,
-              2001,
-              3001,
-              4001
-            ],
+            "enum": [1001, 2001, 3001, 4001],
             "x-apifox": {
               "enumDescriptions": {
                 "1001": "ResourceError",
@@ -7495,12 +7027,7 @@
           "mainType": {
             "title": "错误类型",
             "type": "integer",
-            "enum": [
-              1,
-              2,
-              3,
-              4
-            ],
+            "enum": [1, 2, 3, 4],
             "x-apifox": {
               "enumDescriptions": {
                 "1": "ResourceError",
@@ -7520,12 +7047,7 @@
           "subType": {
             "title": "子错误类型",
             "type": "integer",
-            "enum": [
-              1001,
-              2001,
-              3001,
-              4001
-            ],
+            "enum": [1001, 2001, 3001, 4001],
             "x-apifox": {
               "enumDescriptions": {
                 "1001": "ResourceError",
@@ -7623,12 +7145,7 @@
           "mainType": {
             "title": "错误类型",
             "type": "integer",
-            "enum": [
-              1,
-              2,
-              3,
-              4
-            ],
+            "enum": [1, 2, 3, 4],
             "x-apifox": {
               "enumDescriptions": {
                 "1": "ResourceError",
@@ -7648,12 +7165,7 @@
           "subType": {
             "title": "子错误类型",
             "type": "integer",
-            "enum": [
-              1001,
-              2001,
-              3001,
-              4001
-            ],
+            "enum": [1001, 2001, 3001, 4001],
             "x-apifox": {
               "enumDescriptions": {
                 "1001": "ResourceError",
@@ -7737,14 +7249,7 @@
           "mainType": {
             "title": "指标类型",
             "type": "integer",
-            "enum": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
+            "enum": [1, 2, 3, 4, 5, 6],
             "x-apifox": {
               "enumDescriptions": {
                 "1": "Performance",
@@ -7769,17 +7274,7 @@
             "title": "子指标类型",
             "type": "integer",
             "enum": [
-              1001,
-              1002,
-              1003,
-              1004,
-              2001,
-              2002,
-              3001,
-              4001,
-              4002,
-              5001,
-              6001
+              1001, 1002, 1003, 1004, 2001, 2002, 3001, 4001, 4002, 5001, 6001
             ],
             "x-apifox": {
               "enumDescriptions": {
@@ -7934,14 +7429,7 @@
           "mainType": {
             "title": "指标类型",
             "type": "integer",
-            "enum": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
+            "enum": [1, 2, 3, 4, 5, 6],
             "x-apifox": {
               "enumDescriptions": {
                 "1": "Performance",
@@ -7966,17 +7454,7 @@
             "title": "子指标类型",
             "type": "integer",
             "enum": [
-              1001,
-              1002,
-              1003,
-              1004,
-              2001,
-              2002,
-              3001,
-              4001,
-              4002,
-              5001,
-              6001
+              1001, 1002, 1003, 1004, 2001, 2002, 3001, 4001, 4002, 5001, 6001
             ],
             "x-apifox": {
               "enumDescriptions": {
@@ -8089,14 +7567,7 @@
           "mainType": {
             "title": "指标类型",
             "type": "integer",
-            "enum": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
+            "enum": [1, 2, 3, 4, 5, 6],
             "x-apifox": {
               "enumDescriptions": {
                 "1": "Performance",
@@ -8121,17 +7592,7 @@
             "title": "子指标类型",
             "type": "integer",
             "enum": [
-              1001,
-              1002,
-              1003,
-              1004,
-              2001,
-              2002,
-              3001,
-              4001,
-              4002,
-              5001,
-              6001
+              1001, 1002, 1003, 1004, 2001, 2002, 3001, 4001, 4002, 5001, 6001
             ],
             "x-apifox": {
               "enumDescriptions": {

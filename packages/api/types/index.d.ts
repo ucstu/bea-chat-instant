@@ -1,30 +1,832 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { BasicBehavior } from "../models/BasicBehavior";
-import type { BasicIndicator } from "../models/BasicIndicator";
-import type { ClickBehavior } from "../models/ClickBehavior";
-import type { InterfaceIndicator } from "../models/InterfaceIndicator";
-import type { JavaScriptError } from "../models/JavaScriptError";
-import type { PageSkipBehavior } from "../models/PageSkipBehavior";
-import type { PromiseError } from "../models/PromiseError";
-import type { ResourceError } from "../models/ResourceError";
-import type { ResourceIndicator } from "../models/ResourceIndicator";
-import type { RoutingSkipBehavior } from "../models/RoutingSkipBehavior";
-import type { VueError } from "../models/VueError";
-
-import type { CancelablePromise } from "../core/CancelablePromise";
-import type { BaseHttpRequest } from "../core/BaseHttpRequest";
-
-export class Service {
-  constructor(public readonly httpRequest: BaseHttpRequest) {}
-
+type ApiRequestOptions = {
+  readonly method:
+    | "GET"
+    | "PUT"
+    | "POST"
+    | "DELETE"
+    | "OPTIONS"
+    | "HEAD"
+    | "PATCH";
+  readonly url: string;
+  readonly path?: Record<string, any>;
+  readonly cookies?: Record<string, any>;
+  readonly headers?: Record<string, any>;
+  readonly query?: Record<string, any>;
+  readonly formData?: Record<string, any>;
+  readonly body?: any;
+  readonly mediaType?: string;
+  readonly responseHeader?: string;
+  readonly errors?: Record<number, string>;
+};
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare class CancelError extends Error {
+  constructor(message: string);
+  get isCancelled(): boolean;
+}
+interface OnCancel {
+  readonly isResolved: boolean;
+  readonly isRejected: boolean;
+  readonly isCancelled: boolean;
+  (cancelHandler: () => void): void;
+}
+declare class CancelablePromise<T> implements Promise<T> {
+  readonly [Symbol.toStringTag]: string;
+  private _isResolved;
+  private _isRejected;
+  private _isCancelled;
+  private readonly _cancelHandlers;
+  private readonly _promise;
+  private _resolve?;
+  private _reject?;
+  constructor(
+    executor: (
+      resolve: (value: T | PromiseLike<T>) => void,
+      reject: (reason?: any) => void,
+      onCancel: OnCancel
+    ) => void
+  );
+  then<TResult1 = T, TResult2 = never>(
+    onFulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+    onRejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null
+  ): Promise<TResult1 | TResult2>;
+  catch<TResult = never>(
+    onRejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null
+  ): Promise<T | TResult>;
+  finally(onFinally?: (() => void) | null): Promise<T>;
+  cancel(): void;
+  get isCancelled(): boolean;
+}
+type Resolver<T> = (options: ApiRequestOptions) => Promise<T>;
+type Headers = Record<string, string>;
+type OpenAPIConfig = {
+  BASE: string;
+  VERSION: string;
+  WITH_CREDENTIALS: boolean;
+  CREDENTIALS: "include" | "omit" | "same-origin";
+  TOKEN?: string | Resolver<string>;
+  USERNAME?: string | Resolver<string>;
+  PASSWORD?: string | Resolver<string>;
+  HEADERS?: Headers | Resolver<Headers>;
+  ENCODE_PATH?: (path: string) => string;
+};
+declare const OpenAPI: OpenAPIConfig;
+declare abstract class BaseHttpRequest {
+  readonly config: OpenAPIConfig;
+  constructor(config: OpenAPIConfig);
+  abstract request<T>(options: ApiRequestOptions): CancelablePromise<T>;
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type BasicBehavior = {
+  /**
+   * 应用ID
+   */
+  appId: string;
+  /**
+   * 行为类型
+   */
+  mainType: BasicBehavior.mainType;
+  /**
+   * 子行为类型
+   */
+  subType: BasicBehavior.subType;
+  /**
+   * 开始时间
+   */
+  startTime: number;
+  /**
+   * 页面路径
+   */
+  pageUrl: string;
+  /**
+   * 用户ID
+   */
+  userID: string;
+  /**
+   * 指标数值
+   */
+  value: number;
+};
+declare namespace BasicBehavior {
+  /**
+   * 行为类型
+   */
+  enum mainType {
+    BasicBehavior = 1,
+    ClickBehavior = 2,
+    PageSkipBehavior = 3,
+    RoutingSkipBehavior = 4,
+  }
+  /**
+   * 子行为类型
+   */
+  enum subType {
+    PV = 1001,
+    UV = 1002,
+    PageDwellTime = 1003,
+    PageAccessDepth = 1004,
+    ClickBehavior = 2001,
+    PageSkipBehavior = 3001,
+    RoutingSkipBehavior = 4001,
+  }
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type BasicIndicator = {
+  /**
+   * 应用ID
+   */
+  appId: string;
+  /**
+   * 指标类型
+   */
+  mainType: BasicIndicator.mainType;
+  /**
+   * 子指标类型
+   */
+  subType: BasicIndicator.subType;
+  /**
+   * 开始时间
+   */
+  startTime: number;
+  /**
+   * 页面路径
+   */
+  pageUrl: string;
+  /**
+   * 用户ID
+   */
+  userID: string;
+  /**
+   * 指标数值
+   */
+  value: number;
+};
+declare namespace BasicIndicator {
+  /**
+   * 指标类型
+   */
+  enum mainType {
+    Performance = 1,
+    LoadIndicator = 2,
+    DrawIndicator = 3,
+    OperationIndicator = 4,
+    InterfaceIndicator = 5,
+    ResourceIndicator = 6,
+  }
+  /**
+   * 子指标类型
+   */
+  enum subType {
+    FirstPaint = 1001,
+    FirstContentfulPaint = 1002,
+    LargestContentfulPaint = 1003,
+    LayoutShift = 1004,
+    DOMContentLoaded = 2001,
+    FullLoad = 2002,
+    FirstScreenLoad = 3001,
+    FramesPerSecond = 4001,
+    RouterLoadTime = 4002,
+    InterfaceIndicator = 5001,
+    ResourceIndicator = 6001,
+  }
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type ClickBehavior = {
+  /**
+   * 应用ID
+   */
+  appId: string;
+  /**
+   * 行为类型
+   */
+  mainType: ClickBehavior.mainType;
+  /**
+   * 子行为类型
+   */
+  subType: ClickBehavior.subType;
+  /**
+   * 开始时间
+   */
+  startTime: number;
+  /**
+   * 页面路径
+   */
+  pageUrl: string;
+  /**
+   * 用户ID
+   */
+  userID: string;
+  /**
+   * 点击位置距离页面左端距离
+   */
+  left: number;
+  /**
+   * 点击位置距离页面顶端距离
+   */
+  top: number;
+  /**
+   * 点击对象
+   */
+  target: string;
+  /**
+   * 页面结构
+   */
+  html: string;
+  /**
+   * 内部文本
+   */
+  inner: string;
+};
+declare namespace ClickBehavior {
+  /**
+   * 行为类型
+   */
+  enum mainType {
+    BasicBehavior = 1,
+    ClickBehavior = 2,
+    PageSkipBehavior = 3,
+    RoutingSkipBehavior = 4,
+  }
+  /**
+   * 子行为类型
+   */
+  enum subType {
+    PV = 1001,
+    UV = 1002,
+    PageDwellTime = 1003,
+    PageAccessDepth = 1004,
+    ClickBehavior = 2001,
+    PageSkipBehavior = 3001,
+    RoutingSkipBehavior = 4001,
+  }
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type InterfaceIndicator = {
+  /**
+   * 应用ID
+   */
+  appId: string;
+  /**
+   * 指标类型
+   */
+  mainType: InterfaceIndicator.mainType;
+  /**
+   * 子指标类型
+   */
+  subType: InterfaceIndicator.subType;
+  /**
+   * 开始时间
+   */
+  startTime: number;
+  /**
+   * 页面路径
+   */
+  pageUrl: string;
+  /**
+   * 用户ID
+   */
+  userID: string;
+  /**
+   * 状态编码
+   */
+  statusCode: number;
+  /**
+   * 请求方法
+   */
+  method: string;
+  /**
+   * 接口耗时
+   */
+  duration: number;
+  /**
+   * 接口地址
+   */
+  url: string;
+  /**
+   * 接口数据
+   */
+  data: string;
+};
+declare namespace InterfaceIndicator {
+  /**
+   * 指标类型
+   */
+  enum mainType {
+    Performance = 1,
+    LoadIndicator = 2,
+    DrawIndicator = 3,
+    OperationIndicator = 4,
+    InterfaceIndicator = 5,
+    ResourceIndicator = 6,
+  }
+  /**
+   * 子指标类型
+   */
+  enum subType {
+    FirstPaint = 1001,
+    FirstContentfulPaint = 1002,
+    LargestContentfulPaint = 1003,
+    LayoutShift = 1004,
+    DOMContentLoaded = 2001,
+    FullLoad = 2002,
+    FirstScreenLoad = 3001,
+    FramesPerSecond = 4001,
+    RouterLoadTime = 4002,
+    InterfaceIndicator = 5001,
+    ResourceIndicator = 6001,
+  }
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type JavaScriptError = {
+  /**
+   * 应用ID
+   */
+  appId: string;
+  /**
+   * 错误类型
+   */
+  mainType: JavaScriptError.mainType;
+  /**
+   * 子错误类型
+   */
+  subType: JavaScriptError.subType;
+  /**
+   * 错误时间
+   */
+  errorTime: number;
+  /**
+   * 页面路径
+   */
+  pageUrl: string;
+  /**
+   * 用户ID
+   */
+  userID: string;
+  /**
+   * 文件路径
+   */
+  url: string;
+  /**
+   * 错误消息
+   */
+  msg: string;
+  /**
+   * 错误行号
+   */
+  line: number;
+  /**
+   * 错误列号
+   */
+  column: number;
+  /**
+   * 错误调用堆栈
+   */
+  stack: string;
+};
+declare namespace JavaScriptError {
+  /**
+   * 错误类型
+   */
+  enum mainType {
+    ResourceError = 1,
+    JavaScriptError = 2,
+    PromiseError = 3,
+    VueError = 4,
+  }
+  /**
+   * 子错误类型
+   */
+  enum subType {
+    ResourceError = 1001,
+    JavaScriptError = 2001,
+    PromiseError = 3001,
+    VueError = 4001,
+  }
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type PageSkipBehavior = {
+  /**
+   * 应用ID
+   */
+  appId: string;
+  /**
+   * 行为类型
+   */
+  mainType: PageSkipBehavior.mainType;
+  /**
+   * 子行为类型
+   */
+  subType: PageSkipBehavior.subType;
+  /**
+   * 开始时间
+   */
+  startTime: number;
+  /**
+   * 页面路径
+   */
+  pageUrl: string;
+  /**
+   * 用户ID
+   */
+  userID: string;
+  /**
+   * 路由跳转起步位置
+   */
+  from: string;
+  /**
+   * 路由跳转目的位置
+   */
+  to: string;
+};
+declare namespace PageSkipBehavior {
+  /**
+   * 行为类型
+   */
+  enum mainType {
+    BasicBehavior = 1,
+    ClickBehavior = 2,
+    PageSkipBehavior = 3,
+    RoutingSkipBehavior = 4,
+  }
+  /**
+   * 子行为类型
+   */
+  enum subType {
+    PV = 1001,
+    UV = 1002,
+    PageDwellTime = 1003,
+    PageAccessDepth = 1004,
+    ClickBehavior = 2001,
+    PageSkipBehavior = 3001,
+    RoutingSkipBehavior = 4001,
+  }
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type PromiseError = {
+  /**
+   * 应用ID
+   */
+  appId: string;
+  /**
+   * 错误类型
+   */
+  mainType: PromiseError.mainType;
+  /**
+   * 子错误类型
+   */
+  subType: PromiseError.subType;
+  /**
+   * 错误时间
+   */
+  errorTime: number;
+  /**
+   * 页面路径
+   */
+  pageUrl: string;
+  /**
+   * 用户ID
+   */
+  userID: string;
+  /**
+   * 错误消息
+   */
+  msg: string;
+  /**
+   * 错误堆栈
+   */
+  stack: string;
+};
+declare namespace PromiseError {
+  /**
+   * 错误类型
+   */
+  enum mainType {
+    ResourceError = 1,
+    JavaScriptError = 2,
+    PromiseError = 3,
+    VueError = 4,
+  }
+  /**
+   * 子错误类型
+   */
+  enum subType {
+    ResourceError = 1001,
+    JavaScriptError = 2001,
+    PromiseError = 3001,
+    VueError = 4001,
+  }
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type ResourceError = {
+  /**
+   * 应用ID
+   */
+  appId: string;
+  /**
+   * 错误类型
+   */
+  mainType: ResourceError.mainType;
+  /**
+   * 子错误类型
+   */
+  subType: ResourceError.subType;
+  /**
+   * 错误时间
+   */
+  errorTime: number;
+  /**
+   * 页面路径
+   */
+  pageUrl: string;
+  /**
+   * 用户ID
+   */
+  userID: string;
+  /**
+   * eg：js、css、img、audio
+   */
+  resourceType: string;
+  /**
+   * 页面结构
+   */
+  html: string;
+  /**
+   * 资源路径
+   */
+  path: string;
+};
+declare namespace ResourceError {
+  /**
+   * 错误类型
+   */
+  enum mainType {
+    ResourceError = 1,
+    JavaScriptError = 2,
+    PromiseError = 3,
+    VueError = 4,
+  }
+  /**
+   * 子错误类型
+   */
+  enum subType {
+    ResourceError = 1001,
+    JavaScriptError = 2001,
+    PromiseError = 3001,
+    VueError = 4001,
+  }
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type ResourceIndicator = {
+  /**
+   * 应用ID
+   */
+  appId: string;
+  /**
+   * 指标类型
+   */
+  mainType: ResourceIndicator.mainType;
+  /**
+   * 子指标类型
+   */
+  subType: ResourceIndicator.subType;
+  /**
+   * 开始时间
+   */
+  startTime: number;
+  /**
+   * 页面路径
+   */
+  pageUrl: string;
+  /**
+   * 用户ID
+   */
+  userID: string;
+  /**
+   * 资源路径
+   */
+  url: string;
+  /**
+   * 加载耗时
+   */
+  duration: number;
+  /**
+   * DNS耗时
+   */
+  dns: number;
+  /**
+   * TCP耗时
+   */
+  tcp: number;
+  /**
+   * 重定向耗时
+   */
+  redirect: number;
+  /**
+   * 首字节时间
+   */
+  ttfb: number;
+  /**
+   * 请求协议
+   */
+  protocol: string;
+  /**
+   * 内容大小
+   */
+  bodySize: number;
+  /**
+   * 标头大小
+   */
+  headerSize: number;
+  /**
+   * 资源大小
+   */
+  resourceSize: number;
+  /**
+   * 命中缓存
+   */
+  isCache: boolean;
+};
+declare namespace ResourceIndicator {
+  /**
+   * 指标类型
+   */
+  enum mainType {
+    Performance = 1,
+    LoadIndicator = 2,
+    DrawIndicator = 3,
+    OperationIndicator = 4,
+    InterfaceIndicator = 5,
+    ResourceIndicator = 6,
+  }
+  /**
+   * 子指标类型
+   */
+  enum subType {
+    FirstPaint = 1001,
+    FirstContentfulPaint = 1002,
+    LargestContentfulPaint = 1003,
+    LayoutShift = 1004,
+    DOMContentLoaded = 2001,
+    FullLoad = 2002,
+    FirstScreenLoad = 3001,
+    FramesPerSecond = 4001,
+    RouterLoadTime = 4002,
+    InterfaceIndicator = 5001,
+    ResourceIndicator = 6001,
+  }
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type RoutingSkipBehavior = {
+  /**
+   * 应用ID
+   */
+  appId: string;
+  /**
+   * 行为类型
+   */
+  mainType: RoutingSkipBehavior.mainType;
+  /**
+   * 子行为类型
+   */
+  subType: RoutingSkipBehavior.subType;
+  /**
+   * 开始时间
+   */
+  startTime: number;
+  /**
+   * 页面路径
+   */
+  pageUrl: string;
+  /**
+   * 用户ID
+   */
+  userID: string;
+  /**
+   * 路由跳转起步位置
+   */
+  from: string;
+  /**
+   * 路由跳转目的位置
+   */
+  to: string;
+  /**
+   * 路径参数
+   */
+  params: string;
+  /**
+   * 查询参数
+   */
+  query: string;
+};
+declare namespace RoutingSkipBehavior {
+  /**
+   * 行为类型
+   */
+  enum mainType {
+    BasicBehavior = 1,
+    ClickBehavior = 2,
+    PageSkipBehavior = 3,
+    RoutingSkipBehavior = 4,
+  }
+  /**
+   * 子行为类型
+   */
+  enum subType {
+    PV = 1001,
+    UV = 1002,
+    PageDwellTime = 1003,
+    PageAccessDepth = 1004,
+    ClickBehavior = 2001,
+    PageSkipBehavior = 3001,
+    RoutingSkipBehavior = 4001,
+  }
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type VueError = {
+  /**
+   * 应用ID
+   */
+  appId: string;
+  /**
+   * 错误类型
+   */
+  mainType: VueError.mainType;
+  /**
+   * 子错误类型
+   */
+  subType: VueError.subType;
+  /**
+   * 错误时间
+   */
+  errorTime: number;
+  /**
+   * 页面路径
+   */
+  pageUrl: string;
+  /**
+   * 用户ID
+   */
+  userID: string;
+  /**
+   * 错误堆栈
+   */
+  stack: string;
+};
+declare namespace VueError {
+  /**
+   * 错误类型
+   */
+  enum mainType {
+    ResourceError = 1,
+    JavaScriptError = 2,
+    PromiseError = 3,
+    VueError = 4,
+  }
+  /**
+   * 子错误类型
+   */
+  enum subType {
+    ResourceError = 1001,
+    JavaScriptError = 2001,
+    PromiseError = 3001,
+    VueError = 4001,
+  }
+}
+declare class Service {
+  readonly httpRequest: BaseHttpRequest;
+  constructor(httpRequest: BaseHttpRequest);
   /**
    * 基础指标上传
    * @returns any 成功
    * @throws ApiError
    */
-  public postPerformancesBasicindicators({
+  postPerformancesBasicindicators({
     requestBody,
   }: {
     requestBody?: Array<BasicIndicator>;
@@ -41,21 +843,13 @@ export class Service {
      * 状态描述
      */
     message: string;
-  }> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/performances/basicindicators",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
+  }>;
   /**
    * 基础指标查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getPerformancesBasicindicators({
+  getPerformancesBasicindicators({
     appId,
     mainType,
     subType,
@@ -143,29 +937,13 @@ export class Service {
        */
       pageList: Array<string>;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/performances/basicindicators",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-      },
-    });
-  }
-
+  }>;
   /**
    * 接口指标上传
    * @returns any 成功
    * @throws ApiError
    */
-  public postPerformancesInterfaceindicators({
+  postPerformancesInterfaceindicators({
     requestBody,
   }: {
     requestBody?: Array<InterfaceIndicator>;
@@ -182,21 +960,13 @@ export class Service {
      * 状态描述
      */
     message: string;
-  }> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/performances/interfaceindicators",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
+  }>;
   /**
    * 接口指标查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getPerformancesInterfaceindicators({
+  getPerformancesInterfaceindicators({
     appId,
     mainType,
     subType,
@@ -284,29 +1054,13 @@ export class Service {
        */
       pageList: Array<string>;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/performances/interfaceindicators",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-      },
-    });
-  }
-
+  }>;
   /**
    * 资源指标上传
    * @returns any 成功
    * @throws ApiError
    */
-  public postPerformancesResourceindicators({
+  postPerformancesResourceindicators({
     requestBody,
   }: {
     requestBody?: Array<ResourceIndicator>;
@@ -323,21 +1077,13 @@ export class Service {
      * 状态描述
      */
     message: string;
-  }> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/performances/resourceindicators",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
+  }>;
   /**
    * 资源指标查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getPerformancesResourceindicators({
+  getPerformancesResourceindicators({
     appId,
     mainType,
     subType,
@@ -425,29 +1171,13 @@ export class Service {
        */
       pageList: Array<string>;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/performances/resourceindicators",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-      },
-    });
-  }
-
+  }>;
   /**
    * 资源错误上传
    * @returns any 成功
    * @throws ApiError
    */
-  public postErrorsResourceerrors({
+  postErrorsResourceerrors({
     requestBody,
   }: {
     requestBody?: Array<ResourceError>;
@@ -464,21 +1194,13 @@ export class Service {
      * 状态描述
      */
     message: string;
-  }> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/errors/resourceerrors",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
+  }>;
   /**
    * 资源错误查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getErrorsResourceerrors({
+  getErrorsResourceerrors({
     appId,
     mainType,
     subType,
@@ -563,29 +1285,13 @@ export class Service {
        */
       pageList: Array<string>;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/errors/resourceerrors",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-      },
-    });
-  }
-
+  }>;
   /**
    * 基础指标统计
    * @returns any 成功
    * @throws ApiError
    */
-  public getPerformancesBasicindicatorstatistics({
+  getPerformancesBasicindicatorstatistics({
     appId,
     mainType,
     subType,
@@ -667,30 +1373,14 @@ export class Service {
         pageCount: number;
       }>
     >;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/performances/basicindicatorstatistics",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        granularity: granularity,
-      },
-    });
-  }
-
+  }>;
   /**
    * 接口指标统计
    * 暂时只统计慢接口
    * @returns any 成功
    * @throws ApiError
    */
-  public getPerformancesInterfaceindicatorstatistics({
+  getPerformancesInterfaceindicatorstatistics({
     appId,
     mainType,
     subType,
@@ -777,31 +1467,14 @@ export class Service {
         pageCount: number;
       }>
     >;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/performances/interfaceindicatorstatistics",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        granularity: granularity,
-        url: url,
-      },
-    });
-  }
-
+  }>;
   /**
    * 资源指标统计
    * 暂时只统计慢资源
    * @returns any 成功
    * @throws ApiError
    */
-  public getPerformancesResourceindicatorstatistics({
+  getPerformancesResourceindicatorstatistics({
     appId,
     mainType,
     subType,
@@ -881,29 +1554,13 @@ export class Service {
        */
       pageCount: number;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/performances/resourceindicatorstatistics",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        granularity: granularity,
-      },
-    });
-  }
-
+  }>;
   /**
    * 资源错误统计
    * @returns any 成功
    * @throws ApiError
    */
-  public getErrorsResourceerrorstatistics({
+  getErrorsResourceerrorstatistics({
     appId,
     mainType,
     subType,
@@ -988,30 +1645,13 @@ export class Service {
        */
       pageCount: number;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/errors/resourceerrorstatistics",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        granularity: granularity,
-        url: url,
-      },
-    });
-  }
-
+  }>;
   /**
    * JavaScript错误上传
    * @returns any 成功
    * @throws ApiError
    */
-  public postErrorsJavascripterrors({
+  postErrorsJavascripterrors({
     requestBody,
   }: {
     requestBody?: Array<JavaScriptError>;
@@ -1028,21 +1668,13 @@ export class Service {
      * 状态描述
      */
     message: string;
-  }> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/errors/javascripterrors",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
+  }>;
   /**
    * JavaScript错误查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getErrorsJavascripterrors({
+  getErrorsJavascripterrors({
     appId,
     mainType,
     subType,
@@ -1139,29 +1771,13 @@ export class Service {
        */
       pageList: Array<string>;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/errors/javascripterrors",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-      },
-    });
-  }
-
+  }>;
   /**
    * Promise错误上传
    * @returns any 成功
    * @throws ApiError
    */
-  public postErrorsPromiseerrors({
+  postErrorsPromiseerrors({
     requestBody,
   }: {
     requestBody?: Array<PromiseError>;
@@ -1178,21 +1794,13 @@ export class Service {
      * 状态描述
      */
     message: string;
-  }> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/errors/promiseerrors",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
+  }>;
   /**
    * Promise错误查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getErrorsPromiseerrors({
+  getErrorsPromiseerrors({
     appId,
     mainType,
     subType,
@@ -1277,29 +1885,13 @@ export class Service {
        */
       pageList: Array<string>;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/errors/promiseerrors",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-      },
-    });
-  }
-
+  }>;
   /**
    * Vue错误上传
    * @returns any 成功
    * @throws ApiError
    */
-  public postErrorsVueerrors({
+  postErrorsVueerrors({
     requestBody,
   }: {
     requestBody?: Array<VueError>;
@@ -1316,21 +1908,13 @@ export class Service {
      * 状态描述
      */
     message: string;
-  }> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/errors/vueerrors",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
+  }>;
   /**
    * Vue错误查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getErrorsVueerrors({
+  getErrorsVueerrors({
     appId,
     mainType,
     subType,
@@ -1395,29 +1979,13 @@ export class Service {
        */
       totalCount: number;
     };
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/errors/vueerrors",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-      },
-    });
-  }
-
+  }>;
   /**
    * JavaScript错误统计
    * @returns any 成功
    * @throws ApiError
    */
-  public getErrorsJavascripterrorstatistics({
+  getErrorsJavascripterrorstatistics({
     appId,
     mainType,
     subType,
@@ -1507,31 +2075,13 @@ export class Service {
        */
       pageCount: number;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/errors/javascripterrorstatistics",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        granularity: granularity,
-        url: url,
-        msg: msg,
-      },
-    });
-  }
-
+  }>;
   /**
    * Promise错误统计
    * @returns any 成功
    * @throws ApiError
    */
-  public getErrorsPromiseerrorstatistics({
+  getErrorsPromiseerrorstatistics({
     appId,
     mainType,
     subType,
@@ -1616,30 +2166,13 @@ export class Service {
        */
       pageCount: number;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/errors/promiseerrorstatistics",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        granularity: granularity,
-        msg: msg,
-      },
-    });
-  }
-
+  }>;
   /**
    * 基础行为上传
    * @returns any 成功
    * @throws ApiError
    */
-  public postBehaviorsBasicbehaviors({
+  postBehaviorsBasicbehaviors({
     requestBody,
   }: {
     requestBody?: Array<BasicBehavior>;
@@ -1656,21 +2189,13 @@ export class Service {
      * 状态描述
      */
     message: string;
-  }> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/behaviors/basicbehaviors",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
+  }>;
   /**
    * 基础行为查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getBehaviorsBasicbehaviors({
+  getBehaviorsBasicbehaviors({
     appId,
     mainType,
     subType,
@@ -1755,29 +2280,13 @@ export class Service {
        */
       pageList: Array<string>;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/behaviors/basicbehaviors",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-      },
-    });
-  }
-
+  }>;
   /**
    * Vue错误统计
    * @returns any 成功
    * @throws ApiError
    */
-  public getErrorsVueerrorstatistics({
+  getErrorsVueerrorstatistics({
     appId,
     mainType,
     subType,
@@ -1857,29 +2366,13 @@ export class Service {
        */
       pageCount: number;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/errors/vueerrorstatistics",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        granularity: granularity,
-      },
-    });
-  }
-
+  }>;
   /**
    * 点击行为上传
    * @returns any 成功
    * @throws ApiError
    */
-  public postBehaviorsClickbehaviors({
+  postBehaviorsClickbehaviors({
     requestBody,
   }: {
     requestBody?: Array<ClickBehavior>;
@@ -1896,21 +2389,13 @@ export class Service {
      * 状态描述
      */
     message: string;
-  }> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/behaviors/clickbehaviors",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
+  }>;
   /**
    * 点击行为查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getBehaviorsClickbehaviors({
+  getBehaviorsClickbehaviors({
     appId,
     mainType,
     subType,
@@ -1999,29 +2484,13 @@ export class Service {
        */
       pageList: Array<string>;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/behaviors/clickbehaviors",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-      },
-    });
-  }
-
+  }>;
   /**
    * 页面跳转行为上传
    * @returns any 成功
    * @throws ApiError
    */
-  public postBehaviorsPageskipbehaviors({
+  postBehaviorsPageskipbehaviors({
     requestBody,
   }: {
     requestBody?: Array<PageSkipBehavior>;
@@ -2038,21 +2507,13 @@ export class Service {
      * 状态描述
      */
     message: string;
-  }> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/behaviors/pageskipbehaviors",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
+  }>;
   /**
    * 页面跳转行为查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getBehaviorsPageskipbehaviors({
+  getBehaviorsPageskipbehaviors({
     appId,
     mainType,
     subType,
@@ -2141,29 +2602,13 @@ export class Service {
        */
       pageList: Array<string>;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/behaviors/pageskipbehaviors",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-      },
-    });
-  }
-
+  }>;
   /**
    * 路由跳转行为上传
    * @returns any 成功
    * @throws ApiError
    */
-  public postBehaviorsRoutingskipbehaviors({
+  postBehaviorsRoutingskipbehaviors({
     requestBody,
   }: {
     requestBody?: Array<RoutingSkipBehavior>;
@@ -2180,21 +2625,13 @@ export class Service {
      * 状态描述
      */
     message: string;
-  }> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/behaviors/routingskipbehaviors",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
+  }>;
   /**
    * 路由跳转行为查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getBehaviorsRoutingskipbehaviors({
+  getBehaviorsRoutingskipbehaviors({
     appId,
     mainType,
     subType,
@@ -2283,29 +2720,13 @@ export class Service {
        */
       pageList: Array<string>;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/behaviors/routingskipbehaviors",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-      },
-    });
-  }
-
+  }>;
   /**
    * 基础行为统计
    * @returns any 成功
    * @throws ApiError
    */
-  public getBehaviorsBasicbehaviorstatistics({
+  getBehaviorsBasicbehaviorstatistics({
     appId,
     mainType,
     subType,
@@ -2385,29 +2806,13 @@ export class Service {
        */
       pageCount: number;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/behaviors/basicbehaviorstatistics",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        granularity: granularity,
-      },
-    });
-  }
-
+  }>;
   /**
    * 接口错误统计
    * @returns any 成功
    * @throws ApiError
    */
-  public getErrorsInterfaceerrorstatistics({
+  getErrorsInterfaceerrorstatistics({
     appId,
     mainType,
     subType,
@@ -2497,31 +2902,13 @@ export class Service {
        */
       pageCount: number;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/errors/interfaceerrorstatistics",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        granularity: granularity,
-        url: url,
-        status_code: statusCode,
-      },
-    });
-  }
-
+  }>;
   /**
    * 接口错误查询
    * @returns any 成功
    * @throws ApiError
    */
-  public getErrorsInterfaceerrors({
+  getErrorsInterfaceerrors({
     appId,
     mainType,
     subType,
@@ -2611,31 +2998,14 @@ export class Service {
        */
       pageList: Array<string>;
     }>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/errors/interfaceerrors",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        page_url: pageUrl,
-        main_type: mainType,
-        sub_type: subType,
-        start_time: startTime,
-        end_time: endTime,
-        size: size,
-        status_code: statusCode,
-      },
-    });
-  }
-
+  }>;
   /**
    * 用户行为列表
    * 查询指定用户的行为列表
    * @returns any 成功
    * @throws ApiError
    */
-  public getBehaviorsUseraction({
+  getBehaviorsUseraction({
     appId,
     userId,
     startTime,
@@ -2662,16 +3032,649 @@ export class Service {
     status: number;
     message: string;
     data: Array<string>;
-  }> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/behaviors/useraction",
-      query: {
-        app_id: appId,
-        user_id: userId,
-        start_time: startTime,
-        end_time: endTime,
-      },
-    });
-  }
+  }>;
 }
+type HttpRequestConstructor = new (config: OpenAPIConfig) => BaseHttpRequest;
+declare class BeaApiClient {
+  readonly service: Service;
+  readonly request: BaseHttpRequest;
+  constructor(
+    config?: Partial<OpenAPIConfig>,
+    HttpRequest?: HttpRequestConstructor
+  );
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+type ApiResult = {
+  readonly url: string;
+  readonly ok: boolean;
+  readonly status: number;
+  readonly statusText: string;
+  readonly body: any;
+};
+declare class ApiError extends Error {
+  readonly url: string;
+  readonly status: number;
+  readonly statusText: string;
+  readonly body: any;
+  readonly request: ApiRequestOptions;
+  constructor(request: ApiRequestOptions, response: ApiResult, message: string);
+}
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare const $BasicBehavior: {
+  readonly properties: {
+    readonly appId: {
+      readonly type: "string";
+      readonly description: "\u5E94\u7528ID";
+      readonly isRequired: true;
+    };
+    readonly mainType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly subType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly startTime: {
+      readonly type: "number";
+      readonly description: "\u5F00\u59CB\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly pageUrl: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly userID: {
+      readonly type: "string";
+      readonly description: "\u7528\u6237ID";
+      readonly isRequired: true;
+    };
+    readonly value: {
+      readonly type: "number";
+      readonly description: "\u6307\u6807\u6570\u503C";
+      readonly isRequired: true;
+    };
+  };
+};
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare const $BasicIndicator: {
+  readonly properties: {
+    readonly appId: {
+      readonly type: "string";
+      readonly description: "\u5E94\u7528ID";
+      readonly isRequired: true;
+    };
+    readonly mainType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly subType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly startTime: {
+      readonly type: "number";
+      readonly description: "\u5F00\u59CB\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly pageUrl: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly userID: {
+      readonly type: "string";
+      readonly description: "\u7528\u6237ID";
+      readonly isRequired: true;
+    };
+    readonly value: {
+      readonly type: "number";
+      readonly description: "\u6307\u6807\u6570\u503C";
+      readonly isRequired: true;
+    };
+  };
+};
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare const $ClickBehavior: {
+  readonly properties: {
+    readonly appId: {
+      readonly type: "string";
+      readonly description: "\u5E94\u7528ID";
+      readonly isRequired: true;
+    };
+    readonly mainType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly subType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly startTime: {
+      readonly type: "number";
+      readonly description: "\u5F00\u59CB\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly pageUrl: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly userID: {
+      readonly type: "string";
+      readonly description: "\u7528\u6237ID";
+      readonly isRequired: true;
+    };
+    readonly left: {
+      readonly type: "number";
+      readonly description: "\u70B9\u51FB\u4F4D\u7F6E\u8DDD\u79BB\u9875\u9762\u5DE6\u7AEF\u8DDD\u79BB";
+      readonly isRequired: true;
+    };
+    readonly top: {
+      readonly type: "number";
+      readonly description: "\u70B9\u51FB\u4F4D\u7F6E\u8DDD\u79BB\u9875\u9762\u9876\u7AEF\u8DDD\u79BB";
+      readonly isRequired: true;
+    };
+    readonly target: {
+      readonly type: "string";
+      readonly description: "\u70B9\u51FB\u5BF9\u8C61";
+      readonly isRequired: true;
+    };
+    readonly html: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u7ED3\u6784";
+      readonly isRequired: true;
+    };
+    readonly inner: {
+      readonly type: "string";
+      readonly description: "\u5185\u90E8\u6587\u672C";
+      readonly isRequired: true;
+    };
+  };
+};
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare const $InterfaceIndicator: {
+  readonly properties: {
+    readonly appId: {
+      readonly type: "string";
+      readonly description: "\u5E94\u7528ID";
+      readonly isRequired: true;
+    };
+    readonly mainType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly subType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly startTime: {
+      readonly type: "number";
+      readonly description: "\u5F00\u59CB\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly pageUrl: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly userID: {
+      readonly type: "string";
+      readonly description: "\u7528\u6237ID";
+      readonly isRequired: true;
+    };
+    readonly statusCode: {
+      readonly type: "number";
+      readonly description: "\u72B6\u6001\u7F16\u7801";
+      readonly isRequired: true;
+    };
+    readonly method: {
+      readonly type: "string";
+      readonly description: "\u8BF7\u6C42\u65B9\u6CD5";
+      readonly isRequired: true;
+    };
+    readonly duration: {
+      readonly type: "number";
+      readonly description: "\u63A5\u53E3\u8017\u65F6";
+      readonly isRequired: true;
+    };
+    readonly url: {
+      readonly type: "string";
+      readonly description: "\u63A5\u53E3\u5730\u5740";
+      readonly isRequired: true;
+    };
+    readonly data: {
+      readonly type: "string";
+      readonly description: "\u63A5\u53E3\u6570\u636E";
+      readonly isRequired: true;
+    };
+  };
+};
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare const $JavaScriptError: {
+  readonly properties: {
+    readonly appId: {
+      readonly type: "string";
+      readonly description: "\u5E94\u7528ID";
+      readonly isRequired: true;
+    };
+    readonly mainType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly subType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly errorTime: {
+      readonly type: "number";
+      readonly description: "\u9519\u8BEF\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly pageUrl: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly userID: {
+      readonly type: "string";
+      readonly description: "\u7528\u6237ID";
+      readonly isRequired: true;
+    };
+    readonly url: {
+      readonly type: "string";
+      readonly description: "\u6587\u4EF6\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly msg: {
+      readonly type: "string";
+      readonly description: "\u9519\u8BEF\u6D88\u606F";
+      readonly isRequired: true;
+    };
+    readonly line: {
+      readonly type: "number";
+      readonly description: "\u9519\u8BEF\u884C\u53F7";
+      readonly isRequired: true;
+    };
+    readonly column: {
+      readonly type: "number";
+      readonly description: "\u9519\u8BEF\u5217\u53F7";
+      readonly isRequired: true;
+    };
+    readonly stack: {
+      readonly type: "string";
+      readonly description: "\u9519\u8BEF\u8C03\u7528\u5806\u6808";
+      readonly isRequired: true;
+    };
+  };
+};
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare const $PageSkipBehavior: {
+  readonly properties: {
+    readonly appId: {
+      readonly type: "string";
+      readonly description: "\u5E94\u7528ID";
+      readonly isRequired: true;
+    };
+    readonly mainType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly subType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly startTime: {
+      readonly type: "number";
+      readonly description: "\u5F00\u59CB\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly pageUrl: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly userID: {
+      readonly type: "string";
+      readonly description: "\u7528\u6237ID";
+      readonly isRequired: true;
+    };
+    readonly from: {
+      readonly type: "string";
+      readonly description: "\u8DEF\u7531\u8DF3\u8F6C\u8D77\u6B65\u4F4D\u7F6E";
+      readonly isRequired: true;
+    };
+    readonly to: {
+      readonly type: "string";
+      readonly description: "\u8DEF\u7531\u8DF3\u8F6C\u76EE\u7684\u4F4D\u7F6E";
+      readonly isRequired: true;
+    };
+  };
+};
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare const $PromiseError: {
+  readonly properties: {
+    readonly appId: {
+      readonly type: "string";
+      readonly description: "\u5E94\u7528ID";
+      readonly isRequired: true;
+    };
+    readonly mainType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly subType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly errorTime: {
+      readonly type: "number";
+      readonly description: "\u9519\u8BEF\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly pageUrl: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly userID: {
+      readonly type: "string";
+      readonly description: "\u7528\u6237ID";
+      readonly isRequired: true;
+    };
+    readonly msg: {
+      readonly type: "string";
+      readonly description: "\u9519\u8BEF\u6D88\u606F";
+      readonly isRequired: true;
+    };
+    readonly stack: {
+      readonly type: "string";
+      readonly description: "\u9519\u8BEF\u5806\u6808";
+      readonly isRequired: true;
+    };
+  };
+};
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare const $ResourceError: {
+  readonly properties: {
+    readonly appId: {
+      readonly type: "string";
+      readonly description: "\u5E94\u7528ID";
+      readonly isRequired: true;
+    };
+    readonly mainType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly subType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly errorTime: {
+      readonly type: "number";
+      readonly description: "\u9519\u8BEF\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly pageUrl: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly userID: {
+      readonly type: "string";
+      readonly description: "\u7528\u6237ID";
+      readonly isRequired: true;
+    };
+    readonly resourceType: {
+      readonly type: "string";
+      readonly description: "eg\uFF1Ajs\u3001css\u3001img\u3001audio";
+      readonly isRequired: true;
+    };
+    readonly html: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u7ED3\u6784";
+      readonly isRequired: true;
+    };
+    readonly path: {
+      readonly type: "string";
+      readonly description: "\u8D44\u6E90\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+  };
+};
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare const $ResourceIndicator: {
+  readonly properties: {
+    readonly appId: {
+      readonly type: "string";
+      readonly description: "\u5E94\u7528ID";
+      readonly isRequired: true;
+    };
+    readonly mainType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly subType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly startTime: {
+      readonly type: "number";
+      readonly description: "\u5F00\u59CB\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly pageUrl: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly userID: {
+      readonly type: "string";
+      readonly description: "\u7528\u6237ID";
+      readonly isRequired: true;
+    };
+    readonly url: {
+      readonly type: "string";
+      readonly description: "\u8D44\u6E90\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly duration: {
+      readonly type: "number";
+      readonly description: "\u52A0\u8F7D\u8017\u65F6";
+      readonly isRequired: true;
+    };
+    readonly dns: {
+      readonly type: "number";
+      readonly description: "DNS\u8017\u65F6";
+      readonly isRequired: true;
+    };
+    readonly tcp: {
+      readonly type: "number";
+      readonly description: "TCP\u8017\u65F6";
+      readonly isRequired: true;
+    };
+    readonly redirect: {
+      readonly type: "number";
+      readonly description: "\u91CD\u5B9A\u5411\u8017\u65F6";
+      readonly isRequired: true;
+    };
+    readonly ttfb: {
+      readonly type: "number";
+      readonly description: "\u9996\u5B57\u8282\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly protocol: {
+      readonly type: "string";
+      readonly description: "\u8BF7\u6C42\u534F\u8BAE";
+      readonly isRequired: true;
+    };
+    readonly bodySize: {
+      readonly type: "number";
+      readonly description: "\u5185\u5BB9\u5927\u5C0F";
+      readonly isRequired: true;
+    };
+    readonly headerSize: {
+      readonly type: "number";
+      readonly description: "\u6807\u5934\u5927\u5C0F";
+      readonly isRequired: true;
+    };
+    readonly resourceSize: {
+      readonly type: "number";
+      readonly description: "\u8D44\u6E90\u5927\u5C0F";
+      readonly isRequired: true;
+    };
+    readonly isCache: {
+      readonly type: "boolean";
+      readonly description: "\u547D\u4E2D\u7F13\u5B58";
+      readonly isRequired: true;
+    };
+  };
+};
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare const $RoutingSkipBehavior: {
+  readonly properties: {
+    readonly appId: {
+      readonly type: "string";
+      readonly description: "\u5E94\u7528ID";
+      readonly isRequired: true;
+    };
+    readonly mainType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly subType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly startTime: {
+      readonly type: "number";
+      readonly description: "\u5F00\u59CB\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly pageUrl: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly userID: {
+      readonly type: "string";
+      readonly description: "\u7528\u6237ID";
+      readonly isRequired: true;
+    };
+    readonly from: {
+      readonly type: "string";
+      readonly description: "\u8DEF\u7531\u8DF3\u8F6C\u8D77\u6B65\u4F4D\u7F6E";
+      readonly isRequired: true;
+    };
+    readonly to: {
+      readonly type: "string";
+      readonly description: "\u8DEF\u7531\u8DF3\u8F6C\u76EE\u7684\u4F4D\u7F6E";
+      readonly isRequired: true;
+    };
+    readonly params: {
+      readonly type: "string";
+      readonly description: "\u8DEF\u5F84\u53C2\u6570";
+      readonly isRequired: true;
+    };
+    readonly query: {
+      readonly type: "string";
+      readonly description: "\u67E5\u8BE2\u53C2\u6570";
+      readonly isRequired: true;
+    };
+  };
+};
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+declare const $VueError: {
+  readonly properties: {
+    readonly appId: {
+      readonly type: "string";
+      readonly description: "\u5E94\u7528ID";
+      readonly isRequired: true;
+    };
+    readonly mainType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly subType: {
+      readonly type: "Enum";
+      readonly isRequired: true;
+    };
+    readonly errorTime: {
+      readonly type: "number";
+      readonly description: "\u9519\u8BEF\u65F6\u95F4";
+      readonly isRequired: true;
+    };
+    readonly pageUrl: {
+      readonly type: "string";
+      readonly description: "\u9875\u9762\u8DEF\u5F84";
+      readonly isRequired: true;
+    };
+    readonly userID: {
+      readonly type: "string";
+      readonly description: "\u7528\u6237ID";
+      readonly isRequired: true;
+    };
+    readonly stack: {
+      readonly type: "string";
+      readonly description: "\u9519\u8BEF\u5806\u6808";
+      readonly isRequired: true;
+    };
+  };
+};
+export {
+  BeaApiClient,
+  ApiError,
+  BaseHttpRequest,
+  CancelablePromise,
+  CancelError,
+  OpenAPI,
+  BasicBehavior,
+  BasicIndicator,
+  ClickBehavior,
+  InterfaceIndicator,
+  JavaScriptError,
+  PageSkipBehavior,
+  PromiseError,
+  ResourceError,
+  ResourceIndicator,
+  RoutingSkipBehavior,
+  VueError,
+  $BasicBehavior,
+  $BasicIndicator,
+  $ClickBehavior,
+  $InterfaceIndicator,
+  $JavaScriptError,
+  $PageSkipBehavior,
+  $PromiseError,
+  $ResourceError,
+  $ResourceIndicator,
+  $RoutingSkipBehavior,
+  $VueError,
+  Service,
+};
+export type { OpenAPIConfig };

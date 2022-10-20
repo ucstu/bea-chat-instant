@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import type { UserInfo } from "@/stores/types/main";
 import type {
   Message as MessageType,
-  MessageState
+  MessageState,
 } from "@/stores/types/message";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
