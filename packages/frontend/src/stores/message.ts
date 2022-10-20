@@ -1,7 +1,7 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { MessageState } from "../types/message";
-import { Message } from "../types/message";
+import type { MessageState } from "./types/message";
+import { Message } from "./types/message";
 
 const initialState: MessageState = {
   "123": [

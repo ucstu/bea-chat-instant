@@ -6,7 +6,7 @@ import itemClickHandle  from '../utils/itemClickHandle'
 const itemArr = [
   {
     options: [
-      { name: "收藏" },
+      { name: "收藏   stamp   msg" },
       { name: "朋友圈" },
       { name: "卡包" },
       { name: "表情" },

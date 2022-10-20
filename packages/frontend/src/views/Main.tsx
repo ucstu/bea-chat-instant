@@ -1,8 +1,5 @@
 import TabBar from "@/components/TabBar";
-import React from "react";
 import { Outlet } from "react-router-dom";
-
-const MemoTabBar = React.memo(TabBar);
 
 export default function Main() {
   return (
@@ -16,7 +13,7 @@ export default function Main() {
       >
         <Outlet></Outlet>
       </div>
-      <MemoTabBar></MemoTabBar>
+      <TabBar></TabBar>
     </>
   );
 }

@@ -6,11 +6,13 @@ import type { OpenAPIConfig } from "./core/OpenAPI";
 import { XHRHttpRequest } from "./core/XHRHttpRequest";
 
 import { Service } from "./services/Service";
+import { DefaultService } from "./services/DefaultService";
 
 type HttpRequestConstructor = new (config: OpenAPIConfig) => BaseHttpRequest;
 
 export class BeaApiClient {
   public readonly service: Service;
+  public readonly default: DefaultService;
 
   public readonly request: BaseHttpRequest;
 
@@ -31,5 +33,6 @@ export class BeaApiClient {
     });
 
     this.service = new Service(this.request);
+    this.default = new DefaultService(this.request);
   }
 }
