@@ -6,7 +6,10 @@
     text-decoration: none;
 
     &-active {
-      color: rgb(17 144 30) !important;
+      color: rgb(147 197 253);
+      & svg {
+        color: rgb(147 197 253);
+      }
     }
   }
 }

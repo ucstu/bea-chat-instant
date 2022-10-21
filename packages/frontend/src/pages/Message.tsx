@@ -15,14 +15,14 @@ export default function Message() {
   const contacts = useSelector((store: Store) => store.main.contacts);
   const navigate = useNavigate();
   const gotoChat = useCallback((userID: string) => {
-    navigate(`/chat?${userID}`);
+    navigate(`/chat/${userID}`);
   }, []);
 
   return (
     <>
       <Header
         middle={<img alt="Bea" src="bea.svg" className="h-12" />}
-        right={<FontAwesomeIcon icon={faAdd} size="xl" className="mr-5" />}
+        right={<FontAwesomeIcon icon={faAdd} size="xl" />}
       />
       <div className={styles.message}>
         {Object.entries(messages).map(

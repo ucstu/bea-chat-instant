@@ -1,4 +1,7 @@
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../components/Header";
+
 const arr = [
   1,
   2,
@@ -19,7 +22,10 @@ const arr = [
 export default function Contact() {
   return (
     <div>
-      <Header title="联系人" />
+      <Header
+        title="联系人"
+        right={<FontAwesomeIcon icon={faSearch} size="xl" />}
+      />
       <div className="" style={{ height: "calc(100vh - 100px)" }}>
         {arr.map((item, index) => {
           return (

@@ -28,7 +28,7 @@ export default (_Component: ComponentType) => {
               className={`w-full h-full fixed top-0 flex justify-center items-center ${
                 mask ? "pointer-events-auto" : "pointer-events-none"
               }`}
-              style={{ backgroundColor: "rgba(178,178,178,0.5)" }}
+              style={{ backgroundColor: "rgba(147 197 253 0.5)" }}
             >
               <div className="w-1/3 aspect-square rounded-2xl flex justify-center items-center bg-blue-300">
                 <div className={styles.ldsBea}>
