@@ -72,6 +72,13 @@ export const mainSlice = createSlice({
   extraReducers: {},
 });
 
-export const { setToken, setUserInfo } = mainSlice.actions;
+export const {
+  setToken,
+  setUserInfo,
+  addContact,
+  patchContact,
+  removeContact,
+  setContacts,
+} = mainSlice.actions;
 
 export default mainSlice.reducer;

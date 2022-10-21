@@ -1,6 +1,9 @@
+import { setContacts } from "@/stores/main";
+import { Store } from "@/stores/types";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getContacts } from "../apis/index";
 import Header from "../components/Header";
 
@@ -29,10 +32,12 @@ const arr = [
 ];
 
 export default function Contact() {
-  const [userInfo, setUserInfo] = useState<object[]>([]);
+  const contacts = useSelector((store: Store) => store.main.contacts);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getContacts({}).then((value) => {
-      setUserInfo(value);
+    getContacts({}).then((_contacts) => {
+      dispatch(setContacts(_contacts));
     });
   }, []);
 
@@ -42,35 +47,29 @@ export default function Contact() {
         title="联系人"
         right={<FontAwesomeIcon icon={faSearch} size="xl" />}
       />
-      {arr.map((item, index) => {
-        return (
-          <div
-            className="h-12.5 w-full flex pl-4 "
-            key={index}
-            style={{ boxSizing: "border-box" }}
-          >
-            <img
-              src={obj.avatar}
-              style={{
-                height: "40px",
-                width: "40px",
-                borderRadius: "5px",
+      {Object.entries(contacts).map(([userID, userInfo]) => (
+        <div className="h-12.5 w-full flex pl-4" key={userID}>
+          <img
+            src={userInfo.avatar}
+            style={{
+              height: "40px",
+              width: "40px",
+              borderRadius: "5px",
 
-                alignSelf: "center",
-              }}
-            />
-            <div
-              className="ml-4 w-full"
-              style={{
-                borderBottom: "1px solid #e6e3e3",
-                lineHeight: "50px",
-              }}
-            >
-              {item}
-            </div>
+              alignSelf: "center",
+            }}
+          />
+          <div
+            className="ml-4 w-full"
+            style={{
+              borderBottom: "1px solid #e6e3e3",
+              lineHeight: "50px",
+            }}
+          >
+            {userInfo.name}
           </div>
-        );
-      })}
+        </div>
+      ))}
     </>
   );
 }
