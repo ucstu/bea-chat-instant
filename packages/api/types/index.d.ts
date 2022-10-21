@@ -230,15 +230,6 @@ declare class DefaultService {
          * 用户信息
          */
         userInfo: UserInfo;
-    } | {
-        /**
-         * 错误编码
-         */
-        code: number;
-        /**
-         * 错误描述
-         */
-        msg: string;
     }>;
     /**
      * 用户注册

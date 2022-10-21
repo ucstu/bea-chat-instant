@@ -27,33 +27,24 @@ export class DefaultService {
        */
       password: string;
     };
-  }): CancelablePromise<
-    | {
-        /**
-         * 登陆令牌
-         */
-        token: string;
-        /**
-         * 用户信息
-         */
-        userInfo: UserInfo;
-      }
-    | {
-        /**
-         * 错误编码
-         */
-        code: number;
-        /**
-         * 错误描述
-         */
-        msg: string;
-      }
-  > {
+  }): CancelablePromise<{
+    /**
+     * 登陆令牌
+     */
+    token: string;
+    /**
+     * 用户信息
+     */
+    userInfo: UserInfo;
+  }> {
     return this.httpRequest.request({
       method: "POST",
       url: "/login",
       body: requestBody,
       mediaType: "application/json",
+      errors: {
+        400: `请求有误`,
+      },
     });
   }
 
@@ -90,6 +81,9 @@ export class DefaultService {
       url: "/register",
       body: requestBody,
       mediaType: "application/json",
+      errors: {
+        400: `请求有误`,
+      },
     });
   }
 }
