@@ -26,12 +26,14 @@ export default React.memo(
   ({ left, leftIcon, middle, title, right }: HeaderProps) => {
     return (
       <>
-        <div className="w-full h-12 fixed flex justify-between items-center bg-gray-300">
-          <div>{left || (leftIcon && <FontAwesomeIcon icon={leftIcon} />)}</div>
+        <div className="w-full h-12 fixed flex justify-between items-center bg-gray-50">
+          <div className="ml-5">
+            {left || (leftIcon && <FontAwesomeIcon icon={leftIcon} />)}
+          </div>
           <div className="w-full absolute flex justify-center items-center">
             {middle || title}
           </div>
-          <div>{right}</div>
+          <div className="mr-5">{right}</div>
         </div>
         <div className="w-full h-12"></div>
       </>

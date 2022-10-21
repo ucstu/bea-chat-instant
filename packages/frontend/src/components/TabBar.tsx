@@ -28,17 +28,20 @@ function getNavLinkClassName({ isActive }: GetNLCNameParm): string | undefined {
 
 export default React.memo(() => {
   return (
-    <div className="w-full h-14 fixed bottom-0 flex justify-around bg-gray-200">
-      <NavLink to="/message" className={getNavLinkClassName}>
-        <NavLinkItem icon={faUserXmark} badge name="消息" />
-      </NavLink>
-      <NavLink to="/contact" className={getNavLinkClassName}>
-        <NavLinkItem icon={faUserCircle} name="联系人" />
-      </NavLink>
-      <NavLink to="/mine" className={getNavLinkClassName}>
-        <NavLinkItem icon={faCommentAlt} name="我的" />
-      </NavLink>
-    </div>
+    <>
+      <div className="w-full h-14 fixed bottom-0 flex justify-around bg-gray-50">
+        <NavLink to="/message" className={getNavLinkClassName}>
+          <NavLinkItem icon={faUserXmark} badge name="消息" />
+        </NavLink>
+        <NavLink to="/contact" className={getNavLinkClassName}>
+          <NavLinkItem icon={faUserCircle} name="联系人" />
+        </NavLink>
+        <NavLink to="/mine" className={getNavLinkClassName}>
+          <NavLinkItem icon={faCommentAlt} name="我的" />
+        </NavLink>
+      </div>
+      <div className="w-full h-14"></div>
+    </>
   );
 });
 

@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { InputHTMLAttributes } from "react";
 import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./styles/Login.module.scss";
 
 export default function Login() {
@@ -16,6 +16,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState(false);
 
   return (
     <div className="w-screen h-screen overflow-hidden">
@@ -57,7 +58,14 @@ export default function Login() {
           type="password"
           placeholder="密码"
         />
-        <CheckBox placeholder="我已阅读并同意《Bea用户协议》" />
+        <div className="flex justify-between">
+          <CheckBox
+            checked={confirm}
+            onChange={(e) => setConfirm(e.target.checked)}
+            placeholder="我已阅读并同意 用户协议"
+          />
+          <NavLink to="/register">注册</NavLink>
+        </div>
         <button
           className="w-full h-10 flex justify-center items-center rounded-full bg-blue-300"
           onClick={() => {
@@ -65,6 +73,8 @@ export default function Login() {
               utils.showToast("用户名不能为空", false, 1000);
             } else if (password.trim() === "") {
               utils.showToast("密码不能为空", false, 1000);
+            } else if (!confirm) {
+              utils.showToast("请阅读并同意用户协议", false, 1000);
             } else {
               utils.showLoading(true);
               postLogin({ requestBody: { username, password } })

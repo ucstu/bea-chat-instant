@@ -1,6 +1,6 @@
 import { Store } from "@/stores/types";
 import Main from "@/views/Main";
-import React, { ReactElement, Suspense, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import styles from "./index.module.scss";
@@ -23,7 +23,7 @@ export default function WQRoute() {
 
   return (
     <div
-      className={`${transitionStage} w-full h-full flex-col`}
+      className={`${transitionStage} w-screen h-screen`}
       onAnimationEnd={() => {
         if (transitionStage === styles.pageExit) {
           setTransitionStage(styles.pageEnter);
@@ -50,7 +50,7 @@ export default function WQRoute() {
           element={<LazyLoad componentName="Register" />}
         />
         <Route
-          path="/chat"
+          path="/chat/:userID"
           element={<LazyLoad componentName="Chat" />}
         />
         <Route path="/chat/set" element={<LazyLoad componentName="Set" />} />
@@ -68,23 +68,19 @@ const AuthOrNot = React.memo(({ component }: AuthOrNotProps) => {
 });
 
 const LazyLoad = React.memo(({ componentName }: { componentName: string }) => {
-  const Component = React.lazy(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    () => import(/* @vite-ignore */ "../pages/" + componentName)
+  const [element, setElement] = useState(
+    <div className="flex w-full h-full justify-center items-center">
+      <div className={styles.ldsBea}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
   );
-  return (
-    <Suspense
-      fallback={
-        <div className="flex w-full h-full justify-center items-center">
-          <div className={styles.ldsBea}>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      }
-    >
-      <Component />
-    </Suspense>
-  );
+  useEffect(() => {
+    import(/* @vite-ignore */ "../pages/" + componentName).then((Component) =>
+      setElement(<Component.default></Component.default>)
+    );
+  }, [componentName]);
+  return element;
 });
