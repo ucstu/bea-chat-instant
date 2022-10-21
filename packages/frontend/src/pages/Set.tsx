@@ -1,9 +1,6 @@
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 import ItemCard from "../components/ItemCard";
-import Title from '../components/Title'
 const itemArr = [
   {
     options: [
@@ -30,10 +27,10 @@ export default function set() {
     setIsShow(show);
     (nodeRef.current as unknown as HTMLElement).style.backgroundColor =
       "#e6e3e3";
-      setTimeout(() => {
-          (nodeRef.current as unknown as HTMLElement).style.backgroundColor =
-      "#fdfdfd";
-      }, 200);
+    setTimeout(() => {
+      (nodeRef.current as unknown as HTMLElement).style.backgroundColor =
+        "#fdfdfd";
+    }, 200);
     (maskNode.current as unknown as HTMLElement).style.display = "block";
   }
   function cancelQuit() {
@@ -41,7 +38,7 @@ export default function set() {
   }
   return (
     <div className="relative" style={{ height: "100vh", width: "100vw" }}>
-      <Title title='设置' />
+      <Header title="设置" />
       <ItemCard configure={itemArr} />
       <div className="w-full text-center absolute bottom-0">
         <button

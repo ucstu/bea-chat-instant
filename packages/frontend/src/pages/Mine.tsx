@@ -2,6 +2,7 @@ import { faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import ItemCard from "../components/ItemCard";
+
 const itemArr = [
   {
     options: [

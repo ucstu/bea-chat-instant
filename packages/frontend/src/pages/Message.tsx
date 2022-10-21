@@ -15,7 +15,7 @@ export default function Message() {
   const contacts = useSelector((store: Store) => store.main.contacts);
   const navigate = useNavigate();
   const gotoChat = useCallback((userID: string) => {
-    navigate(`/chart/"${userID}`);
+    navigate(`/chat?${userID}`);
   }, []);
 
   return (

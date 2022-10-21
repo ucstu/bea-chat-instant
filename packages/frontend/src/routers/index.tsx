@@ -50,7 +50,7 @@ export default function WQRoute() {
           element={<LazyLoad componentName="Register" />}
         />
         <Route
-          path="/chat/:userId"
+          path="/chat"
           element={<LazyLoad componentName="Chat" />}
         />
         <Route path="/chat/set" element={<LazyLoad componentName="Set" />} />
