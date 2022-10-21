@@ -23,7 +23,6 @@
         "EditorConfig.EditorConfig",
         "bradlc.vscode-tailwindcss",
         "stylelint.vscode-stylelint",
-        "clinyong.vscode-css-modules",
         "formulahendry.auto-rename-tag",
         "dsznajder.es7-react-js-snippets",
         "christian-kohler.npm-intellisense",

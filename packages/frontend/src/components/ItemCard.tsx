@@ -1,10 +1,11 @@
+import { memo } from "react";
 type PropsType = {
   configure: Array<{
     category?: string;
     options: Array<{ name: string; img?: string; angleLeft?: boolean }>;
   }>;
 };
-export default function ItemCar(props: PropsType) {
+function ItemCar(props: PropsType) {
   return (
     <>
       <div>
@@ -58,3 +59,4 @@ export default function ItemCar(props: PropsType) {
     </>
   );
 }
+export default memo(ItemCar);
