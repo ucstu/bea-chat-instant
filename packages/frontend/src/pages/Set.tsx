@@ -42,14 +42,14 @@ export default function set() {
       <ItemCard configure={itemArr} />
       <div className="w-full text-center absolute bottom-0">
         <button
-          className="w-full h-40 mt-5"
+          className="w-full h-10 mt-5"
           style={{ border: 0, padding: 0, backgroundColor: "#fdfdfd" }}
           disabled
         >
           切换账号
         </button>
         <div
-          className="w-full h-40 mt-5 leading-40 "
+          className="w-full h-10 mt-5 leading-10 "
           style={{ backgroundColor: "#fdfdfd" }}
           onClick={clickQuit}
           ref={nodeRef}
@@ -64,7 +64,7 @@ export default function set() {
           style={{ backgroundColor: "#eee", opacity: 0.5 }}
         ></div>
         <div
-          className="absolute  leading-40 w-full text-center bottom-0 "
+          className="absolute  leading-10 w-full text-center bottom-0 "
           style={{
             fontWeight: "bold",
             backgroundColor: "#fdfdfd",

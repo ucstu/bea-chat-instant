@@ -7,7 +7,7 @@ type PropsType = {
 export default function ItemCar(props: PropsType) {
   return (
     <>
-      <div >
+      <div>
         {props.configure.map((item, index) => (
           <div key={index}>
             {item.category ? (
@@ -18,7 +18,7 @@ export default function ItemCar(props: PropsType) {
                   fontWeight: "bold",
                   marginTop: "20px",
                   marginBottom: "5px",
-                  paddingLeft:'10px'
+                  paddingLeft: "10px",
                 }}
               >
                 {item.category}
@@ -34,7 +34,7 @@ export default function ItemCar(props: PropsType) {
                   borderBottom: "1px solid #f7f7f7",
                   lineHeight: "50px",
                   boxSizing: "border-box",
-                  paddingLeft:'10px',
+                  paddingLeft: "10px",
                   fontWeight: "bold",
                   backgroundColor: "#fdfdfd",
                 }}
@@ -42,7 +42,7 @@ export default function ItemCar(props: PropsType) {
                 {item2.name}
                 {item2.angleLeft === undefined || item2.angleLeft ? (
                   <span
-                    className="absolute right-20"
+                    className="absolute right-5"
                     style={{ color: "#bfbfbf" }}
                   >
                     {">"}
