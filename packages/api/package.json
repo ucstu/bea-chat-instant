@@ -8,7 +8,7 @@
   "types": "types/index.d.ts",
   "source": "src/index.ts",
   "scripts": {
-    "generate": "ts-node --project tsconfig.node.json mapper && prettier --write openapi.json && del-cli src dist types && openapi -i openapi.json -o src -c xhr --name BeaApiClient --useOptions --exportSchemas true && rexreplace '(public readonly )(: Service;)' '$1service$2' src/BeaApiClient.ts && rexreplace '(this.)( = new Service\\(this.request\\);)' '$1service$2' src/BeaApiClient.ts && prettier --write src --ignore-unknown && pnpm build",
+    "generate": "ts-node --project tsconfig.node.json mapper && pnpm prettier --write openapi.json && del-cli src dist types && openapi -i openapi.json -o src -c xhr --name BeaApiClient --useOptions --exportSchemas true && rexreplace '(public readonly )(: Service;)' '$1service$2' src/BeaApiClient.ts && rexreplace '(this.)( = new Service\\(this.request\\);)' '$1service$2' src/BeaApiClient.ts && pnpm prettier --write src --ignore-unknown && pnpm build",
     "build": "del-cli dist types && rollup -c rollup.config.ts",
     "format": "prettier --write .",
     "lint": "eslint \"src/**/*.{js,ts}\"",

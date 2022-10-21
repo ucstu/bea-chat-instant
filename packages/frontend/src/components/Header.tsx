@@ -30,8 +30,8 @@ export default React.memo(
           <div className="ml-5">
             {left || (leftIcon && <FontAwesomeIcon icon={leftIcon} />)}
           </div>
-          <div className="w-full absolute flex justify-center items-center">
-            {middle || title}
+          <div className="w-full absolute flex pointer-events-none justify-center items-center v">
+            <div className="pointer-events-auto">{middle || title}</div>
           </div>
           <div className="mr-5">{right}</div>
         </div>

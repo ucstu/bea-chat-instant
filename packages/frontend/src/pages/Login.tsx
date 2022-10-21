@@ -78,7 +78,12 @@ export default function Login() {
             } else {
               utils.showLoading(true);
               postLogin({ requestBody: { username, password } })
-                .then(({ token, userInfo }) => {
+                .then((res) => {
+                  if ("code" in res) {
+                    utils.showToast(res.msg);
+                    return;
+                  }
+                  const { token, userInfo } = res;
                   dispatch(setToken(token));
                   dispatch(setUserInfo(userInfo));
                   navigate("/");

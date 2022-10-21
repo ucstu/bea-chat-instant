@@ -55,23 +55,49 @@
               "application/json": {
                 "schema": {
                   "title": "数据主体",
-                  "type": "object",
-                  "properties": {
-                    "token": {
-                      "type": "string",
-                      "title": "登陆令牌",
-                      "description": "登陆令牌"
+                  "oneOf": [
+                    {
+                      "title": "数据主体",
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "title": "登陆令牌",
+                          "description": "登陆令牌"
+                        },
+                        "userInfo": {
+                          "title": "用户信息",
+                          "$ref": "#/components/schemas/UserInfo",
+                          "x-apifox-overrides": {},
+                          "description": "用户信息"
+                        }
+                      },
+                      "x-apifox-orders": ["token", "userInfo"],
+                      "required": ["token", "userInfo"],
+                      "x-apifox-ignore-properties": [],
+                      "description": "数据主体"
                     },
-                    "userInfo": {
-                      "title": "用户信息",
-                      "$ref": "#/components/schemas/UserInfo",
-                      "x-apifox-overrides": {},
-                      "description": "用户信息"
+                    {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "title": "错误编码",
+                          "type": "integer",
+                          "description": "错误编码"
+                        },
+                        "msg": {
+                          "title": "错误描述",
+                          "type": "string",
+                          "description": "错误描述"
+                        }
+                      },
+                      "required": ["code", "msg"],
+                      "x-apifox-orders": ["code", "msg"],
+                      "title": "数据主体",
+                      "x-apifox-ignore-properties": [],
+                      "description": "数据主体"
                     }
-                  },
-                  "x-apifox-orders": ["token", "userInfo"],
-                  "required": ["token", "userInfo"],
-                  "x-apifox-ignore-properties": [],
+                  ],
                   "description": "数据主体"
                 },
                 "examples": {
