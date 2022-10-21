@@ -10,7 +10,7 @@ const animationPaths: Array<string> = ["/chat"];
 export default function WQRoute() {
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
-  const [transitionStage, setTransitionStage] = useState(styles.pageEnter);
+  const [transitionStage, setTransitionStage] = useState("");
 
   useEffect(() => {
     if (location === displayLocation) return;
@@ -18,12 +18,13 @@ export default function WQRoute() {
       setTransitionStage(styles.pageExit);
       return;
     }
+    setTransitionStage("");
     setDisplayLocation(location);
   }, [location, displayLocation]);
 
   return (
     <div
-      className={`${transitionStage} w-screen h-screen`}
+      className={transitionStage}
       onAnimationEnd={() => {
         if (transitionStage === styles.pageExit) {
           setTransitionStage(styles.pageEnter);
@@ -69,7 +70,7 @@ const AuthOrNot = React.memo(({ component }: AuthOrNotProps) => {
 
 const LazyLoad = React.memo(({ componentName }: { componentName: string }) => {
   const [element, setElement] = useState(
-    <div className="flex w-full h-full justify-center items-center">
+    <div className="w-screen h-screen z-50 flex justify-center items-center">
       <div className={styles.ldsBea}>
         <div></div>
         <div></div>

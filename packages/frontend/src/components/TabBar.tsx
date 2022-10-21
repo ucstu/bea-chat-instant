@@ -1,3 +1,4 @@
+import { EitherOr } from "@/types";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
   faCommentAlt,
@@ -22,52 +23,51 @@ type GetNLCNameParm = {
  */
 function getNavLinkClassName({ isActive }: GetNLCNameParm): string | undefined {
   return isActive
-    ? styles.navbarItem + " relative " + styles.navbarItemActive
-    : styles.navbarItem + " relative";
+    ? `${styles.navbarItem} ${styles.navbarItemActive}`
+    : styles.navbarItem;
 }
 
 export default React.memo(() => {
   return (
-    <>
-      <div className="w-full h-14 fixed bottom-0 flex justify-around bg-gray-50">
-        <NavLink to="/message" className={getNavLinkClassName}>
-          <NavLinkItem icon={faUserXmark} badge name="消息" />
-        </NavLink>
-        <NavLink to="/contact" className={getNavLinkClassName}>
-          <NavLinkItem icon={faUserCircle} name="联系人" />
-        </NavLink>
-        <NavLink to="/mine" className={getNavLinkClassName}>
-          <NavLinkItem icon={faCommentAlt} name="我的" />
-        </NavLink>
-      </div>
-      <div className="w-full h-14"></div>
-    </>
+    <div className="w-full h-14 sticky bottom-0 flex-shrink-0 flex justify-around bg-gray-50">
+      <NavLink to="/message" className={getNavLinkClassName}>
+        <NavLinkItem icon={faUserXmark} badge name="消息" />
+      </NavLink>
+      <NavLink to="/contact" className={getNavLinkClassName}>
+        <NavLinkItem icon={faUserCircle} name="联系人" />
+      </NavLink>
+      <NavLink to="/mine" className={getNavLinkClassName}>
+        <NavLinkItem icon={faCommentAlt} name="我的" />
+      </NavLink>
+    </div>
   );
 });
 
 type NavLinkItemProp = {
   icon?: IconProp;
   name: string | JSX.Element;
-} & (
-  | {
-      badge?: true;
-      count?: number;
-    }
-  | { badge: false }
-);
-const NavLinkItem = React.memo((props: NavLinkItemProp) => {
-  const { icon, badge, name } = props;
-  return (
-    <>
-      <div className="text-center text-gray-500">
-        {icon && <FontAwesomeIcon icon={icon} />}
-        {badge && (
-          <div className="w-13 h-13 bg-red-900 absolute top-0 right-d9 rounded-7 text-12 leading-13">
-            {props.count || ""}
-          </div>
-        )}
+} & EitherOr<
+  {
+    badge?: boolean;
+    count?: number;
+  },
+  "badge",
+  "count"
+>;
+const NavLinkItem = React.memo(
+  ({ icon, badge, count, name }: NavLinkItemProp) => {
+    return (
+      <div className="relative">
+        <div className="text-center text-gray-500">
+          {icon && <FontAwesomeIcon icon={icon} />}
+          {(badge || count) && (
+            <div className="w-3 h-3 absolute top-0 right-0 rounded-full bg-red-600 text-xs font-medium">
+              {count || ""}
+            </div>
+          )}
+        </div>
+        {name}
       </div>
-      {name}
-    </>
-  );
-});
+    );
+  }
+);

@@ -3,16 +3,11 @@ import { Outlet } from "react-router-dom";
 
 export default function Main() {
   return (
-    <>
-      <div
-        className="w-full overflow-hidden"
-        style={{
-          height: "calc(100% - 3.5rem)",
-        }}
-      >
+    <div className="w-screen h-screen flex flex-col">
+      <div className="w-full flex-auto">
         <Outlet></Outlet>
       </div>
       <TabBar></TabBar>
-    </>
+    </div>
   );
 }

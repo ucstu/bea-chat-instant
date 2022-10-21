@@ -24,19 +24,17 @@ export default function Message() {
         middle={<img alt="Bea" src="bea.svg" className="h-12" />}
         right={<FontAwesomeIcon icon={faAdd} size="xl" />}
       />
-      <div className={styles.message}>
-        {Object.entries(messages).map(
-          ([userID, messages]) =>
-            contacts[userID] && (
-              <MessageItem
-                key={userID}
-                userInfo={contacts[userID]}
-                messages={messages}
-                onClick={gotoChat}
-              />
-            )
-        )}
-      </div>
+      {Object.entries(messages).map(
+        ([userID, messages]) =>
+          contacts[userID] && (
+            <MessageItem
+              key={userID}
+              userInfo={contacts[userID]}
+              messages={messages}
+              onClick={gotoChat}
+            />
+          )
+      )}
     </>
   );
 }
