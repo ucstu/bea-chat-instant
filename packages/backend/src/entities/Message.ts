@@ -1,7 +1,7 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Message extends BaseEntity {
+export class Message {
   /*
    * 消息ID
    */
@@ -28,5 +28,3 @@ export class Message extends BaseEntity {
   @Column()
   readied: boolean;
 }
-
-export type MessageType = Omit<Message, keyof BaseEntity>;

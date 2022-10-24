@@ -1,4 +1,4 @@
-import { postLogin } from "@/apis";
+import { userLogin } from "@/apis";
 import { UtilContext } from "@/hocs/withUtils";
 import { setToken, setUserInfo } from "@/stores/main";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -36,7 +36,7 @@ export default function Login() {
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPBGTN1ddTe_0io5vluD6q-DAqWGSfIBRYOw&usqp=CAU"
           alt="person"
-          className="w-1/3 m-auto -translate-y-1/2 rounded-full border-4 border-solid border-blue-300"
+          className="w-32 m-auto -translate-y-1/2 rounded-full border-4 border-solid border-blue-300"
         />
       </div>
       <div className="w-3/4 mx-auto mt-5">
@@ -77,20 +77,15 @@ export default function Login() {
               utils.showToast("请阅读并同意用户协议", false, 1000);
             } else {
               utils.showLoading(true);
-              postLogin({ requestBody: { username, password } })
+              userLogin({ requestBody: { username, password } })
                 .then((res) => {
-                  if ("code" in res) {
-                    utils.showToast(res.msg);
-                    return;
-                  }
                   const { token, userInfo } = res;
                   dispatch(setToken(token));
                   dispatch(setUserInfo(userInfo));
                   navigate("/");
                 })
-                .finally(() => {
-                  utils.hiddenLoading();
-                });
+                .catch((reason) => utils.showToast(reason.body.msg))
+                .finally(utils.hiddenLoading);
             }
           }}
         >

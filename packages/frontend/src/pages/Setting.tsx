@@ -1,4 +1,7 @@
+import { setToken } from "@/stores/main";
 import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import ItemCard from "../components/ItemCard";
 const itemArr = [
@@ -36,6 +39,8 @@ export default function set() {
   function cancelQuit() {
     (maskNode.current as unknown as HTMLElement).style.display = "none";
   }
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <div className="relative" style={{ height: "100vh", width: "100vw" }}>
       <Header title="设置" />
@@ -72,7 +77,14 @@ export default function set() {
           }}
         >
           <div>
-            <div>退出登录</div>
+            <div
+              onClick={() => {
+                dispatch(setToken(undefined));
+                navigate("/login", { replace: true });
+              }}
+            >
+              退出登录
+            </div>
             <div>关闭微信</div>
             <div onClick={cancelQuit}>取消</div>
           </div>

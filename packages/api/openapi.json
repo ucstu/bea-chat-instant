@@ -1,7 +1,7 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.1",
   "info": {
-    "title": "Bea Chat",
+    "title": "BeaChat",
     "description": "",
     "version": "1.0.0"
   },
@@ -18,123 +18,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "type": "string",
-                    "title": "用户名称",
-                    "description": "用户名称"
-                  },
-                  "password": {
-                    "type": "string",
-                    "title": "登录密码",
-                    "description": "登录密码"
-                  }
-                },
-                "x-apifox-orders": ["username", "password"],
-                "required": ["username", "password"],
-                "x-apifox-ignore-properties": []
-              },
-              "example": {
-                "username": "s.extnufkcpu@cqtydbf.ae",
-                "password": "5oozW"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "title": "数据主题",
-                  "type": "object",
-                  "properties": {
-                    "token": {
-                      "type": "string",
-                      "title": "登陆令牌",
-                      "description": "登陆令牌"
-                    },
-                    "userInfo": {
-                      "title": "用户信息",
-                      "$ref": "#/components/schemas/UserInfo",
-                      "x-apifox-overrides": {},
-                      "description": "用户信息"
-                    }
-                  },
-                  "x-apifox-orders": ["token", "userInfo"],
-                  "required": ["token", "userInfo"],
-                  "x-apifox-ignore-properties": [],
-                  "description": "数据主题"
-                },
-                "examples": {
-                  "1": {
-                    "summary": "成功示例",
-                    "value": {
-                      "token": "bF4B94CC-aAab-8e59-2E37-CFDa4A5fE9dF",
-                      "userInfo": {
-                        "userID": "8d8e171B-eee7-1Afa-214F-11C49f239579",
-                        "name": "廖明",
-                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "请求有误",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "title": "错误编码",
-                      "type": "integer",
-                      "description": "错误编码"
-                    },
-                    "msg": {
-                      "title": "错误描述",
-                      "type": "string",
-                      "description": "错误描述"
-                    }
-                  },
-                  "required": ["code", "msg"],
-                  "x-apifox-orders": ["code", "msg"],
-                  "x-apifox-ignore-properties": []
-                },
-                "examples": {
-                  "1": {
-                    "summary": "异常示例",
-                    "value": {
-                      "code": 1002,
-                      "msg": "账号或密码错误"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-run-in-apifox": "https://www.apifox.cn/web/project/1786228/apis/api-45089753-run"
-      }
-    },
-    "/register": {
-      "post": {
-        "summary": "用户注册",
-        "x-apifox-folder": "",
-        "x-apifox-status": "developing",
-        "deprecated": false,
-        "description": "",
+        "operationId": "UserLogin",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -190,19 +74,6 @@
                   "required": ["token", "userInfo"],
                   "x-apifox-ignore-properties": [],
                   "description": "数据主体"
-                },
-                "examples": {
-                  "1": {
-                    "summary": "成功示例",
-                    "value": {
-                      "token": "4F85B7A1-6E72-F435-CF27-d875aeeaC1b0",
-                      "userInfo": {
-                        "userID": "7B35d1eF-9EC1-94cb-B1E6-d3AAcFf203a1",
-                        "name": "孙秀兰",
-                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -228,21 +99,108 @@
                   "required": ["code", "msg"],
                   "x-apifox-orders": ["code", "msg"],
                   "x-apifox-ignore-properties": []
-                },
-                "examples": {
-                  "1": {
-                    "summary": "异常示例",
-                    "value": {
-                      "code": 1001,
-                      "msg": "用户已存在"
-                    }
-                  }
                 }
               }
             }
           }
         },
-        "x-run-in-apifox": "https://www.apifox.cn/web/project/1786228/apis/api-45090185-run"
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45089753-run"
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "用户注册",
+        "x-apifox-folder": "",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "operationId": "UserRegister",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "title": "用户名称",
+                    "description": "用户名称"
+                  },
+                  "password": {
+                    "type": "string",
+                    "title": "登录密码",
+                    "description": "登录密码"
+                  }
+                },
+                "x-apifox-orders": ["username", "password"],
+                "required": ["username", "password"],
+                "x-apifox-ignore-properties": []
+              },
+              "example": {
+                "username": "s.extnufkcpu@cqtydbf.ae",
+                "password": "5oozW"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "数据主体",
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "title": "登陆令牌",
+                      "description": "登陆令牌"
+                    },
+                    "userInfo": {
+                      "title": "用户信息",
+                      "$ref": "#/components/schemas/UserInfo",
+                      "x-apifox-overrides": {},
+                      "description": "用户信息"
+                    }
+                  },
+                  "x-apifox-orders": ["token", "userInfo"],
+                  "required": ["token", "userInfo"],
+                  "x-apifox-ignore-properties": [],
+                  "description": "数据主体"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求有误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "title": "错误编码",
+                      "type": "integer",
+                      "description": "错误编码"
+                    },
+                    "msg": {
+                      "title": "错误描述",
+                      "type": "string",
+                      "description": "错误描述"
+                    }
+                  },
+                  "required": ["code", "msg"],
+                  "x-apifox-orders": ["code", "msg"],
+                  "x-apifox-ignore-properties": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45090185-run"
       }
     },
     "/contacts": {
@@ -252,6 +210,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
+        "operationId": "AddContacts",
         "tags": ["联系人"],
         "parameters": [],
         "requestBody": {
@@ -270,6 +229,11 @@
                 },
                 "x-apifox-orders": ["01GFTSBKD232YKPBDNH3SKTS02"],
                 "properties": {
+                  "userID": {
+                    "type": "string",
+                    "title": "用户ID",
+                    "description": "用户ID"
+                  },
                   "name": {
                     "type": "string",
                     "title": "用户名称",
@@ -281,8 +245,8 @@
                     "description": "头像地址"
                   }
                 },
-                "required": ["name", "avatar"],
-                "x-apifox-ignore-properties": ["name", "avatar"]
+                "required": ["userID", "name", "avatar"],
+                "x-apifox-ignore-properties": ["userID", "name", "avatar"]
               },
               "example": {
                 "name": "崔勇",
@@ -313,21 +277,12 @@
                   "x-apifox-orders": ["code", "msg"],
                   "required": ["code", "msg"],
                   "x-apifox-ignore-properties": []
-                },
-                "examples": {
-                  "1": {
-                    "summary": "成功示例",
-                    "value": {
-                      "code": 201,
-                      "msg": "新增成功"
-                    }
-                  }
                 }
               }
             }
           }
         },
-        "x-run-in-apifox": "https://www.apifox.cn/web/project/1786228/apis/api-45105379-run"
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45105379-run"
       },
       "get": {
         "summary": "查询所有联系人",
@@ -335,6 +290,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
+        "operationId": "QueryContacts",
         "tags": ["联系人"],
         "parameters": [
           {
@@ -374,7 +330,10 @@
             "required": false,
             "example": ["name,like,张", "age,eq,18"],
             "schema": {
-              "type": "array"
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
@@ -384,7 +343,10 @@
             "required": false,
             "example": ["{% mock 'string' %}"],
             "schema": {
-              "type": "array"
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
@@ -394,7 +356,10 @@
             "required": false,
             "example": ["createdAt,desc"],
             "schema": {
-              "type": "array"
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ],
@@ -448,7 +413,7 @@
             }
           }
         },
-        "x-run-in-apifox": "https://www.apifox.cn/web/project/1786228/apis/api-45108523-run"
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45108523-run"
       }
     },
     "/contacts/{contact_id}": {
@@ -458,6 +423,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
+        "operationId": "DeleteContacts",
         "tags": ["联系人"],
         "parameters": [
           {
@@ -507,7 +473,7 @@
             }
           }
         },
-        "x-run-in-apifox": "https://www.apifox.cn/web/project/1786228/apis/api-45106484-run"
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45106484-run"
       },
       "put": {
         "summary": "修改联系人",
@@ -515,6 +481,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
+        "operationId": "UpdateContact",
         "tags": ["联系人"],
         "parameters": [
           {
@@ -587,21 +554,12 @@
                   "x-apifox-orders": ["code", "msg"],
                   "required": ["code", "msg"],
                   "x-apifox-ignore-properties": []
-                },
-                "examples": {
-                  "1": {
-                    "summary": "成功示例",
-                    "value": {
-                      "code": 200,
-                      "msg": "修改成功"
-                    }
-                  }
                 }
               }
             }
           }
         },
-        "x-run-in-apifox": "https://www.apifox.cn/web/project/1786228/apis/api-45106555-run"
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45106555-run"
       },
       "get": {
         "summary": "查询联系人",
@@ -609,6 +567,7 @@
         "x-apifox-status": "developing",
         "deprecated": false,
         "description": "",
+        "operationId": "QueryContact",
         "tags": ["联系人"],
         "parameters": [
           {
@@ -627,7 +586,10 @@
             "required": false,
             "example": ["{% mock 'string' %}"],
             "schema": {
-              "type": "array"
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ],
@@ -656,7 +618,7 @@
             }
           }
         },
-        "x-run-in-apifox": "https://www.apifox.cn/web/project/1786228/apis/api-45108567-run"
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45108567-run"
       }
     }
   },
@@ -728,5 +690,6 @@
         "x-apifox-folder": ""
       }
     }
-  }
+  },
+  "servers": []
 }

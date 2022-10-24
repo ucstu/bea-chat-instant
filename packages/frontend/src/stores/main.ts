@@ -4,33 +4,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { MainState, UserInfo } from "./types/main";
 
 const initialState: MainState = {
-  contacts: {
-    "123": {
-      userID: "123",
-      name: "张三",
-      avatar:
-        "https://ts1.cn.mm.bing.net/th?id=OIP-C.B6pZ8N_dG3MNAYppM-zX0AHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.25&pid=3.1&rm=2",
-    },
-    "456": {
-      userID: "456",
-      name: "张三",
-      avatar:
-        "https://ts1.cn.mm.bing.net/th?id=OIP-C.B6pZ8N_dG3MNAYppM-zX0AHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.25&pid=3.1&rm=2",
-    },
-    "789": {
-      userID: "789",
-      name: "张三",
-      avatar:
-        "https://ts1.cn.mm.bing.net/th?id=OIP-C.B6pZ8N_dG3MNAYppM-zX0AHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.25&pid=3.1&rm=2",
-    },
-  },
+  contacts: {},
 };
 
 export const mainSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
-    setToken(state, action: PayloadAction<string>) {
+    setToken(state, action: PayloadAction<string | undefined>) {
       state.token = action.payload;
     },
     setUserInfo(state, action: PayloadAction<UserInfo>) {

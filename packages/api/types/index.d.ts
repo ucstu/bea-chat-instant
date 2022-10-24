@@ -87,8 +87,12 @@ declare class Service {
      * @returns any 成功
      * @throws ApiError
      */
-    postContacts({ requestBody }: {
+    addContacts({ requestBody }: {
         requestBody?: {
+            /**
+             * 用户ID
+             */
+            userID: string;
             /**
              * 用户名称
              */
@@ -113,7 +117,7 @@ declare class Service {
      * @returns UserInfo 成功
      * @throws ApiError
      */
-    getContacts({ size, page, current, where, fields, sort }: {
+    queryContacts({ size, page, current, where, fields, sort }: {
         /**
          * 单页数量
          */
@@ -129,15 +133,15 @@ declare class Service {
         /**
          * 查询条件
          */
-        where?: any[];
+        where?: Array<string>;
         /**
          * 查询字段
          */
-        fields?: any[];
+        fields?: Array<string>;
         /**
          * 排序方式
          */
-        sort?: any[];
+        sort?: Array<string>;
     }): CancelablePromise<Array<UserInfo>>;
     /**
      * 删除联系人
@@ -164,7 +168,7 @@ declare class Service {
      * @returns any 成功
      * @throws ApiError
      */
-    putContacts({ contactId, requestBody }: {
+    updateContact({ contactId, requestBody }: {
         /**
          * 联系人ID
          */
@@ -194,12 +198,12 @@ declare class Service {
      * @returns UserInfo 成功
      * @throws ApiError
      */
-    getContacts1({ contactId, fields }: {
+    queryContact({ contactId, fields }: {
         contactId: string;
         /**
          * 查询字段，数组
          */
-        fields?: any[];
+        fields?: Array<string>;
     }): CancelablePromise<UserInfo>;
 }
 declare class DefaultService {
@@ -210,7 +214,7 @@ declare class DefaultService {
      * @returns any 成功
      * @throws ApiError
      */
-    postLogin({ requestBody }: {
+    userLogin({ requestBody }: {
         requestBody?: {
             /**
              * 用户名称
@@ -236,7 +240,7 @@ declare class DefaultService {
      * @returns any 成功
      * @throws ApiError
      */
-    postRegister({ requestBody }: {
+    userRegister({ requestBody }: {
         requestBody?: {
             /**
              * 用户名称

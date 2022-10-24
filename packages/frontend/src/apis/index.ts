@@ -2,25 +2,30 @@ import { BeaApiClient } from "@bea-chat/api";
 
 export const client = new BeaApiClient();
 
-let { postLogin, postRegister } = client.default;
-let { deleteContacts, getContacts, getContacts1, postContacts, putContacts } =
-  client.service;
+let { userLogin, userRegister } = client.default;
+let {
+  addContacts,
+  deleteContacts,
+  updateContact,
+  queryContacts,
+  queryContact,
+} = client.service;
 
-postLogin = postLogin.bind(client.default);
-postRegister = postRegister.bind(client.default);
+userLogin = userLogin.bind(client.default);
+userRegister = userRegister.bind(client.default);
+addContacts = addContacts.bind(client.service);
 deleteContacts = deleteContacts.bind(client.service);
-getContacts = getContacts.bind(client.service);
-getContacts1 = getContacts1.bind(client.service);
-postContacts = postContacts.bind(client.service);
-putContacts = putContacts.bind(client.service);
+updateContact = updateContact.bind(client.service);
+queryContacts = queryContacts.bind(client.service);
+queryContact = queryContact.bind(client.service);
 
 export * from "@bea-chat/api";
 export {
-  postLogin,
-  postRegister,
+  userLogin,
+  userRegister,
+  addContacts,
   deleteContacts,
-  getContacts,
-  getContacts1,
-  postContacts,
-  putContacts,
+  updateContact,
+  queryContacts,
+  queryContact,
 };

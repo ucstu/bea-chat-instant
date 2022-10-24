@@ -1,4 +1,4 @@
-import { postLogin } from "@/apis";
+import { userRegister } from "@/apis";
 import { UtilContext } from "@/hocs/withUtils";
 import { setToken, setUserInfo } from "@/stores/main";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -91,19 +91,19 @@ export default function Register() {
               utils.showToast("请阅读并同意用户协议", false, 1000);
             } else {
               utils.showLoading(true);
-              postLogin({ requestBody: { username, password } })
+              userRegister({ requestBody: { username, password } })
                 .then(({ token, userInfo }) => {
+                  utils.showToast("注册成功");
                   dispatch(setToken(token));
                   dispatch(setUserInfo(userInfo));
                   navigate("/");
                 })
-                .finally(() => {
-                  utils.hiddenLoading();
-                });
+                .catch((reason) => utils.showToast(reason.body.msg))
+                .finally(utils.hiddenLoading);
             }
           }}
         >
-          登录
+          注册
         </button>
       </div>
     </div>

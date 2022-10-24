@@ -1,7 +1,9 @@
-import { UserType } from "@/entitys/User";
-import { ErrorModel } from "@/models/ErrorModel";
+import { UserInfo } from "@/entities/UserInfo";
+import { HttpResponse } from "@/models/HttpResponse";
 import { UserService } from "@/services/UserService";
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Post, Res } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { Response } from "express";
 
 export interface AuthModel {
   /**
@@ -22,31 +24,42 @@ export interface AuthReturnModel {
   /**
    * 用户信息
    */
-  userInfo: Omit<UserType, "password">;
+  userInfo: Omit<UserInfo, "password">;
 }
 
 @Controller()
 export class UserController {
-  constructor(private readonly loginService: UserService) {}
+  constructor(
+    private readonly loginService: UserService,
+    private readonly jwtService: JwtService
+  ) {}
 
   @Post("/login")
   async login(
-    @Body() { username, password }: AuthModel
-  ): Promise<AuthReturnModel | ErrorModel> {
-    const serviceResult = await this.loginService.login(username, password);
-    if ("code" in serviceResult) return serviceResult;
-    const [token, userInfo] = serviceResult;
-    return { token, userInfo };
+    @Body() { username, password }: AuthModel,
+    @Res({ passthrough: true }) res: Response
+  ): Promise<AuthReturnModel | HttpResponse> {
+    const result = await this.loginService.login(username, password);
+    if ("code" in result) {
+      res.status(Math.floor(result.code / 100));
+      return result;
+    }
+    return { token: this.jwtService.sign({ ...result }), userInfo: result };
   }
 
   @Post("/register")
   async register(
-    @Body() { username, password }: AuthModel
-  ): Promise<AuthReturnModel | ErrorModel> {
-    const [token, userInfo] = await this.loginService.register(
-      username,
-      password
-    );
-    return { token, userInfo };
+    @Body() { username, password }: AuthModel,
+    @Res({ passthrough: true }) res: Response
+  ): Promise<AuthReturnModel | HttpResponse> {
+    const result = await this.loginService.register(username, password);
+    if ("code" in result) {
+      res.status(Math.floor(result.code / 100));
+      return result;
+    }
+    return {
+      token: this.jwtService.sign({ ...result }),
+      userInfo: result,
+    };
   }
 }

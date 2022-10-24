@@ -1,4 +1,9 @@
-import React, { ComponentType, useMemo, useState } from "react";
+import { Store } from "@/stores/types";
+import setApiClientToken from "@/utils/setApiClientToken";
+import { proxy, unProxy } from "ajax-hook";
+import React, { ComponentType, useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styles from "./withUtils.module.scss";
 
 interface UtilContextValue {
@@ -15,38 +20,43 @@ interface UtilContextValue {
 export const UtilContext = React.createContext({} as UtilContextValue);
 export default (_Component: ComponentType) => {
   let loadingTimer: NodeJS.Timeout;
+  let loadingDelayTimer: NodeJS.Timeout;
   let toastTimer: NodeJS.Timeout;
 
   return (props: ComponentType["propTypes"]) => {
     const [loadingElement, setLoadingElement] = useState<JSX.Element>();
     const [toastElement, setToastElement] = useState<JSX.Element>();
+    const component = useMemo(() => <_Component {...props} />, [props]);
+    const token = useSelector((state: Store) => state.main.token);
+    const navigate = useNavigate();
+
     const utils = useMemo(
       () => ({
         showLoading(mask?: boolean) {
-          setLoadingElement(
-            <div
-              className={`w-full h-full fixed top-0 flex justify-center items-center ${
-                mask ? "pointer-events-auto" : "pointer-events-none"
-              }`}
-              style={{ backgroundColor: "rgba(147 197 253 0.5)" }}
-            >
-              <div className="w-1/3 aspect-square rounded-2xl flex justify-center items-center bg-blue-300">
-                <div className={styles.ldsBea}>
-                  <div></div>
-                  <div></div>
-                  <div></div>
+          loadingDelayTimer = setTimeout(() => {
+            setLoadingElement(
+              <div
+                className={`w-full h-full fixed top-0 flex justify-center items-center ${
+                  mask ? "pointer-events-auto" : "pointer-events-none"
+                }`}
+                style={{ backgroundColor: "rgba(147 197 253 0.5)" }}
+              >
+                <div className="w-1/3 aspect-square rounded-2xl flex justify-center items-center bg-blue-300">
+                  <div className={styles.ldsBea}>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
+            );
+          }, 300);
           clearTimeout(loadingTimer);
-          loadingTimer = setTimeout(() => {
-            setLoadingElement(undefined);
-            clearTimeout(loadingTimer);
-          }, 180000);
+          loadingTimer = setTimeout(utils.hiddenLoading, 180000);
         },
         hiddenLoading() {
           setLoadingElement(undefined);
+          clearTimeout(loadingDelayTimer);
           clearTimeout(loadingTimer);
         },
         showToast(
@@ -68,10 +78,7 @@ export default (_Component: ComponentType) => {
             </div>
           );
           clearTimeout(toastTimer);
-          toastTimer = setTimeout(() => {
-            setToastElement(undefined);
-            clearTimeout(toastTimer);
-          }, delay || 3000);
+          toastTimer = setTimeout(utils.hiddenToast, delay || 3000);
         },
         hiddenToast() {
           setToastElement(undefined);
@@ -80,7 +87,23 @@ export default (_Component: ComponentType) => {
       }),
       []
     );
-    const component = useMemo(() => <_Component {...props} />, [props]);
+
+    useEffect(() => {
+      setApiClientToken(token);
+      proxy({
+        onResponse: (response, handler) => {
+          if (response.status >= 400 && response.status <= 499) {
+            utils.showToast(response.response.msg);
+            navigate("/login");
+          }
+          if (response.status >= 500 && response.status <= 599) {
+            utils.showToast(response.response.msg);
+          }
+          handler.next(response);
+        },
+      });
+      return () => unProxy();
+    }, [token]);
 
     return (
       <UtilContext.Provider value={utils}>

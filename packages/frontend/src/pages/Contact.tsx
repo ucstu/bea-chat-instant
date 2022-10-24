@@ -4,7 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getContacts } from "../apis/index";
+import { queryContacts } from "../apis/index";
 import Header from "../components/Header";
 
 const arr = [
@@ -36,7 +36,7 @@ export default function Contact() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getContacts({}).then((_contacts) => {
+    queryContacts({}).then((_contacts) => {
       dispatch(setContacts(_contacts));
     });
   }, []);

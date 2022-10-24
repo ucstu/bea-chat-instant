@@ -14,10 +14,14 @@ export class Service {
    * @returns any 成功
    * @throws ApiError
    */
-  public postContacts({
+  public addContacts({
     requestBody,
   }: {
     requestBody?: {
+      /**
+       * 用户ID
+       */
+      userID: string;
       /**
        * 用户名称
        */
@@ -50,7 +54,7 @@ export class Service {
    * @returns UserInfo 成功
    * @throws ApiError
    */
-  public getContacts({
+  public queryContacts({
     size,
     page,
     current,
@@ -73,15 +77,15 @@ export class Service {
     /**
      * 查询条件
      */
-    where?: any[];
+    where?: Array<string>;
     /**
      * 查询字段
      */
-    fields?: any[];
+    fields?: Array<string>;
     /**
      * 排序方式
      */
-    sort?: any[];
+    sort?: Array<string>;
   }): CancelablePromise<Array<UserInfo>> {
     return this.httpRequest.request({
       method: "GET",
@@ -133,7 +137,7 @@ export class Service {
    * @returns any 成功
    * @throws ApiError
    */
-  public putContacts({
+  public updateContact({
     contactId,
     requestBody,
   }: {
@@ -177,7 +181,7 @@ export class Service {
    * @returns UserInfo 成功
    * @throws ApiError
    */
-  public getContacts1({
+  public queryContact({
     contactId,
     fields,
   }: {
@@ -185,7 +189,7 @@ export class Service {
     /**
      * 查询字段，数组
      */
-    fields?: any[];
+    fields?: Array<string>;
   }): CancelablePromise<UserInfo> {
     return this.httpRequest.request({
       method: "GET",

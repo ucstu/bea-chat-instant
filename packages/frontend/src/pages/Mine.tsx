@@ -59,7 +59,7 @@ export default function Mine() {
           fontWeight: "bold",
           boxSizing: "border-box",
         }}
-        onClick={() => navigate("/chat/set")}
+        onClick={() => navigate("/setting")}
       >
         设置
         <span className="absolute right-5" style={{ color: "#bfbfbf" }}>

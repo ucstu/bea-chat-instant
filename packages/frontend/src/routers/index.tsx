@@ -1,4 +1,5 @@
 import { Store } from "@/stores/types";
+import setApiClientToken from "@/utils/setApiClientToken";
 import Main from "@/views/Main";
 import React, { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -37,13 +38,22 @@ export default function WQRoute() {
           <Route index element={<Navigate to="/message" />} />
           <Route
             path="message"
-            element={<LazyLoad componentName="Message" />}
+            element={
+              <AuthOrNot component={<LazyLoad componentName="Message" />} />
+            }
           />
           <Route
             path="contact"
-            element={<LazyLoad componentName="Contact" />}
+            element={
+              <AuthOrNot component={<LazyLoad componentName="Contact" />} />
+            }
           />
-          <Route path="mine" element={<LazyLoad componentName="Mine" />} />
+          <Route
+            path="mine"
+            element={
+              <AuthOrNot component={<LazyLoad componentName="Mine" />} />
+            }
+          />
         </Route>
         <Route path="/login" element={<LazyLoad componentName="Login" />} />
         <Route
@@ -52,9 +62,14 @@ export default function WQRoute() {
         />
         <Route
           path="/chat/:userID"
-          element={<LazyLoad componentName="Chat" />}
+          element={<AuthOrNot component={<LazyLoad componentName="Chat" />} />}
         />
-        <Route path="/chat/set" element={<LazyLoad componentName="Set" />} />
+        <Route
+          path="/setting"
+          element={
+            <AuthOrNot component={<LazyLoad componentName="Setting" />} />
+          }
+        />
       </Routes>
     </div>
   );
@@ -65,6 +80,9 @@ interface AuthOrNotProps {
 }
 const AuthOrNot = React.memo(({ component }: AuthOrNotProps) => {
   const token = useSelector((state: Store) => state.main.token);
+  useEffect(() => {
+    setApiClientToken(token);
+  }, [token]);
   return token ? component : <Navigate to="/login" />;
 });
 

@@ -14,7 +14,7 @@ export class DefaultService {
    * @returns any 成功
    * @throws ApiError
    */
-  public postLogin({
+  public userLogin({
     requestBody,
   }: {
     requestBody?: {
@@ -53,7 +53,7 @@ export class DefaultService {
    * @returns any 成功
    * @throws ApiError
    */
-  public postRegister({
+  public userRegister({
     requestBody,
   }: {
     requestBody?: {
