@@ -1,3 +1,4 @@
+import { Store } from "@/stores/types";
 import { EitherOr } from "@/types";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -7,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styles from "./styles/TabBar.module.scss";
 
@@ -28,10 +30,19 @@ function getNavLinkClassName({ isActive }: GetNLCNameParm): string | undefined {
 }
 
 export default React.memo(() => {
+  const messages = useSelector((state: Store) => state.message);
   return (
     <div className="w-full h-14 sticky bottom-0 flex-shrink-0 flex justify-around bg-gray-50">
       <NavLink to="/message" className={getNavLinkClassName}>
-        <NavLinkItem icon={faUserXmark} badge name="消息" />
+        <NavLinkItem
+          icon={faUserXmark}
+          count={
+            Object.values(messages)
+              .flat()
+              .filter((message) => !message.readied).length
+          }
+          name="消息"
+        />
       </NavLink>
       <NavLink to="/contact" className={getNavLinkClassName}>
         <NavLinkItem icon={faUserCircle} name="联系人" />
@@ -60,11 +71,11 @@ const NavLinkItem = React.memo(
       <div className="relative">
         <div className="text-center text-gray-500">
           {icon && <FontAwesomeIcon icon={icon} />}
-          {(badge || count) && (
+          {badge || count ? (
             <div className="w-3 h-3 absolute top-0 right-0 rounded-full bg-red-600 text-xs font-medium">
               {count || ""}
             </div>
-          )}
+          ) : null}
         </div>
         {name}
       </div>

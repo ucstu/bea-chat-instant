@@ -13,6 +13,7 @@ export default function Message() {
   // !这是一个键为对方用户ID的对象 (作用等同于Map)
   const messages = useSelector((store: Store) => store.message);
   const contacts = useSelector((store: Store) => store.main.contacts);
+  const userInfo = useSelector((store: Store) => store.main.userInfo);
   const navigate = useNavigate();
   const gotoChat = useCallback((userID: string) => {
     navigate(`/chat/${userID}`);
@@ -24,17 +25,18 @@ export default function Message() {
         middle={<img alt="Bea" src="bea.svg" className="h-12" />}
         right={<FontAwesomeIcon icon={faAdd} size="xl" />}
       />
-      {Object.entries(messages).map(
-        ([userID, messages]) =>
-          contacts[userID] && (
+      {Object.entries(messages).map(([userID, messages]) => {
+        if (contacts[userID] || userInfo?.userID === userID) {
+          return (
             <MessageItem
               key={userID}
-              userInfo={contacts[userID]}
+              userInfo={contacts[userID] || userInfo}
               messages={messages}
               onClick={gotoChat}
             />
-          )
-      )}
+          );
+        }
+      })}
     </>
   );
 }
@@ -47,6 +49,8 @@ interface MessageItemProp {
 const MessageItem = React.memo(
   ({ userInfo, messages, onClick: gotoChat }: MessageItemProp) => {
     const notReadiedMessages = messages.filter((message) => !message.readied);
+    console.log(messages, notReadiedMessages);
+
     return (
       <div
         className={styles.messageItem}

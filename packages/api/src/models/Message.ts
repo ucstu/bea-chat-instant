@@ -2,7 +2,18 @@
 /* tslint:disable */
 /* eslint-disable */
 
+/**
+ * 用户消息
+ */
 export type Message = {
+  /**
+   * 发起者ID
+   */
+  senderID: string;
+  /**
+   * 接收者ID
+   */
+  receiverID: string;
   /**
    * 发送时间
    */

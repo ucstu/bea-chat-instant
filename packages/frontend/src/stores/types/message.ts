@@ -9,6 +9,8 @@ export namespace Message {
 }
 
 export interface Message {
+  senderID: string;
+  receiverID: string;
   /* 消息时间 */
   dateTime: string;
   /* 消息类型 */

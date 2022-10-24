@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
-import { UtilContext } from "@/hocs/withUtils";
+import { MailContext } from "@/hocMethods/withMail";
+import { UtilContext } from "@/hocMethods/withUtils";
 import type { Store } from "@/stores/types";
+import { Message } from "@bea-chat/api";
 import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useMemo } from "react";
@@ -8,10 +10,12 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function Chart() {
+  const contacts = useSelector((store: Store) => store.main.contacts);
+  const { connected, sendMessage } = useContext(MailContext);
+  const utils = useContext(UtilContext);
   const { userID } = useParams();
   const navigate = useNavigate();
-  const utils = useContext(UtilContext);
-  const contacts = useSelector((store: Store) => store.main.contacts);
+
   const userInfo = useMemo(
     () => (userID ? contacts[userID] : undefined),
     [userID, contacts]
@@ -32,6 +36,23 @@ export default function Chart() {
         }
         title={userInfo?.name || "用户"}
       />
+      <div>
+        <input type="text" />
+        <button
+          onClick={() =>
+            userID &&
+            sendMessage({
+              receiverID: userID,
+              msgType: Message.msgType.Text,
+              content: "你好",
+              dateTime: "2022-08-24",
+              readied: false,
+            })
+          }
+        >
+          发送
+        </button>
+      </div>
     </>
   );
 }

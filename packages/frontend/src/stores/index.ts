@@ -1,3 +1,4 @@
+import createIdbStorage from "@piotr-cz/redux-persist-idb-storage/src";
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import {
   FLUSH,
@@ -9,14 +10,16 @@ import {
   REGISTER,
   REHYDRATE,
 } from "reduxjs-toolkit-persist";
-import storage from "reduxjs-toolkit-persist/es/storage";
+import defaultStorage from "reduxjs-toolkit-persist/es/storage";
 import autoMergeLevel1 from "reduxjs-toolkit-persist/lib/stateReconciler/autoMergeLevel1";
 import main from "./main";
 import message from "./message";
 
 const persistConfig = {
   key: "root",
-  storage: storage,
+  storage: globalThis.indexedDB
+    ? createIdbStorage({ name: "bea", storeName: "store" })
+    : defaultStorage,
   stateReconciler: autoMergeLevel1,
 };
 

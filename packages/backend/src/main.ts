@@ -6,6 +6,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ContactController } from "./controllers/ContactController";
 import { UserController } from "./controllers/UserController";
 import { UserInfo } from "./entities/UserInfo";
+import { MessageGateWay } from "./gateways/MessageGateWay";
 import { JwtStrategy } from "./security/JwtStrategy";
 import { ContactService } from "./services/ContactService";
 import { UserService } from "./services/UserService";
@@ -21,7 +22,7 @@ import { UserService } from "./services/UserService";
   providers: [UserService],
   controllers: [UserController],
 })
-class AuthModule {}
+class UserModule {}
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserInfo])],
@@ -32,9 +33,21 @@ class ContactModule {}
 
 @Module({
   imports: [
-    AuthModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: "7d" },
+    }),
+  ],
+  providers: [MessageGateWay],
+})
+export class WebSocketModule {}
+
+@Module({
+  imports: [
+    UserModule,
     ContactModule,
     PassportModule,
+    WebSocketModule,
     TypeOrmModule.forRoot({
       type: "postgres",
       url: `postgres://test:test@192.168.3.2/test`,

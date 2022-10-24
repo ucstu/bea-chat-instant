@@ -1,5 +1,5 @@
 import { userRegister } from "@/apis";
-import { UtilContext } from "@/hocs/withUtils";
+import { UtilContext } from "@/hocMethods/withUtils";
 import { setToken, setUserInfo } from "@/stores/main";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import type { FontAwesomeIconProps } from "@fortawesome/react-fontawesome";

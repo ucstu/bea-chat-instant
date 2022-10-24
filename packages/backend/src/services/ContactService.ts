@@ -54,11 +54,14 @@ export class ContactService {
       where: { userID: new FindOperator("equal", userInfo.userID) },
     });
     if (!userInfo) return new HttpResponse(40003, "您的账号已被注销");
-    const contacts = (await this.usersRepository.query(
-      "select * from user_info,user_info_contacts_user_info where user_info_contacts_user_info.user_id_1 = $1",
+    const contacts = await this.usersRepository.query(
+      "select user_id as userID, name, avatar from user_info,user_info_contacts_user_info where user_info_contacts_user_info.user_id_1 = $1",
       [userInfo.userID]
-    )) as Array<UserInfo>;
-    return contacts;
+    );
+    return contacts.map((userInfo) => ({
+      ...userInfo,
+      userID: userInfo.userid,
+    })) as Array<UserInfo>;
   }
 
   async getContact(userInfo: UserInfo, contactID: UserInfo["userID"]) {

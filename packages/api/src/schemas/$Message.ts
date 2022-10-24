@@ -2,7 +2,18 @@
 /* tslint:disable */
 /* eslint-disable */
 export const $Message = {
+  description: `用户消息`,
   properties: {
+    senderID: {
+      type: "string",
+      description: `发起者ID`,
+      isRequired: true,
+    },
+    receiverID: {
+      type: "string",
+      description: `接收者ID`,
+      isRequired: true,
+    },
     dateTime: {
       type: "string",
       description: `发送时间`,

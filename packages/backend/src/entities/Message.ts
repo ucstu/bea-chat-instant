@@ -8,6 +8,16 @@ export class Message {
   @PrimaryGeneratedColumn()
   msgID: string;
   /**
+   * 发送者ID
+   */
+  @Column()
+  senderID: boolean;
+  /**
+   * 接收者ID
+   */
+  @Column()
+  receiverID: boolean;
+  /**
    * 消息内容
    */
   @Column()

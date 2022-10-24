@@ -627,6 +627,16 @@
       "Message": {
         "type": "object",
         "properties": {
+          "senderID": {
+            "type": "string",
+            "title": "发起者ID",
+            "description": "发起者ID"
+          },
+          "receiverID": {
+            "type": "string",
+            "title": "接收者ID",
+            "description": "接收者ID"
+          },
           "dateTime": {
             "type": "string",
             "title": "发送时间",
@@ -660,10 +670,26 @@
             "description": "已读状态"
           }
         },
-        "required": ["dateTime", "msgType", "content", "readied"],
-        "x-apifox-orders": ["dateTime", "msgType", "content", "readied"],
+        "required": [
+          "dateTime",
+          "msgType",
+          "content",
+          "readied",
+          "senderID",
+          "receiverID"
+        ],
+        "x-apifox-orders": [
+          "senderID",
+          "receiverID",
+          "dateTime",
+          "msgType",
+          "content",
+          "readied"
+        ],
+        "title": "用户消息",
         "x-apifox-ignore-properties": [],
-        "x-apifox-folder": ""
+        "x-apifox-folder": "",
+        "description": "用户消息"
       },
       "UserInfo": {
         "type": "object",
@@ -686,8 +712,10 @@
         },
         "required": ["userID", "name", "avatar"],
         "x-apifox-orders": ["userID", "name", "avatar"],
+        "title": "用户信息",
         "x-apifox-ignore-properties": [],
-        "x-apifox-folder": ""
+        "x-apifox-folder": "",
+        "description": "用户信息"
       }
     }
   },

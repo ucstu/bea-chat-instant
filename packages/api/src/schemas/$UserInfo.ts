@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export const $UserInfo = {
+  description: `用户信息`,
   properties: {
     userID: {
       type: "string",

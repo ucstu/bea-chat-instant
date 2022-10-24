@@ -2,6 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
+/**
+ * 用户信息
+ */
 export type UserInfo = {
   /**
    * 用户ID

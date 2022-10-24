@@ -62,9 +62,9 @@ declare abstract class BaseHttpRequest {
     constructor(config: OpenAPIConfig);
     abstract request<T>(options: ApiRequestOptions): CancelablePromise<T>;
 }
-/* istanbul ignore file */
-/* tslint:disable */
-/* eslint-disable */
+/**
+ * 用户信息
+ */
 type UserInfo = {
     /**
      * 用户ID
@@ -290,7 +290,18 @@ declare class ApiError extends Error {
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+/**
+ * 用户消息
+ */
 type Message = {
+    /**
+     * 发起者ID
+     */
+    senderID: string;
+    /**
+     * 接收者ID
+     */
+    receiverID: string;
     /**
      * 发送时间
      */
@@ -324,7 +335,18 @@ declare namespace Message {
 /* tslint:disable */
 /* eslint-disable */
 declare const $Message: {
+    readonly description: "\u7528\u6237\u6D88\u606F";
     readonly properties: {
+        readonly senderID: {
+            readonly type: "string";
+            readonly description: "\u53D1\u8D77\u8005ID";
+            readonly isRequired: true;
+        };
+        readonly receiverID: {
+            readonly type: "string";
+            readonly description: "\u63A5\u6536\u8005ID";
+            readonly isRequired: true;
+        };
         readonly dateTime: {
             readonly type: "string";
             readonly description: "\u53D1\u9001\u65F6\u95F4";
@@ -350,6 +372,7 @@ declare const $Message: {
 /* tslint:disable */
 /* eslint-disable */
 declare const $UserInfo: {
+    readonly description: "\u7528\u6237\u4FE1\u606F";
     readonly properties: {
         readonly userID: {
             readonly type: "string";

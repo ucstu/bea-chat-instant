@@ -4,35 +4,13 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { queryContacts } from "../apis/index";
 import Header from "../components/Header";
 
-const arr = [
-  1,
-  2,
-  "联系人",
-  4,
-  "联系人",
-  "联系人",
-  7,
-  "联系人",
-  9,
-  "联系人",
-  11,
-  12,
-  13,
-  14,
-  15,
-  14,
-  15,
-  14,
-  15,
-  14,
-  15,
-];
-
 export default function Contact() {
   const contacts = useSelector((store: Store) => store.main.contacts);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,7 +26,11 @@ export default function Contact() {
         right={<FontAwesomeIcon icon={faSearch} size="xl" />}
       />
       {Object.entries(contacts).map(([userID, userInfo]) => (
-        <div className="h-12.5 w-full flex pl-4" key={userID}>
+        <div
+          className="h-12.5 w-full flex pl-4"
+          key={userID}
+          onClick={() => navigate(`/chat/${userID}`)}
+        >
           <img
             src={userInfo.avatar}
             style={{
