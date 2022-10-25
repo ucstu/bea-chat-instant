@@ -1,17 +1,37 @@
+import UserCard from "@/components/UserCard";
 import { setContacts } from "@/stores/main";
 import { Store } from "@/stores/types";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { usePopper } from "react-popper";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { queryContacts } from "../apis/index";
+import { queryContacts, UserInfo } from "../apis/index";
 import Header from "../components/Header";
 
 export default function Contact() {
   const contacts = useSelector((store: Store) => store.main.contacts);
+  const [referenceElement, setReferenceElement] =
+    useState<SVGSVGElement | null>(null);
+  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
+    null
+  );
+  const [arrowElement, setArrowElement] = useState<HTMLDivElement | null>(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    modifiers: [
+      {
+        name: "arrow",
+        options: { element: arrowElement },
+      },
+    ],
+  });
+  const [showSearch, setShowSearch] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const gotoChat = useCallback((userID: string) => {
+    navigate(`/chat/${userID}`);
+  }, []);
 
   useEffect(() => {
     queryContacts({}).then((_contacts) => {
@@ -23,35 +43,95 @@ export default function Contact() {
     <>
       <Header
         title="联系人"
-        right={<FontAwesomeIcon icon={faSearch} size="xl" />}
+        right={
+          <>
+            <FontAwesomeIcon
+              icon={faSearch}
+              size="xl"
+              ref={setReferenceElement}
+              onClick={() => {
+                setShowSearch(!showSearch);
+              }}
+            />
+            <div
+              ref={setPopperElement}
+              style={{
+                ...styles.popper,
+                visibility: showSearch ? "inherit" : "hidden",
+              }}
+              className="bg-white"
+              {...attributes.popper}
+            >
+              <UserSearch
+                contacts={Object.values(contacts).flat()}
+                onClick={async (userInfo: UserInfo) => {
+                  gotoChat(userInfo.userID);
+                }}
+              />
+              <div ref={setArrowElement} style={styles.arrow} />
+            </div>
+          </>
+        }
       />
-      {Object.entries(contacts).map(([userID, userInfo]) => (
-        <div
-          className="h-12.5 w-full flex pl-4"
-          key={userID}
-          onClick={() => navigate(`/chat/${userID}`)}
-        >
-          <img
-            src={userInfo.avatar}
-            style={{
-              height: "40px",
-              width: "40px",
-              borderRadius: "5px",
-
-              alignSelf: "center",
-            }}
+      <div className="px-2">
+        {Object.entries(contacts).map(([userID, userInfo]) => (
+          <UserCard
+            key={`c-${userID}`}
+            userID={userID}
+            userInfo={userInfo}
+            onClick={(userID) => navigate(`/chat/${userID}`)}
           />
-          <div
-            className="ml-4 w-full"
-            style={{
-              borderBottom: "1px solid #e6e3e3",
-              lineHeight: "50px",
-            }}
-          >
-            {userInfo.name}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </>
   );
 }
+
+export interface UserSearchProps {
+  contacts: Array<UserInfo>;
+  onClick: (userInfo: UserInfo) => void;
+}
+function debounce(fn: (...args: [any]) => void, wait: number) {
+  let timeout: NodeJS.Timer;
+  return function (...args: [any]) {
+    if (timeout !== null) clearTimeout(timeout);
+    timeout = setTimeout(() => fn(...args), wait);
+  };
+}
+const UserSearch = React.memo(({ contacts, onClick }: UserSearchProps) => {
+  const [username, setUsername] = useState("");
+  const [cards, setCards] = useState<JSX.Element[]>([]);
+  const computeNewItems = useCallback(
+    debounce((username) => {
+      setCards(
+        contacts
+          .filter((contact) => contact.name.includes(username))
+          .map((contact) => (
+            <UserCard
+              key={`cs-${contact.userID}`}
+              userID={contact.userID}
+              userInfo={contact}
+              onClick={onClick}
+            />
+          ))
+      );
+    }, 500),
+    [contacts]
+  );
+
+  return (
+    <div className="border-2 border-blue-300 rounded-md">
+      <input
+        value={username}
+        className="border-b-2 border-blue-200"
+        autoFocus={true}
+        type="text"
+        onChange={(e) => {
+          setUsername(e.target.value);
+          computeNewItems(e.target.value);
+        }}
+      />
+      {cards}
+    </div>
+  );
+});

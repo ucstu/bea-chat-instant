@@ -16,9 +16,16 @@ export class ContactService {
       where: { userID: new FindOperator("equal", userInfo.userID) },
     });
     if (!userInfo) return new HttpResponse(40003, "您的账号已被注销");
-    userInfo.contacts.push(contactInfo);
-    await this.usersRepository.save(userInfo);
-    return new HttpResponse(20001, "添加成功");
+    try {
+      await this.usersRepository.query(
+        `INSERT INTO user_info_contacts_user_info VALUES($1,$2);
+        INSERT INTO user_info_contacts_user_info VALUES($2,$1);`,
+        [userInfo.userID, contactInfo.userID]
+      );
+      return new HttpResponse(20001, "添加成功");
+    } catch (error) {
+      return new HttpResponse(50001, "已经添加过了");
+    }
   }
 
   async removeContact(userInfo: UserInfo, contactID: UserInfo["userID"]) {

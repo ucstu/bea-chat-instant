@@ -1,7 +1,7 @@
 import { UserInfo } from "@/entities/UserInfo";
 import { HttpResponse } from "@/models/HttpResponse";
 import { UserService } from "@/services/UserService";
-import { Body, Controller, Get, Param, Post, Res } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query, Res } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { Response } from "express";
 
@@ -64,7 +64,7 @@ export class UserController {
   }
 
   @Get("/search")
-  async searchUser(@Param("username") username: string) {
+  async searchUser(@Query("username") username: string) {
     return this.loginService.searchUser(username);
   }
 }
