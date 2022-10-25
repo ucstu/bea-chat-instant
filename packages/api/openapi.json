@@ -620,6 +620,82 @@
         },
         "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45108567-run"
       }
+    },
+    "/search": {
+      "get": {
+        "summary": "搜索用户",
+        "x-apifox-folder": "",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "operationId": "UserSearch",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "用户名，eg：张三",
+            "required": true,
+            "example": "{% mock 'ctitle' %}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "title": "用户信息",
+                    "$ref": "#/components/schemas/UserInfo",
+                    "x-apifox-overrides": {},
+                    "description": "用户信息"
+                  },
+                  "title": "数据主体",
+                  "description": "数据主体"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": [
+                      {
+                        "userID": "b8A6c4DE-9a06-e6E2-DCFe-fda5A7CedfD6",
+                        "name": "李霞",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "bc0C9B62-0153-9731-BD6c-1Ce357dd3Fdc",
+                        "name": "黄娟",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "fb2D08C5-D84e-BeAA-8a8f-ebdFB9dd7137",
+                        "name": "张秀英",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "7CFceb1E-aaB4-Ce7C-F8F6-D62BCfD6dAE5",
+                        "name": "苏杰",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "1dc5Ba79-606D-cB8C-F2Ef-1B24A6d2d548",
+                        "name": "朱秀英",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45743167-run"
+      }
     }
   },
   "components": {

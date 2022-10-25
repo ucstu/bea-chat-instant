@@ -2,7 +2,7 @@ import { BeaApiClient } from "@bea-chat/api";
 
 export const client = new BeaApiClient();
 
-let { userLogin, userRegister } = client.default;
+let { userLogin, userRegister, userSearch } = client.default;
 let {
   addContacts,
   deleteContacts,
@@ -13,6 +13,7 @@ let {
 
 userLogin = userLogin.bind(client.default);
 userRegister = userRegister.bind(client.default);
+userSearch = userSearch.bind(client.default);
 addContacts = addContacts.bind(client.service);
 deleteContacts = deleteContacts.bind(client.service);
 updateContact = updateContact.bind(client.service);
@@ -23,6 +24,7 @@ export * from "@bea-chat/api";
 export {
   userLogin,
   userRegister,
+  userSearch,
   addContacts,
   deleteContacts,
   updateContact,

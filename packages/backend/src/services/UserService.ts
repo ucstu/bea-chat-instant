@@ -47,4 +47,10 @@ export class UserService {
     if (!result[0]) return new HttpResponse(50001, "服务器内部错误");
     return result[0];
   }
+
+  async searchUser(username: string) {
+    return await this.usersRepository.find({
+      where: { name: new FindOperator("equal", username) },
+    });
+  }
 }

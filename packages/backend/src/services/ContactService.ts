@@ -55,7 +55,7 @@ export class ContactService {
     });
     if (!userInfo) return new HttpResponse(40003, "您的账号已被注销");
     const contacts = await this.usersRepository.query(
-      "select user_id as userID, name, avatar from user_info,user_info_contacts_user_info where user_info_contacts_user_info.user_id_1 = $1",
+      "select user_id as userID, name, avatar from user_info,user_info_contacts_user_info where user_info_contacts_user_info.user_id_1 = $1 or user_info_contacts_user_info.user_id_2 = $1",
       [userInfo.userID]
     );
     return contacts.map((userInfo) => ({

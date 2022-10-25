@@ -86,4 +86,26 @@ export class DefaultService {
       },
     });
   }
+
+  /**
+   * 搜索用户
+   * @returns UserInfo 成功
+   * @throws ApiError
+   */
+  public userSearch({
+    username,
+  }: {
+    /**
+     * 用户名，eg：张三
+     */
+    username: string;
+  }): CancelablePromise<Array<UserInfo>> {
+    return this.httpRequest.request({
+      method: "GET",
+      url: "/search",
+      query: {
+        username: username,
+      },
+    });
+  }
 }

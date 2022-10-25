@@ -261,6 +261,17 @@ declare class DefaultService {
          */
         userInfo: UserInfo;
     }>;
+    /**
+     * 搜索用户
+     * @returns UserInfo 成功
+     * @throws ApiError
+     */
+    userSearch({ username }: {
+        /**
+         * 用户名，eg：张三
+         */
+        username: string;
+    }): CancelablePromise<Array<UserInfo>>;
 }
 type HttpRequestConstructor = new (config: OpenAPIConfig) => BaseHttpRequest;
 declare class BeaApiClient {

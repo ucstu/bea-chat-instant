@@ -1,10 +1,11 @@
 import Header from "@/components/Header";
+import { MailContext } from "@/hocMethods/withMail";
 import type { Store } from "@/stores/types";
 import type { UserInfo } from "@/stores/types/main";
 import type { Message as MessageType } from "@/stores/types/message";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles/Message.module.scss";
@@ -14,6 +15,7 @@ export default function Message() {
   const messages = useSelector((store: Store) => store.message);
   const contacts = useSelector((store: Store) => store.main.contacts);
   const userInfo = useSelector((store: Store) => store.main.userInfo);
+  const { connected } = useContext(MailContext);
   const navigate = useNavigate();
   const gotoChat = useCallback((userID: string) => {
     navigate(`/chat/${userID}`);
@@ -22,7 +24,13 @@ export default function Message() {
   return (
     <>
       <Header
-        middle={<img alt="Bea" src="bea.svg" className="h-12" />}
+        middle={
+          <img
+            alt="Bea"
+            src={`bea${connected ? "" : "-down"}.svg`}
+            className="h-12"
+          />
+        }
         right={<FontAwesomeIcon icon={faAdd} size="xl" />}
       />
       {Object.entries(messages).map(([userID, messages]) => {
@@ -49,8 +57,6 @@ interface MessageItemProp {
 const MessageItem = React.memo(
   ({ userInfo, messages, onClick: gotoChat }: MessageItemProp) => {
     const notReadiedMessages = messages.filter((message) => !message.readied);
-    console.log(messages, notReadiedMessages);
-
     return (
       <div
         className={styles.messageItem}
