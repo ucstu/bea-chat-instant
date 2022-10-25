@@ -5,6 +5,7 @@ import type { Store } from "@/stores/types";
 import { Message } from "@bea-chat/api";
 import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useContext, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -37,21 +38,28 @@ export default function Chart() {
         title={userInfo?.name || "用户"}
       />
       <div>
-        <input type="text" />
-        <button
-          onClick={() =>
-            userID &&
-            sendMessage({
-              receiverID: userID,
-              msgType: Message.msgType.Text,
-              content: "你好",
-              dateTime: "2022-08-24",
-              readied: false,
-            })
-          }
-        >
-          发送
-        </button>
+        {/* {输入块} */}
+        <div className="absolute bg-slate-500 bottom-0 h-12 flex w-full">
+          <input
+            type="text"
+            className="p-0 m-0 w-80 h-10 self-center ml-2  "
+            style={{ borderRadius: "6px" }}
+          />
+          <button
+            onClick={() =>
+              userID &&
+              sendMessage({
+                receiverID: userID,
+                msgType: Message.msgType.Text,
+                content: "你好",
+                dateTime: dayjs().toISOString(),
+                readied: false,
+              })
+            }
+          >
+            发送
+          </button>
+        </div>
       </div>
     </>
   );

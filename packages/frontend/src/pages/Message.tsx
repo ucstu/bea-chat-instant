@@ -8,6 +8,8 @@ import type { UserInfo } from "@/stores/types/main";
 import type { Message as MessageType } from "@/stores/types/message";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import React, { useCallback, useContext, useState } from "react";
 import { usePopper } from "react-popper";
 import { useDispatch, useSelector } from "react-redux";
@@ -106,9 +108,17 @@ interface MessageItemProp {
   messages: Array<MessageType>;
   onClick: (userID: string) => void;
 }
+interface timeType extends Dayjs {
+  $H?: string;
+  $m?: string;
+}
 const MessageItem = React.memo(
   ({ userInfo, messages, onClick: gotoChat }: MessageItemProp) => {
     const notReadiedMessages = messages.filter((message) => !message.readied);
+    const time: timeType = dayjs(
+      notReadiedMessages[notReadiedMessages.length - 1].dateTime
+    );
+
     return (
       <div
         className={styles.messageItem}
@@ -126,6 +136,12 @@ const MessageItem = React.memo(
           <div className={styles.messageItemContent}>
             {notReadiedMessages[notReadiedMessages.length - 1].content}
           </div>
+        </div>
+        <div
+          className="font-mono "
+          style={{ fontSize: "13px", marginLeft: "30px", color: "#6b7280" }}
+        >
+          {time.$H + ":" + time.$m}
         </div>
       </div>
     );

@@ -5,18 +5,15 @@ import { Message } from "./types/message";
 
 const initialState: MessageState = {};
 
-type SetMessageAction = PayloadAction<{
-  senderID: string;
-  message: Message;
-}>;
+type SetMessageAction = PayloadAction<Message>;
 export const mainSlice = createSlice({
   name: "message",
   initialState,
   reducers: {
     setMessage(state, action: SetMessageAction) {
-      const { senderID, message } = action.payload;
+      const { senderID } = action.payload;
       if (!state[senderID]) state[senderID] = [];
-      state[senderID].push({ ...message, readied: false });
+      state[senderID].push({ ...action.payload, readied: false });
     },
   },
 });
