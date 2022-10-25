@@ -7,12 +7,14 @@ import { io, Socket } from "socket.io-client";
 
 interface MailContextValue {
   sendMessage: (message: Omit<Message, "senderID">) => void;
+  // onSignal: (callback: (signal: string) => void) => () => void;
   connected: boolean;
 }
 
 export const MailContext = React.createContext({} as MailContextValue);
 export default (_Component: ComponentType) => {
   let socket: Socket;
+  // let onSignalCallback: ((signal: string) => void) | null;
   return (props: ComponentType["propTypes"]) => {
     const component = useMemo(() => <_Component {...props} />, [props]);
     const userID = useSelector((state: Store) => state.main.userInfo?.userID);
@@ -24,6 +26,10 @@ export default (_Component: ComponentType) => {
         sendMessage(message) {
           socket.emit("msg", { ...message, senderID: userID });
         },
+        // onSignal(callback) {
+        //   onSignalCallback = callback;
+        //   return () => (onSignalCallback = null);
+        // },
         connected,
       }),
       [connected, socket]
@@ -41,7 +47,11 @@ export default (_Component: ComponentType) => {
       socket.on("connect", () => {
         setConnected(socket.connected);
       });
-      socket.on("msg", (message) => {
+      socket.on("msg", (message: Message) => {
+        // if (message.msgType === 5) {
+        //   onSignalCallback?.(message.content);
+        //   return;
+        // }
         dispatch(setMessage(message));
       });
       socket.on("disconnect", () => {

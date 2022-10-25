@@ -71,6 +71,7 @@ export default (_Component: ComponentType) => {
             </div>
           );
           clearTimeout(toastTimer);
+          if (delay === -1) return;
           toastTimer = setTimeout(utils.hiddenToast, delay || 3000);
         },
         hiddenToast() {

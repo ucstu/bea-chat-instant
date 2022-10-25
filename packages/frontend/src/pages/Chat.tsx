@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import { CallContext } from "@/hocMethods/withCall";
 import { MailContext } from "@/hocMethods/withMail";
 import { UtilContext } from "@/hocMethods/withUtils";
 import type { Store } from "@/stores/types";
@@ -12,7 +13,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function Chart() {
   const contacts = useSelector((store: Store) => store.main.contacts);
-  const { connected, sendMessage } = useContext(MailContext);
+  const { sendMessage } = useContext(MailContext);
+  const { callUser } = useContext(CallContext);
   const utils = useContext(UtilContext);
   const { userID } = useParams();
   const navigate = useNavigate();
@@ -38,6 +40,7 @@ export default function Chart() {
         title={userInfo?.name || "用户"}
       />
       <div>
+        <button onClick={() => callUser(userID!)}>打电话</button>
         {/* {输入块} */}
         <div className="absolute bg-slate-500 bottom-0 h-12 flex w-full">
           <input

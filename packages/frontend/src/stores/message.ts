@@ -1,16 +1,15 @@
+import { Message } from "@/apis";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { MessageState } from "./types/message";
-import { Message } from "./types/message";
 
 const initialState: MessageState = {};
 
-type SetMessageAction = PayloadAction<Message>;
 export const mainSlice = createSlice({
   name: "message",
   initialState,
   reducers: {
-    setMessage(state, action: SetMessageAction) {
+    setMessage(state, action: PayloadAction<Message>) {
       const { senderID } = action.payload;
       if (!state[senderID]) state[senderID] = [];
       state[senderID].push({ ...action.payload, readied: false });
