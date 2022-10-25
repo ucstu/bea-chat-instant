@@ -50,7 +50,7 @@ export class UserService {
 
   async searchUser(username: string) {
     return await this.usersRepository.find({
-      where: { name: new FindOperator("equal", username) },
+      where: { name: new FindOperator("like", `%${username}%`) },
     });
   }
 }

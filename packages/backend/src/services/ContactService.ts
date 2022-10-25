@@ -18,9 +18,12 @@ export class ContactService {
     if (!userInfo) return new HttpResponse(40003, "您的账号已被注销");
     try {
       await this.usersRepository.query(
-        `INSERT INTO user_info_contacts_user_info VALUES($1,$2);
-        INSERT INTO user_info_contacts_user_info VALUES($2,$1);`,
+        `INSERT INTO user_info_contacts_user_info VALUES($1,$2);`,
         [userInfo.userID, contactInfo.userID]
+      );
+      await this.usersRepository.query(
+        `INSERT INTO user_info_contacts_user_info VALUES($1,$2);`,
+        [contactInfo.userID, userInfo.userID]
       );
       return new HttpResponse(20001, "添加成功");
     } catch (error) {

@@ -79,7 +79,7 @@ export default function Contact() {
             key={`c-${userID}`}
             userID={userID}
             userInfo={userInfo}
-            onClick={(userID) => navigate(`/chat/${userID}`)}
+            onClick={(userInfo) => navigate(`/chat/${userInfo.userID}`)}
           />
         ))}
       </div>

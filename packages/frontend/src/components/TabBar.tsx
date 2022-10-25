@@ -3,8 +3,8 @@ import { EitherOr } from "@/types";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
   faCommentAlt,
-  faUserCircle,
-  faUserXmark,
+  faUser,
+  faUserFriends,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -35,7 +35,7 @@ export default React.memo(() => {
     <div className="w-full h-14 sticky bottom-0 flex-shrink-0 flex justify-around bg-gray-50">
       <NavLink to="/message" className={getNavLinkClassName}>
         <NavLinkItem
-          icon={faUserXmark}
+          icon={faCommentAlt}
           count={
             Object.values(messages)
               .flat()
@@ -45,10 +45,10 @@ export default React.memo(() => {
         />
       </NavLink>
       <NavLink to="/contact" className={getNavLinkClassName}>
-        <NavLinkItem icon={faUserCircle} name="联系人" />
+        <NavLinkItem icon={faUserFriends} name="联系人" />
       </NavLink>
       <NavLink to="/mine" className={getNavLinkClassName}>
-        <NavLinkItem icon={faCommentAlt} name="我的" />
+        <NavLinkItem icon={faUser} name="我的" />
       </NavLink>
     </div>
   );
