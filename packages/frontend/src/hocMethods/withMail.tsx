@@ -19,12 +19,15 @@ export default (_Component: ComponentType) => {
     const component = useMemo(() => <_Component {...props} />, [props]);
     const userID = useSelector((state: Store) => state.main.userInfo?.userID);
     const token = useSelector((state: Store) => state.main.token);
+
     const [connected, setConnected] = useState(false);
     const dispatch = useDispatch();
     const mail = useMemo<MailContextValue>(
       () => ({
-        sendMessage(message) {
-          socket.emit("msg", { ...message, senderID: userID });
+        sendMessage(_message) {
+          const message = { ..._message, senderID: userID!, readied: true };
+          socket.emit("msg", message);
+          dispatch(setMessage(message));
         },
         // onSignal(callback) {
         //   onSignalCallback = callback;

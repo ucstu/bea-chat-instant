@@ -1,4 +1,6 @@
 import { setToken } from "@/stores/main";
+import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +45,12 @@ export default function set() {
   const navigate = useNavigate();
   return (
     <div className="relative" style={{ height: "100vh", width: "100vw" }}>
-      <Header title="设置" />
+      <Header
+        left={
+          <FontAwesomeIcon icon={faCaretLeft} onClick={() => navigate(-1)} />
+        }
+        title="设置"
+      />
       <ItemCard configure={itemArr} />
       <div className="w-full text-center absolute bottom-0">
         <button
