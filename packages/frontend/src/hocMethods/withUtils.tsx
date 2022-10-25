@@ -10,6 +10,8 @@ interface UtilContextValue {
     delay?: number
   ) => void;
   hiddenToast: () => void;
+  showVideoCall: (element: JSX.Element) => void;
+  hiddenVideoCall: () => void;
 }
 
 export const UtilContext = React.createContext({} as UtilContextValue);
@@ -19,6 +21,7 @@ export default (_Component: ComponentType) => {
   let toastTimer: NodeJS.Timeout;
 
   return (props: ComponentType["propTypes"]) => {
+    const [videoCallElement, setVideoCallElement] = useState<JSX.Element>();
     const [loadingElement, setLoadingElement] = useState<JSX.Element>();
     const [toastElement, setToastElement] = useState<JSX.Element>();
     const component = useMemo(() => <_Component {...props} />, [props]);
@@ -78,6 +81,12 @@ export default (_Component: ComponentType) => {
           setToastElement(undefined);
           clearTimeout(toastTimer);
         },
+        showVideoCall(element: JSX.Element) {
+          setVideoCallElement(element);
+        },
+        hiddenVideoCall() {
+          setVideoCallElement(undefined);
+        },
       }),
       []
     );
@@ -86,7 +95,7 @@ export default (_Component: ComponentType) => {
       <UtilContext.Provider value={utils}>
         <>
           {component}
-          {loadingElement || toastElement}
+          {videoCallElement || loadingElement || toastElement}
         </>
       </UtilContext.Provider>
     );

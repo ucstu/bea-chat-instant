@@ -1,9 +1,10 @@
+import { Message } from "@/apis";
 import Header from "@/components/Header";
 import { CallContext } from "@/hocMethods/withCall";
 import { MailContext } from "@/hocMethods/withMail";
 import { UtilContext } from "@/hocMethods/withUtils";
 import type { Store } from "@/stores/types";
-import { Message, UserInfo } from "@bea-chat/api";
+import { UserInfo } from "@bea-chat/api";
 import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
@@ -80,19 +81,11 @@ export default function Chart() {
         }
         title={userInfo?.name || "用户"}
       />
-      <div
-        style={{
-          height: "calc(100vh - 96px)",
-          position: "relative",
-          overflow: "scroll",
-        }}
-      >
-        <MessageItem content={messageContent} />
+      <button onClick={() => callUser(userInfo!)}>打电话</button>
+      <div style={{ height: "calc(100vh - 96px)", position: "relative" }}>
+        {isSend ? <MessageItem content={messageContent} /> : ""}
       </div>
       <div>
-        <button onClick={() => callUser(userID!)} className="z-50 bg-red-600">
-          打电话
-        </button>
         {/* {输入块} */}
         <div className="absolute bg-slate-500 bottom-0 h-12 flex w-full">
           <input

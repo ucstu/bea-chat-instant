@@ -1,11 +1,4 @@
-export interface UserInfo {
-  /* 用户名 */
-  name: string;
-  /* 用户头像 */
-  avatar: string;
-  /* 用户ID */
-  userID: string;
-}
+import { UserInfo } from "@/apis";
 
 export interface MainState {
   /* 用户Token */
