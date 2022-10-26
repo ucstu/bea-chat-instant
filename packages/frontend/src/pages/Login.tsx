@@ -1,19 +1,20 @@
 import { userLogin } from "@/apis";
-import { UtilContext } from "@/hocMethods/withUtils";
+import useUtils from "@/hooks/useUtils";
 import { setToken, setUserInfo } from "@/stores/main";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import type { FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { InputHTMLAttributes } from "react";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./styles/Login.module.scss";
 
 export default function Login() {
-  const utils = useContext(UtilContext);
+  const utils = useUtils();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState(false);
@@ -126,5 +127,5 @@ const Input = React.memo(
         </div>
       </label>
     );
-  } //
+  }
 );

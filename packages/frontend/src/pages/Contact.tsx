@@ -1,6 +1,7 @@
 import UserCard from "@/components/UserCard";
 import { setContacts } from "@/stores/main";
 import { Store } from "@/stores/types";
+import { debounce } from "@/utils/debounce";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useEffect, useState } from "react";
@@ -12,6 +13,10 @@ import Header from "../components/Header";
 
 export default function Contact() {
   const contacts = useSelector((store: Store) => store.main.contacts);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // start: 设置 popper 相关
   const [referenceElement, setReferenceElement] =
     useState<SVGSVGElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
@@ -26,12 +31,9 @@ export default function Contact() {
       },
     ],
   });
+  // end: 设置 popper 相关
+
   const [showSearch, setShowSearch] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const gotoChat = useCallback((userID: string) => {
-    navigate(`/chat/${userID}`);
-  }, []);
 
   useEffect(() => {
     queryContacts({}).then((_contacts) => {
@@ -63,10 +65,8 @@ export default function Contact() {
               {...attributes.popper}
             >
               <UserSearch
-                contacts={Object.values(contacts).flat()}
-                onClick={async (userInfo: UserInfo) => {
-                  gotoChat(userInfo.userID);
-                }}
+                contacts={Object.values(contacts)}
+                onClick={(userInfo) => navigate(`/chat/${userInfo.userID}`)}
               />
               <div ref={setArrowElement} style={styles.arrow} />
             </div>
@@ -90,13 +90,6 @@ export default function Contact() {
 export interface UserSearchProps {
   contacts: Array<UserInfo>;
   onClick: (userInfo: UserInfo) => void;
-}
-function debounce(fn: (...args: [any]) => void, wait: number) {
-  let timeout: NodeJS.Timer;
-  return function (...args: [any]) {
-    if (timeout !== null) clearTimeout(timeout);
-    timeout = setTimeout(() => fn(...args), wait);
-  };
 }
 const UserSearch = React.memo(({ contacts, onClick }: UserSearchProps) => {
   const [username, setUsername] = useState("");

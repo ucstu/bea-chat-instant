@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import ItemCard from "../components/ItemCard";
+
 const itemArr = [
   {
     options: [
@@ -23,7 +24,11 @@ const itemArr = [
     ],
   },
 ];
-export default function set() {
+
+export default function Setting() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [isShow, setIsShow] = useState(false);
   const nodeRef = useRef(null);
   const maskNode = useRef(null);
@@ -41,8 +46,7 @@ export default function set() {
   function cancelQuit() {
     (maskNode.current as unknown as HTMLElement).style.display = "none";
   }
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   return (
     <div className="relative" style={{ height: "100vh", width: "100vw" }}>
       <Header

@@ -1,26 +1,34 @@
-import { addContacts, userSearch } from "@/apis";
+import {
+  addContacts,
+  Message as MessageType,
+  UserInfo,
+  userSearch,
+} from "@/apis";
 import Header from "@/components/Header";
 import UserCard from "@/components/UserCard";
-import { MailContext } from "@/hocMethods/withMail";
+import useMail from "@/hooks/useMail";
 import { addContact } from "@/stores/main";
 import type { Store } from "@/stores/types";
-import type { UserInfo } from "@/stores/types/main";
-import type { Message as MessageType } from "@/stores/types/message";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useState } from "react";
 import { usePopper } from "react-popper";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles/Message.module.scss";
 
 export default function Message() {
+  const { connected } = useMail();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   // !这是一个键为对方用户ID的对象 (作用等同于Map)
   const messages = useSelector((store: Store) => store.message);
   const contacts = useSelector((store: Store) => store.main.contacts);
-  const userInfo = useSelector((store: Store) => store.main.userInfo);
+  const userInfo = useSelector((store: Store) => store.main.userInfo!);
+
+  // start: 设置 popper 相关
   const [referenceElement, setReferenceElement] =
     useState<SVGSVGElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
@@ -35,13 +43,9 @@ export default function Message() {
       },
     ],
   });
+  // end: 设置 popper 相关
+
   const [showSearch, setShowSearch] = useState(false);
-  const { connected } = useContext(MailContext);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const gotoChat = useCallback((userID: string) => {
-    navigate(`/chat/${userID}`);
-  }, []);
 
   return (
     <>
@@ -73,12 +77,12 @@ export default function Message() {
               {...attributes.popper}
             >
               <UserSearch
-                onClick={async (userInfo: UserInfo) => {
+                onClick={async (userInfo) => {
                   try {
                     await addContacts({ requestBody: userInfo });
                     dispatch(addContact(userInfo));
                   } finally {
-                    gotoChat(userInfo.userID);
+                    navigate(`/chat/${userInfo.userID}`);
                   }
                 }}
               />
@@ -94,7 +98,7 @@ export default function Message() {
               key={userID}
               userInfo={contacts[userID] || userInfo}
               messages={messages}
-              onClick={gotoChat}
+              onClick={(userID) => navigate(`/chat/${userID}`)}
             />
           );
         }
@@ -108,14 +112,10 @@ interface MessageItemProp {
   messages: Array<MessageType>;
   onClick: (userID: string) => void;
 }
-interface timeType extends Dayjs {
-  $H?: string;
-  $m?: string;
-}
 const MessageItem = React.memo(
   ({ userInfo, messages, onClick: gotoChat }: MessageItemProp) => {
     const notReadiedMessages = messages.filter((message) => !message.readied);
-    const time: timeType = dayjs(
+    const time = dayjs(
       notReadiedMessages[notReadiedMessages.length - 1].dateTime
     );
 
@@ -141,7 +141,7 @@ const MessageItem = React.memo(
           className="font-mono "
           style={{ fontSize: "13px", marginLeft: "30px", color: "#6b7280" }}
         >
-          {time.$H + ":" + time.$m}
+          {time.hour() + ":" + time.minute()}
         </div>
       </div>
     );

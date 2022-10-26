@@ -1,52 +1,36 @@
 import { Message } from "@/apis";
 import Header from "@/components/Header";
-import { CallContext } from "@/hocMethods/withCall";
-import { MailContext } from "@/hocMethods/withMail";
-import { UtilContext } from "@/hocMethods/withUtils";
-import type { Store } from "@/stores/types";
-import { UserInfo } from "@bea-chat/api";
+import useCall from "@/hooks/useCall";
+import useMail from "@/hooks/useMail";
+import useMsgs from "@/hooks/useMsgs";
+import useUInfo from "@/hooks/useUInfo";
+import useUtils from "@/hooks/useUtils";
 import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function Chart() {
-  const contacts = useSelector((store: Store) => store.main.contacts);
-  const { sendMessage } = useContext(MailContext);
-  const { callUser } = useContext(CallContext);
-  const { userID } = useParams();
-  const myUserInfo = useSelector((state: Store) => state.main.userInfo);
-  const myAllMessage = useSelector(
-    (state: Store) => state.message[(myUserInfo as UserInfo)?.userID]
-  );
-  const contactAllmessage = useSelector(
-    (state: Store) => state.message[userID!]
-  );
-
-  const utils = useContext(UtilContext);
+  const { sendMessage } = useMail();
+  const { callUser } = useCall();
   const navigate = useNavigate();
-  const nodeRef = useRef(null);
-  // const [isSend, setIsSend] = useState(false);
+  const utils = useUtils();
+
   const [messageContent, SetMessageContent] = useState("");
-  const [position, setPosition] = useState(20);
-  const userInfo = useMemo(
-    () => (userID ? contacts[userID] : undefined),
-    [userID, contacts]
-  );
+  const nodeRef = useRef(null);
+
+  const { userID } = useParams();
+  const messages = useMsgs(userID!);
+  const userInfo = useUInfo(userID!);
 
   useEffect(() => {
     if (!userID) {
       utils.showToast("发生了一些错误，已回退");
       navigate(-1);
+      return;
     }
   }, [userID]);
-
-  function CompareMessage() {
-    myAllMessage;
-  }
 
   function MessageItem(props: any) {
     const { content, avatar } = props;

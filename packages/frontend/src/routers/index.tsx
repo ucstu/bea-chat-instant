@@ -10,6 +10,7 @@ const animationPaths: Array<string> = ["/chat"];
 
 export default function WQRoute() {
   const location = useLocation();
+
   const [displayLocation, setDisplayLocation] = useState(location);
   const [transitionStage, setTransitionStage] = useState("");
 
