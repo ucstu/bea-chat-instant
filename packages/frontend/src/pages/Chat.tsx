@@ -1,4 +1,4 @@
-import { Message } from "@/apis";
+import { Message, UserInfo } from "@/apis";
 import Header from "@/components/Header";
 import useCall from "@/hooks/useCall";
 import useMail from "@/hooks/useMail";
@@ -9,7 +9,7 @@ import { Store } from "@/stores/types";
 import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { Fragment, memo, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -24,8 +24,9 @@ export default function Chart() {
   const messages = useMsgs(userID!);
   const userInfo = useUInfo(userID!);
   const ownInfo = useSelector((state: Store) => state.main.userInfo);
-  const myMessages = useMsgs(ownInfo?.userID);
-
+  const myMessages = useMsgs((ownInfo as UserInfo).userID!);
+  const displayNode = useRef(null);
+  const counter = compare().length;
   useEffect(() => {
     if (!userID) {
       utils.showToast("发生了一些错误，已回退");
@@ -71,13 +72,12 @@ export default function Chart() {
           if (time >= 0) {
             newArr.push(other.content.concat("other"));
             n = j;
-            console.log("222222");
+
             if (j === sendMyMessages.length - 1) {
               flag = i;
               n = sendMyMessages.length;
             }
           } else {
-            console.log("", n);
             newArr.push(mySendMessages[i].content.concat("my"));
             m = i++;
 
@@ -112,11 +112,19 @@ export default function Chart() {
 
       if (element.endsWith("my")) {
         componentArr.push(
-          <RightMessageItem content={element.split("my")[0]} key={i} />
+          <RightMessageItem
+            content={element.split("my")[0]}
+            avatar={ownInfo?.avatar}
+            key={i}
+          />
         );
       } else
         componentArr.push(
-          <LeftMessageItem content={element.split("other")[0]} key={i} />
+          <LeftMessageItem
+            content={element.split("other")[0]}
+            avatar={ownInfo?.avatar}
+            key={i}
+          />
         );
     }
 
@@ -124,7 +132,7 @@ export default function Chart() {
   }
   // 自己的聊天框
   const RightMessageItem = (props: any) => {
-    const { content } = props;
+    const { content, avatar } = props;
 
     return (
       <div>
@@ -136,7 +144,7 @@ export default function Chart() {
 
           <img
             className="h-10 w-10 rounded-lg ml-3 mr-3"
-            src="https://ts1.cn.mm.bing.net/th?id=OIP-C.B6pZ8N_dG3MNAYppM-zX0AHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.25&pid=3.1&rm=2"
+            src={avatar}
             alt="avatar"
           />
         </div>
@@ -144,15 +152,15 @@ export default function Chart() {
     );
   };
   // 别人的聊天框
-  const LeftMessageItem = memo((props: any) => {
-    const { content } = props;
+  const LeftMessageItem = (props: any) => {
+    const { content, avatar } = props;
 
     return (
       <div>
         <div className=" h-10 leading-10  flex mt-3 flex mb-3">
           <img
             className="h-10 w-10 rounded-lg ml-3 mr-3"
-            src="https://ts1.cn.mm.bing.net/th?id=OIP-C.B6pZ8N_dG3MNAYppM-zX0AHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.25&pid=3.1&rm=2"
+            src={avatar}
             alt="avatar"
           />
           <div className=" bg-gray-500 rounded-md h-10 leading-6 p-2">
@@ -162,7 +170,11 @@ export default function Chart() {
         </div>
       </div>
     );
-  });
+  };
+
+  useEffect(() => {
+    (displayNode.current as unknown as HTMLElement).scrollTo(0, 64 * counter);
+  }, [counter]);
 
   return (
     <div className="overflow-hidden">
@@ -179,6 +191,7 @@ export default function Chart() {
           position: "relative",
           overflow: "scroll",
         }}
+        ref={displayNode}
       >
         <CompareEndings contentArr={compare()} />
       </div>
@@ -195,20 +208,20 @@ export default function Chart() {
             className="w-10 ml-2.5"
             onClick={() => {
               userID &&
-                (nodeRef as unknown as HTMLInputElement).current.value &&
+                (nodeRef.current as unknown as HTMLInputElement).value &&
                 sendMessage({
                   receiverID: userID,
                   msgType: Message.msgType.Text,
-                  content: (nodeRef as unknown as HTMLInputElement).current
+                  content: (nodeRef.current as unknown as HTMLInputElement)
                     .value,
                   dateTime: dayjs().toISOString(),
                   readied: false,
                 });
-              // setIsSend(true);
+
               SetMessageContent(
-                (nodeRef as unknown as HTMLInputElement).current.value
+                (nodeRef.current as unknown as HTMLInputElement).value
               );
-              (nodeRef as unknown as HTMLInputElement).current.value = "";
+              (nodeRef.current as unknown as HTMLInputElement).value = "";
             }}
           >
             发送
