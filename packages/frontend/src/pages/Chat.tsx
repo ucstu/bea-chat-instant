@@ -41,6 +41,7 @@ export default function Chart() {
     let flag: number;
     let n = 0;
     let m = 0;
+    let i;
     if (myMessages) {
       mySendMessages = myMessages.filter((item) => item.receiverID === userID);
     }
@@ -55,8 +56,12 @@ export default function Chart() {
         mySendMessages.map((item) => item.content.concat("my"))
       );
     }
-
-    for (let i = m; i < mySendMessages.length; i++) {
+    if (mySendMessages.length === 0) {
+      newArr = newArr.concat(
+        sendMyMessages.map((item) => item.content.concat("other"))
+      );
+    }
+    for (i = m; i < mySendMessages.length; i++) {
       for (let j = n; j < sendMyMessages.length; j++) {
         const other = sendMyMessages[j];
         if (mySendMessages[i] && other) {
@@ -66,12 +71,13 @@ export default function Chart() {
           if (time >= 0) {
             newArr.push(other.content.concat("other"));
             n = j;
-
+            console.log("222222");
             if (j === sendMyMessages.length - 1) {
               flag = i;
               n = sendMyMessages.length;
             }
           } else {
+            console.log("", n);
             newArr.push(mySendMessages[i].content.concat("my"));
             m = i++;
 
@@ -84,29 +90,22 @@ export default function Chart() {
           newArr.push(other.content.concat("other"));
         }
       }
-
-      if (!(i >= mySendMessages.length)) {
-        newArr.push(mySendMessages[i].content.concat("my"));
-        m = mySendMessages.length;
-      }
     }
-
+    if (!(i >= mySendMessages.length)) {
+      newArr.push(mySendMessages[i].content.concat("my"));
+      m = mySendMessages.length;
+    }
     if (flag)
       newArr = newArr.concat(
         mySendMessages.slice(flag).map((item) => item.content.concat("my"))
       );
-    if (mySendMessages.length === 0) {
-      newArr = newArr.concat(
-        sendMyMessages.map((item) => item.content.concat("other"))
-      );
-    }
 
     return newArr;
   }
   // 查看后缀 区别双方 调用对应组件
   function CompareEndings(props: any) {
     const { contentArr } = props;
-    console.log(contentArr);
+
     const componentArr = [];
     for (let i = 0; i < contentArr.length; i++) {
       const element = contentArr[i];
