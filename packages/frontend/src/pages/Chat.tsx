@@ -6,19 +6,23 @@ import useMsgs from "@/hooks/useMsgs";
 import useUInfo from "@/hooks/useUInfo";
 import useUtils from "@/hooks/useUtils";
 import { Store } from "@/stores/types";
-import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, memo, useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function Chart() {
+interface MessageItemPropsType {
+  content: string;
+  avatar?: string;
+}
+
+const Chart = function () {
   const { sendMessage } = useMail();
   const { callUser } = useCall();
   const navigate = useNavigate();
   const utils = useUtils();
-  const [messageContent, SetMessageContent] = useState("");
   const nodeRef = useRef(null);
   const { userID } = useParams();
   const messages = useMsgs(userID!);
@@ -27,6 +31,8 @@ export default function Chart() {
   const myMessages = useMsgs((ownInfo as UserInfo).userID!);
   const displayNode = useRef(null);
   const counter = compare().length;
+  const [isShow, setIsShow] = useState("none");
+
   useEffect(() => {
     if (!userID) {
       utils.showToast("发生了一些错误，已回退");
@@ -130,104 +136,145 @@ export default function Chart() {
 
     return <Fragment>{componentArr}</Fragment>;
   }
-  // 自己的聊天框
-  const RightMessageItem = (props: any) => {
-    const { content, avatar } = props;
 
-    return (
-      <div>
-        <div className=" h-10 leading-10  flex mt-3 flex mb-3">
-          <div style={{ flexGrow: "1" }}></div>
-          <div className=" bg-gray-500 rounded-md h-10 leading-6 p-2">
-            {content}
-          </div>
-
-          <img
-            className="h-10 w-10 rounded-lg ml-3 mr-3"
-            src={avatar}
-            alt="avatar"
-          />
+  const element = useMemo(
+    () => (
+      <>
+        <div
+          style={{
+            height: "calc(100vh - 96px)",
+            position: "relative",
+            overflow: "scroll",
+          }}
+          ref={displayNode}
+        >
+          <CompareEndings contentArr={compare()} />
         </div>
-      </div>
-    );
-  };
-  // 别人的聊天框
-  const LeftMessageItem = (props: any) => {
-    const { content, avatar } = props;
+        <div>
+          {/* {输入块} */}
+          <div className="absolute bg-slate-500 bottom-0 h-12 flex w-full">
+            <input
+              type="text"
+              ref={nodeRef}
+              className="p-0 m-0  h-10 self-center ml-2.5 rounded-md "
+              style={{ width: "calc(100vw - 70px)" }}
+            />
+            <button
+              className="w-10 ml-2.5"
+              onClick={() => {
+                userID &&
+                  (nodeRef.current as unknown as HTMLInputElement).value &&
+                  sendMessage({
+                    receiverID: userID,
+                    msgType: Message.msgType.Text,
+                    content: (nodeRef.current as unknown as HTMLInputElement)
+                      .value,
+                    dateTime: dayjs().toISOString(),
+                    readied: false,
+                  });
 
-    return (
-      <div>
-        <div className=" h-10 leading-10  flex mt-3 flex mb-3">
-          <img
-            className="h-10 w-10 rounded-lg ml-3 mr-3"
-            src={avatar}
-            alt="avatar"
-          />
-          <div className=" bg-gray-500 rounded-md h-10 leading-6 p-2">
-            {content}
+                (nodeRef.current as unknown as HTMLInputElement).value = "";
+              }}
+            >
+              发送
+            </button>
           </div>
-          <div style={{ flexGrow: "1" }}></div>
         </div>
-      </div>
-    );
-  };
+      </>
+    ),
+    [displayNode, compare, nodeRef]
+  );
 
   useEffect(() => {
     (displayNode.current as unknown as HTMLElement).scrollTo(0, 64 * counter);
   }, [counter]);
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden relative " style={{ height: "100vh" }}>
       <Header
         left={
           <FontAwesomeIcon icon={faCaretLeft} onClick={() => navigate(-1)} />
         }
         title={userInfo?.name || "用户"}
-      />
-      {/* <button onClick={() => callUser(userInfo!)}>打电话</button> */}
-      <div
-        style={{
-          height: "calc(100vh - 96px)",
-          position: "relative",
-          overflow: "scroll",
-        }}
-        ref={displayNode}
-      >
-        <CompareEndings contentArr={compare()} />
-      </div>
-      <div>
-        {/* {输入块} */}
-        <div className="absolute bg-slate-500 bottom-0 h-12 flex w-full">
-          <input
-            type="text"
-            ref={nodeRef}
-            className="p-0 m-0  h-10 self-center ml-2.5 rounded-md "
-            style={{ width: "calc(100vw - 70px)" }}
+        right={
+          <FontAwesomeIcon
+            icon={faBars}
+            onClick={() =>
+              isShow === "none" ? setIsShow("block") : setIsShow("none")
+            }
           />
-          <button
-            className="w-10 ml-2.5"
+        }
+      />
+      <div style={{ display: `${isShow}`, color: "#dfdfdf" }}>
+        <div className=" absolute top-9 right-4 h-0 w-0 z-50 border-r-8 border-t-8 border-b-8 border-l-8 border-transparent border-b-slate-600 "></div>
+        <div className="w-24 h-20 bg-slate-600 absolute top-12 right-2 rounded-md z-50">
+          <div className="h-10 leading-10 text-center">
+            <label htmlFor="picture">发送图片</label>
+            <input
+              type="file"
+              name="picture"
+              id="picture"
+              multiple
+              accept="image/*"
+              className="h-0 w-0"
+            />
+          </div>
+          <div
+            className="h-10 leading-10 text-center"
             onClick={() => {
-              userID &&
-                (nodeRef.current as unknown as HTMLInputElement).value &&
-                sendMessage({
-                  receiverID: userID,
-                  msgType: Message.msgType.Text,
-                  content: (nodeRef.current as unknown as HTMLInputElement)
-                    .value,
-                  dateTime: dayjs().toISOString(),
-                  readied: false,
-                });
-
-              SetMessageContent(
-                (nodeRef.current as unknown as HTMLInputElement).value
-              );
-              (nodeRef.current as unknown as HTMLInputElement).value = "";
+              callUser(userInfo!);
+              setIsShow("none");
             }}
           >
-            发送
-          </button>
+            视频聊天
+          </div>
         </div>
+      </div>
+      {element}
+    </div>
+  );
+};
+
+// 自己的聊天框
+const RightMessageItem = (props: MessageItemPropsType) => {
+  const { content, avatar } = props;
+
+  return (
+    <div>
+      <div className=" h-10 leading-10  flex mt-3 flex mb-3">
+        <div style={{ flexGrow: "1" }}></div>
+        <div className=" bg-gray-500 rounded-md h-10 leading-6 p-2">
+          {content}
+        </div>
+
+        <img
+          className="h-10 w-10 rounded-lg ml-3 mr-3"
+          src={avatar}
+          alt="avatar"
+        />
       </div>
     </div>
   );
-}
+};
+
+// 别人的聊天框
+const LeftMessageItem = (props: MessageItemPropsType) => {
+  const { content, avatar } = props;
+  return (
+    <div>
+      <div className=" h-10 leading-10  flex mt-3 flex mb-3">
+        <img
+          className="h-10 w-10 rounded-lg ml-3 mr-3"
+          src={avatar}
+          alt="avatar"
+        />
+        <div className=" bg-gray-500 rounded-md h-10 leading-6 p-2">
+          {content}
+        </div>
+        <div style={{ flexGrow: "1" }}></div>
+      </div>
+    </div>
+  );
+};
+
+export default memo(Chart);

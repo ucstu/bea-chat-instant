@@ -23,8 +23,6 @@ export default (_Component: ComponentType) => {
     const mail = useMemo<MailContextValue>(
       () => ({
         sendMessage(_message) {
-          console.log("发送消息");
-
           const message = { ..._message, senderID: userID!, readied: true };
           socket.emit("msg", message);
           dispatch(setMessage(message));
