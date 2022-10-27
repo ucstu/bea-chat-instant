@@ -114,10 +114,7 @@ interface MessageItemProp {
 }
 const MessageItem = React.memo(
   ({ userInfo, messages, onClick: gotoChat }: MessageItemProp) => {
-    const notReadiedMessages = messages.filter((message) => !message.readied);
-    const time = dayjs(
-      notReadiedMessages[notReadiedMessages.length - 1].dateTime
-    );
+    const time = dayjs(messages[messages.length - 1].dateTime);
 
     return (
       <div
@@ -134,14 +131,14 @@ const MessageItem = React.memo(
         <div className={styles.messageItemRight}>
           <div className="userName">{userInfo.name}</div>
           <div className={styles.messageItemContent}>
-            {notReadiedMessages[notReadiedMessages.length - 1].content}
+            {messages[messages.length - 1]?.content}
           </div>
         </div>
         <div
           className="font-mono "
           style={{ fontSize: "13px", marginLeft: "30px", color: "#6b7280" }}
         >
-          {time.hour() + ":" + time.minute()}
+          {time.format("mm:ss")}
         </div>
       </div>
     );

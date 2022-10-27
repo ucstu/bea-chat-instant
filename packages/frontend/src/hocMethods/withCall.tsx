@@ -61,6 +61,7 @@ export default (_Component: ComponentType) => {
     );
 
     useEffect(() => {
+      if (!userInfo?.userID) return;
       if (!peer) {
         peer = new Peer(`bea-chat-${userInfo.userID}`);
         peer.on("call", (call) => {
@@ -90,7 +91,7 @@ export default (_Component: ComponentType) => {
             });
         });
       }
-    }, []);
+    }, [userInfo]);
 
     return (
       <CallContext.Provider value={call}>{component}</CallContext.Provider>

@@ -1,37 +1,45 @@
-import { Message, UserInfo } from "@/apis";
+import { Message } from "@/apis";
+import boy from "@/assets/boy.fbx";
+import happy from "@/assets/happy.fbx";
+import phoneCall from "@/assets/phoneCall.fbx";
+import praying from "@/assets/praying.fbx";
+import standingClap from "@/assets/standingClap.fbx";
+import thankful from "@/assets/thankful.fbx";
 import Header from "@/components/Header";
 import useCall from "@/hooks/useCall";
 import useMail from "@/hooks/useMail";
 import useMsgs from "@/hooks/useMsgs";
 import useUInfo from "@/hooks/useUInfo";
 import useUtils from "@/hooks/useUtils";
+import { readAllRemoteMessage } from "@/stores/message";
 import { Store } from "@/stores/types";
 import { faBars, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { Fragment, memo, useEffect, useMemo, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { Model, World } from "lingo3d-react";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-interface MessageItemPropsType {
-  content: string;
-  avatar?: string;
-}
+export default React.memo(() => {
+  const ownInfo = useSelector((state: Store) => state.main.userInfo!);
 
-const Chart = function () {
+  const { userID } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userInfo = useUInfo(userID!);
+  const messages = useMsgs(userID!);
   const { sendMessage } = useMail();
   const { callUser } = useCall();
-  const navigate = useNavigate();
   const utils = useUtils();
-  const nodeRef = useRef(null);
-  const { userID } = useParams();
-  const messages = useMsgs(userID!);
-  const userInfo = useUInfo(userID!);
-  const ownInfo = useSelector((state: Store) => state.main.userInfo);
-  const myMessages = useMsgs((ownInfo as UserInfo).userID!);
+
   const displayNode = useRef(null);
-  const counter = compare().length;
-  const [isShow, setIsShow] = useState("none");
+  const nodeRef = useRef(null);
+
+  const [animation, setAnimation] = useState<
+    "happy" | "phoneCall" | "praying" | "standingClap" | "thankful" | ""
+  >("");
+  const [showToolBar, setShowToolBar] = useState(false);
 
   useEffect(() => {
     if (!userID) {
@@ -40,133 +48,28 @@ const Chart = function () {
       return;
     }
   }, [userID]);
-  // 筛选数据 到一个数组 添加后缀 区别聊天双方
-  function compare() {
-    let newArr: string[] = [];
-    let sendMyMessages: Message[] = [];
-    let mySendMessages: Message[] = [];
-    let flag = 0;
-    let n = 0;
-    let m = 0;
-    let i;
-    myMessages
-      ? (mySendMessages = myMessages.filter(
-          (item) => item.receiverID === userID
-        ))
-      : "";
-
-    messages
-      ? (sendMyMessages = messages.filter(
-          (item) => item.receiverID === ownInfo?.userID
-        ))
-      : "";
-
-    if (userID === ownInfo?.userID) {
-      return newArr.concat(
-        mySendMessages.map((item) => item.content.concat("my"))
-      );
-    }
-    mySendMessages.length === 0
-      ? (newArr = newArr.concat(
-          sendMyMessages.map((item) => item.content.concat("other"))
-        ))
-      : "";
-
-    for (i = m; i < mySendMessages.length; i++) {
-      for (let j = n; j < sendMyMessages.length; j++) {
-        const other = sendMyMessages[j];
-        if (mySendMessages[i] && other) {
-          const time = dayjs(mySendMessages[i].dateTime).diff(
-            dayjs(other.dateTime)
-          );
-          if (time >= 0) {
-            newArr.push(other.content.concat("other"));
-            n = j;
-
-            if (j === sendMyMessages.length - 1) {
-              flag = i;
-              n = sendMyMessages.length;
-            }
-          } else {
-            newArr.push(mySendMessages[i].content.concat("my"));
-            m = i++;
-
-            if (!(m >= mySendMessages.length)) {
-              if (n) j = n;
-              else j = 0;
-            } else n = sendMyMessages.length;
-          }
-        } else {
-          newArr.push(other.content.concat("other"));
-        }
-      }
-    }
-    if (!(i >= mySendMessages.length)) {
-      newArr.push(mySendMessages[i].content.concat("my"));
-      m = mySendMessages.length;
-    }
-    if (flag)
-      newArr = newArr.concat(
-        mySendMessages.slice(flag).map((item) => item.content.concat("my"))
-      );
-
-    return newArr;
-  }
-
-  const element = useMemo(
-    () => (
-      <>
-        <div
-          style={{
-            height: "calc(100vh - 96px)",
-            position: "relative",
-            overflow: "scroll",
-          }}
-          ref={displayNode}
-        >
-          <CompareEndings contentArr={compare()} avatar={userInfo.avatar} />
-        </div>
-        <div>
-          {/* {输入块} */}
-          <div className="absolute bg-slate-500 bottom-0 h-12 flex w-full">
-            <input
-              type="text"
-              ref={nodeRef}
-              className="p-0 m-0  h-10 self-center ml-2.5 rounded-md "
-              style={{ width: "calc(100vw - 70px)" }}
-            />
-            <button
-              className="w-10 ml-2.5"
-              onClick={() => {
-                userID &&
-                  (nodeRef.current as unknown as HTMLInputElement).value &&
-                  sendMessage({
-                    receiverID: userID,
-                    msgType: Message.msgType.Text,
-                    content: (nodeRef.current as unknown as HTMLInputElement)
-                      .value,
-                    dateTime: dayjs().toISOString(),
-                    readied: false,
-                  });
-
-                (nodeRef.current as unknown as HTMLInputElement).value = "";
-              }}
-            >
-              发送
-            </button>
-          </div>
-        </div>
-      </>
-    ),
-    [displayNode, compare, nodeRef]
-  );
 
   useEffect(() => {
+    if (!messages) return;
+    dispatch(readAllRemoteMessage(userID!));
     (displayNode.current as unknown as HTMLElement).scrollTo(
       0,
-      64 * compare().length
+      64 * (messages?.length || 0)
     );
-  }, [counter]);
+    if (messages[messages.length - 1].content.includes("开心")) {
+      setAnimation("happy");
+    } else if (messages[messages.length - 1].content.includes("打电话")) {
+      setAnimation("phoneCall");
+    } else if (messages[messages.length - 1].content.includes("求求你")) {
+      setAnimation("praying");
+    } else if (messages[messages.length - 1].content.includes("鼓掌")) {
+      setAnimation("standingClap");
+    } else if (messages[messages.length - 1].content.includes("感谢")) {
+      setAnimation("thankful");
+    } else {
+      setAnimation("");
+    }
+  }, [messages]);
 
   return (
     <div className="overflow-hidden relative " style={{ height: "100vh" }}>
@@ -178,13 +81,12 @@ const Chart = function () {
         right={
           <FontAwesomeIcon
             icon={faBars}
-            onClick={() =>
-              isShow === "none" ? setIsShow("block") : setIsShow("none")
-            }
+            onClick={() => setShowToolBar(!showToolBar)}
           />
         }
       />
-      <div style={{ display: `${isShow}`, color: "#dfdfdf" }}>
+      {/* start: 弹出层 */}
+      <div className={`${showToolBar ? "" : "hidden"} text-[#dfdfdf]`}>
         <div className=" absolute top-9 right-4 h-0 w-0 z-50 border-r-8 border-t-8 border-b-8 border-l-8 border-transparent border-b-slate-600 "></div>
         <div className="w-24 h-20 bg-slate-600 absolute top-12 right-2 rounded-md z-50">
           <div className="h-10 leading-10 text-center">
@@ -201,87 +103,110 @@ const Chart = function () {
           <div
             className="h-10 leading-10 text-center"
             onClick={() => {
-              callUser(userInfo!);
-              setIsShow("none");
+              callUser(userInfo);
+              setShowToolBar(false);
             }}
           >
             视频聊天
           </div>
         </div>
       </div>
-      {element}
+      {/* end: 弹出层 */}
+      {/* start: 消息列表 */}
+      <div className="relative overflow-scroll" ref={displayNode}>
+        {messages?.map((message, index) =>
+          message.senderID === userInfo.userID ? (
+            <MessageItem
+              key={`${message.senderID}-${index}`}
+              position="left"
+              content={message.content}
+              avatar={userInfo.avatar}
+            />
+          ) : (
+            <MessageItem
+              key={`${message.receiverID}-${index}`}
+              position="right"
+              content={message.content}
+              avatar={ownInfo.avatar}
+            />
+          )
+        )}
+      </div>
+      {/* end: 消息列表 */}
+      <div
+        className={`absolute bottom-0 ${
+          animation === "" ? "invisible" : ""
+        } left-0 w-20 h-32`}
+      >
+        <World color="#fff">
+          <Model
+            src={boy}
+            animations={{
+              happy,
+              praying,
+              thankful,
+              phoneCall,
+              standingClap,
+            }}
+            animation={animation}
+            animationRepeat={false}
+            onAnimationFinish={() => setAnimation("")}
+          />
+        </World>
+      </div>
+      {/* start: 输入块 */}
+      <div className="absolute bg-slate-300 bottom-0 h-12 flex w-full">
+        <input
+          type="text"
+          ref={nodeRef}
+          className="p-0 m-0  h-10 self-center ml-2.5 rounded-md "
+          style={{ width: "calc(100vw - 70px)" }}
+        />
+        <button
+          className="w-10 ml-2.5"
+          onClick={() => {
+            userID &&
+              (nodeRef.current as unknown as HTMLInputElement).value &&
+              sendMessage({
+                receiverID: userID,
+                msgType: Message.msgType.Text,
+                content: (nodeRef.current as unknown as HTMLInputElement).value,
+                dateTime: dayjs().toISOString(),
+                readied: false,
+              });
+
+            (nodeRef.current as unknown as HTMLInputElement).value = "";
+          }}
+        >
+          发送
+        </button>
+      </div>
+      {/* end: 输入块 */}
     </div>
   );
-};
+});
 
-// 查看后缀 区别双方 调用对应组件
-function CompareEndings(props: any) {
-  const { contentArr, avatar } = props;
-
-  const componentArr = [];
-  for (let i = 0; i < contentArr.length; i++) {
-    const element = contentArr[i];
-
-    if (element.endsWith("my"))
-      componentArr.push(
-        <RightMessageItem
-          content={element.split("my")[0]}
-          avatar={avatar}
-          key={i}
-        />
-      );
-    else
-      componentArr.push(
-        <LeftMessageItem
-          content={element.split("other")[0]}
-          avatar={avatar}
-          key={i}
-        />
-      );
-  }
-
-  return <Fragment>{componentArr}</Fragment>;
+export interface MessageItemProps {
+  position: "left" | "right";
+  content: string;
+  avatar: string;
 }
-// 自己的聊天框
-const RightMessageItem = (props: MessageItemPropsType) => {
-  const { content, avatar } = props;
-
+// 聊天框
+const MessageItem = (props: MessageItemProps) => {
+  const { content, avatar, position } = props;
   return (
-    <div>
-      <div className=" h-10 leading-10  flex mt-3 flex mb-3">
-        <div style={{ flexGrow: "1" }}></div>
-        <div className=" bg-gray-500 rounded-md h-10 leading-6 p-2">
-          {content}
-        </div>
-
-        <img
-          className="h-10 w-10 rounded-lg ml-3 mr-3"
-          src={avatar}
-          alt="avatar"
-        />
-      </div>
+    <div
+      className={`h-10 my-3 ${
+        position === "right" ? "flex" : "flex flex-row-reverse"
+      } leading-10`}
+    >
+      <div style={{ flexGrow: "1" }}></div>
+      <div className="h-10 p-2 rounded-md leading-6 bg-gray-500">{content}</div>
+      <img
+        className="w-10 h-10 ml-3 mr-3 rounded-lg"
+        src={avatar}
+        alt="avatar"
+      />
     </div>
   );
 };
-
-// 别人的聊天框
-const LeftMessageItem = (props: MessageItemPropsType) => {
-  const { content, avatar } = props;
-  return (
-    <div>
-      <div className=" h-10 leading-10  flex mt-3 flex mb-3">
-        <img
-          className="h-10 w-10 rounded-lg ml-3 mr-3"
-          src={avatar}
-          alt="avatar"
-        />
-        <div className=" bg-gray-500 rounded-md h-10 leading-6 p-2">
-          {content}
-        </div>
-        <div style={{ flexGrow: "1" }}></div>
-      </div>
-    </div>
-  );
-};
-
-export default memo(Chart);

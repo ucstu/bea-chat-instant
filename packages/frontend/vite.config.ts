@@ -7,6 +7,7 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  assetsInclude: ["**/*.fbx"],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

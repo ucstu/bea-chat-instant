@@ -1,5 +1,5 @@
 import { Message } from "@/apis";
-import { setMessage } from "@/stores/message";
+import { addLocalMessage, addRemoteMessage } from "@/stores/message";
 import { Store } from "@/stores/types";
 import React, { ComponentType, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +25,7 @@ export default (_Component: ComponentType) => {
         sendMessage(_message) {
           const message = { ..._message, senderID: userID!, readied: true };
           socket.emit("msg", message);
-          dispatch(setMessage(message));
+          dispatch(addLocalMessage(message));
         },
         connected,
       }),
@@ -45,7 +45,7 @@ export default (_Component: ComponentType) => {
         setConnected(socket.connected);
       });
       socket.on("msg", (message: Message) => {
-        dispatch(setMessage(message));
+        dispatch(addRemoteMessage(message));
       });
       socket.on("disconnect", () => {
         setConnected(socket.connected);
