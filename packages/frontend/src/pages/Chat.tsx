@@ -45,29 +45,33 @@ const Chart = function () {
     let newArr: string[] = [];
     let sendMyMessages: Message[] = [];
     let mySendMessages: Message[] = [];
-    let flag: number;
+    let flag = 0;
     let n = 0;
     let m = 0;
     let i;
-    if (myMessages) {
-      mySendMessages = myMessages.filter((item) => item.receiverID === userID);
-    }
-    if (messages) {
-      sendMyMessages = messages.filter(
-        (item) => item.receiverID === ownInfo?.userID
-      );
-    }
+    myMessages
+      ? (mySendMessages = myMessages.filter(
+          (item) => item.receiverID === userID
+        ))
+      : "";
+
+    messages
+      ? (sendMyMessages = messages.filter(
+          (item) => item.receiverID === ownInfo?.userID
+        ))
+      : "";
 
     if (userID === ownInfo?.userID) {
       return newArr.concat(
         mySendMessages.map((item) => item.content.concat("my"))
       );
     }
-    if (mySendMessages.length === 0) {
-      newArr = newArr.concat(
-        sendMyMessages.map((item) => item.content.concat("other"))
-      );
-    }
+    mySendMessages.length === 0
+      ? (newArr = newArr.concat(
+          sendMyMessages.map((item) => item.content.concat("other"))
+        ))
+      : "";
+
     for (i = m; i < mySendMessages.length; i++) {
       for (let j = n; j < sendMyMessages.length; j++) {
         const other = sendMyMessages[j];
@@ -158,7 +162,10 @@ const Chart = function () {
   );
 
   useEffect(() => {
-    (displayNode.current as unknown as HTMLElement).scrollTo(0, 64 * counter);
+    (displayNode.current as unknown as HTMLElement).scrollTo(
+      0,
+      64 * compare().length
+    );
   }, [counter]);
 
   return (
