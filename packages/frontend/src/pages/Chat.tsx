@@ -108,34 +108,6 @@ const Chart = function () {
 
     return newArr;
   }
-  // 查看后缀 区别双方 调用对应组件
-  function CompareEndings(props: any) {
-    const { contentArr } = props;
-
-    const componentArr = [];
-    for (let i = 0; i < contentArr.length; i++) {
-      const element = contentArr[i];
-
-      if (element.endsWith("my")) {
-        componentArr.push(
-          <RightMessageItem
-            content={element.split("my")[0]}
-            avatar={ownInfo?.avatar}
-            key={i}
-          />
-        );
-      } else
-        componentArr.push(
-          <LeftMessageItem
-            content={element.split("other")[0]}
-            avatar={ownInfo?.avatar}
-            key={i}
-          />
-        );
-    }
-
-    return <Fragment>{componentArr}</Fragment>;
-  }
 
   const element = useMemo(
     () => (
@@ -148,7 +120,7 @@ const Chart = function () {
           }}
           ref={displayNode}
         >
-          <CompareEndings contentArr={compare()} />
+          <CompareEndings contentArr={compare()} avatar={userInfo.avatar} />
         </div>
         <div>
           {/* {输入块} */}
@@ -235,6 +207,34 @@ const Chart = function () {
   );
 };
 
+// 查看后缀 区别双方 调用对应组件
+function CompareEndings(props: any) {
+  const { contentArr, avatar } = props;
+
+  const componentArr = [];
+  for (let i = 0; i < contentArr.length; i++) {
+    const element = contentArr[i];
+
+    if (element.endsWith("my"))
+      componentArr.push(
+        <RightMessageItem
+          content={element.split("my")[0]}
+          avatar={avatar}
+          key={i}
+        />
+      );
+    else
+      componentArr.push(
+        <LeftMessageItem
+          content={element.split("other")[0]}
+          avatar={avatar}
+          key={i}
+        />
+      );
+  }
+
+  return <Fragment>{componentArr}</Fragment>;
+}
 // 自己的聊天框
 const RightMessageItem = (props: MessageItemPropsType) => {
   const { content, avatar } = props;
