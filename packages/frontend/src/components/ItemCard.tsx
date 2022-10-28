@@ -13,13 +13,9 @@ function ItemCar(props: PropsType) {
           <div key={index}>
             {item.category ? (
               <div
+                className="leading-3 font-bold mt-5 pl-2.5 mb-1"
                 style={{
                   color: "#949494",
-                  fontSize: "13px",
-                  fontWeight: "bold",
-                  marginTop: "20px",
-                  marginBottom: "5px",
-                  paddingLeft: "10px",
                 }}
               >
                 {item.category}
@@ -30,13 +26,10 @@ function ItemCar(props: PropsType) {
             {item.options.map((item2, index2) => (
               <div
                 key={index2}
-                className="w-full h-50 relative"
+                className="w-full h-50 relative box-border pl-2.5 font-bold "
                 style={{
                   borderBottom: "1px solid #f7f7f7",
                   lineHeight: "50px",
-                  boxSizing: "border-box",
-                  paddingLeft: "10px",
-                  fontWeight: "bold",
                   backgroundColor: "#fdfdfd",
                 }}
               >
