@@ -339,7 +339,8 @@ declare namespace Message {
         Image = 2,
         Audio = 3,
         Video = 4,
-        File = 5
+        SIGNAL = 5,
+        File = 6
     }
 }
 /* istanbul ignore file */

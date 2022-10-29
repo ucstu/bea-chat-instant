@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "format": "prettier --write .",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" && stylelint \"src/**/*.{css,scss,sass,less,styl}\"",
@@ -34,7 +34,8 @@
     "react-router-dom": "^6.4.2",
     "react-transition-group": "^4.4.5",
     "reduxjs-toolkit-persist": "^7.2.1",
-    "socket.io-client": "^4.5.3"
+    "socket.io-client": "^4.5.3",
+    "terser": "^5.15.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

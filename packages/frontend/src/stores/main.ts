@@ -1,7 +1,8 @@
+import { UserInfo } from "@/apis";
 import { PartialExcluded } from "@/types";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { MainState, UserInfo } from "./types/main";
+import type { MainState } from "./types/main";
 
 const initialState: MainState = {
   contacts: {},

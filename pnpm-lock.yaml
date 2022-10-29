@@ -157,6 +157,7 @@ importers:
       stylelint-config-recess-order: ^3.0.0
       stylelint-config-standard-scss: ^5.0.0
       tailwindcss: ^3.2.0
+      terser: ^5.15.1
       typescript-plugin-css-modules: ^3.4.0
       vite: ^3.1.0
     dependencies:
@@ -183,10 +184,11 @@ importers:
       react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
       reduxjs-toolkit-persist: 7.2.1_@reduxjs+toolkit@1.8.6
       socket.io-client: 4.5.3
+      terser: 5.15.1
     devDependencies:
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
-      '@vitejs/plugin-legacy': 2.2.0_vite@3.1.8
+      '@vitejs/plugin-legacy': 2.2.0_terser@5.15.1+vite@3.1.8
       '@vitejs/plugin-react': 2.1.0_vite@3.1.8
       postcss-preset-env: 7.8.2
       sass: 1.55.0
@@ -196,7 +198,7 @@ importers:
       stylelint-config-standard-scss: 5.0.0_stylelint@14.14.0
       tailwindcss: 3.2.0
       typescript-plugin-css-modules: 3.4.0
-      vite: 3.1.8_sass@1.55.0
+      vite: 3.1.8_sass@1.55.0+terser@5.15.1
 
 packages:
 
@@ -1374,7 +1376,6 @@ packages:
       '@jridgewell/set-array': 1.1.2
       '@jridgewell/sourcemap-codec': 1.4.14
       '@jridgewell/trace-mapping': 0.3.17
-    dev: true
 
   /@jridgewell/resolve-uri/3.1.0:
     resolution: {integrity: sha512-F2msla3tad+Mfht5cJq7LSXcdudKTWCVYUgw6pLFOOHSTtZlj6SWNYAp+AhuqLmWdBO2X5hPrLcu8cVP8fy28w==}
@@ -1383,14 +1384,12 @@ packages:
   /@jridgewell/set-array/1.1.2:
     resolution: {integrity: sha512-xnkseuNADM0gt2bs+BvhO0p78Mk762YnZdsuzFV018NoG1Sj1SCQvpSqa7XUaTam5vAGasABV9qXASMKnFMwMw==}
     engines: {node: '>=6.0.0'}
-    dev: true
 
   /@jridgewell/source-map/0.3.2:
     resolution: {integrity: sha512-m7O9o2uR8k2ObDysZYzdfhb08VuEml5oWGiosa1VdaPZ/A6QyPkAJuwN0Q1lhULOf6B7MtQmHENS743hWtCrgw==}
     dependencies:
       '@jridgewell/gen-mapping': 0.3.2
       '@jridgewell/trace-mapping': 0.3.17
-    dev: true
 
   /@jridgewell/sourcemap-codec/1.4.14:
     resolution: {integrity: sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==}
@@ -1400,7 +1399,6 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
-    dev: true
 
   /@jridgewell/trace-mapping/0.3.9:
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
@@ -2224,7 +2222,7 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vitejs/plugin-legacy/2.2.0_vite@3.1.8:
+  /@vitejs/plugin-legacy/2.2.0_terser@5.15.1+vite@3.1.8:
     resolution: {integrity: sha512-xkSXZl2LNk0KKyo5CJknNW84mSlmHIClFzsBuFXkX3yBt+Lr8UO/n4QOg2X7+jvurgBRies9FRn3ZvMem+TmIg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -2236,7 +2234,8 @@ packages:
       magic-string: 0.26.7
       regenerator-runtime: 0.13.10
       systemjs: 6.13.0
-      vite: 3.1.8_sass@1.55.0
+      terser: 5.15.1
+      vite: 3.1.8_sass@1.55.0+terser@5.15.1
     dev: true
 
   /@vitejs/plugin-react/2.1.0_vite@3.1.8:
@@ -2252,7 +2251,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.19.6_@babel+core@7.19.6
       magic-string: 0.26.7
       react-refresh: 0.14.0
-      vite: 3.1.8_sass@1.55.0
+      vite: 3.1.8_sass@1.55.0+terser@5.15.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3126,7 +3125,6 @@ packages:
 
   /commander/2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
-    dev: true
 
   /commander/4.1.1:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
@@ -7934,7 +7932,6 @@ packages:
     dependencies:
       buffer-from: 1.1.2
       source-map: 0.6.1
-    dev: true
 
   /source-map-url/0.4.1:
     resolution: {integrity: sha512-cPiFOTLUKvJFIg4SKVScy4ilPPW6rFgMgfuZJPNoDuMs3nC1HbMUycBoJw77xFIp6z1UJQJOfx6C9GMH80DiTw==}
@@ -7944,7 +7941,6 @@ packages:
   /source-map/0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /source-map/0.7.4:
     resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
@@ -8439,7 +8435,6 @@ packages:
       acorn: 8.8.0
       commander: 2.20.3
       source-map-support: 0.5.21
-    dev: true
 
   /test-exclude/6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
@@ -8994,7 +8989,7 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  /vite/3.1.8_sass@1.55.0:
+  /vite/3.1.8_sass@1.55.0+terser@5.15.1:
     resolution: {integrity: sha512-m7jJe3nufUbuOfotkntGFupinL/fmuTNuQmiVE7cH2IZMuf4UbfbGYMUT3jVWgGYuRVLY9j8NnrRqgw5rr5QTg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -9018,6 +9013,7 @@ packages:
       resolve: 1.22.1
       rollup: 2.78.1
       sass: 1.55.0
+      terser: 5.15.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
