@@ -40,35 +40,58 @@ export default function WQRoute() {
           <Route
             path="message"
             element={
-              <AuthOrNot component={<LazyLoad componentName="Message" />} />
+              <AuthOrNot
+                component={
+                  <LazyLoad dynamicComponent={import("@/pages/Message")} />
+                }
+              />
             }
           />
           <Route
             path="contact"
             element={
-              <AuthOrNot component={<LazyLoad componentName="Contact" />} />
+              <AuthOrNot
+                component={
+                  <LazyLoad dynamicComponent={import("@/pages/Contact")} />
+                }
+              />
             }
           />
           <Route
             path="mine"
             element={
-              <AuthOrNot component={<LazyLoad componentName="Mine" />} />
+              <AuthOrNot
+                component={
+                  <LazyLoad dynamicComponent={import("@/pages/Mine")} />
+                }
+              />
             }
           />
         </Route>
-        <Route path="/login" element={<LazyLoad componentName="Login" />} />
+        <Route
+          path="/login"
+          element={<LazyLoad dynamicComponent={import("@/pages/Login")} />}
+        />
         <Route
           path="/register"
-          element={<LazyLoad componentName="Register" />}
+          element={<LazyLoad dynamicComponent={import("@/pages/Register")} />}
         />
         <Route
           path="/chat/:userID"
-          element={<AuthOrNot component={<LazyLoad componentName="Chat" />} />}
+          element={
+            <AuthOrNot
+              component={<LazyLoad dynamicComponent={import("@/pages/Chat")} />}
+            />
+          }
         />
         <Route
           path="/setting"
           element={
-            <AuthOrNot component={<LazyLoad componentName="Setting" />} />
+            <AuthOrNot
+              component={
+                <LazyLoad dynamicComponent={import("@/pages/Setting")} />
+              }
+            />
           }
         />
       </Routes>
@@ -87,20 +110,22 @@ const AuthOrNot = React.memo(({ component }: AuthOrNotProps) => {
   return token ? component : <Navigate to="/login" />;
 });
 
-const LazyLoad = React.memo(({ componentName }: { componentName: string }) => {
-  const [element, setElement] = useState(
-    <div className="w-screen h-screen z-50 flex justify-center items-center">
-      <div className={styles.ldsBea}>
-        <div></div>
-        <div></div>
-        <div></div>
+const LazyLoad = React.memo(
+  ({ dynamicComponent }: { dynamicComponent: Promise<any> }) => {
+    const [element, setElement] = useState(
+      <div className="w-screen h-screen z-50 flex justify-center items-center">
+        <div className={styles.ldsBea}>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
-    </div>
-  );
-  useEffect(() => {
-    import(/* @vite-ignore */ "../pages/" + componentName).then((Component) =>
-      setElement(<Component.default></Component.default>)
     );
-  }, [componentName]);
-  return element;
-});
+    useEffect(() => {
+      dynamicComponent.then((Component) =>
+        setElement(<Component.default></Component.default>)
+      );
+    }, [dynamicComponent]);
+    return element;
+  }
+);
