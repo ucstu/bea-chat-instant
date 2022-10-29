@@ -1,4 +1,4 @@
-import { UserInfo } from "@/stores/types/main";
+import { UserInfo } from "@/apis";
 import React from "react";
 
 export interface UserCardProps {
