@@ -1,0 +1,47 @@
+{
+  "name": "@bea-chat/api",
+  "description": "Api for bea chat",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
+  "types": "types/index.d.ts",
+  "source": "src/index.ts",
+  "scripts": {
+    "generate": "ts-node --project tsconfig.node.json mapper && pnpm prettier --write openapi.json && del-cli src dist types && openapi -i openapi.json -o src -c xhr --name BeaApiClient --useOptions --exportSchemas true && rexreplace '(public readonly )(: Service;)' '$1service$2' src/BeaApiClient.ts && rexreplace '(this.)( = new Service\\(this.request\\);)' '$1service$2' src/BeaApiClient.ts && pnpm prettier --write src --ignore-unknown && pnpm build",
+    "build": "del-cli dist types && rollup -c rollup.config.ts",
+    "format": "prettier --write .",
+    "lint": "eslint \"src/**/*.{js,ts}\"",
+    "fix": "eslint --fix \"src/**/*.{js,ts}\""
+  },
+  "devDependencies": {
+    "del-cli": "^5.0.0",
+    "openapi-typescript-codegen": "^0.23.0",
+    "rexreplace": "^7.0.7",
+    "rollup": "^2.77.2",
+    "rollup-plugin-ts": "^3.0.2",
+    "ts-node": "^10.9.1"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,yaml,yml,md}": [
+      "prettier --write"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      "defaults",
+      "not IE 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "last 1 edge version",
+      "last 1 ie version"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+.message {
+  box-sizing: border-box;
+  margin: 15px;
+
+  &-item {
+    display: flex;
+    margin: 10px;
+
+    &-right {
+      margin-left: 10px;
+      line-height: 25px;
+    }
+
+    &-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 5px;
+    }
+
+    &-content {
+      width: 60vw;
+      overflow: hidden;
+      font-size: 13px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

@@ -1,0 +1,799 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "BeaChat",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "联系人"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "用户登录",
+        "x-apifox-folder": "",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "operationId": "UserLogin",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "title": "用户名称",
+                    "description": "用户名称"
+                  },
+                  "password": {
+                    "type": "string",
+                    "title": "登录密码",
+                    "description": "登录密码"
+                  }
+                },
+                "x-apifox-orders": ["username", "password"],
+                "required": ["username", "password"],
+                "x-apifox-ignore-properties": []
+              },
+              "example": {
+                "username": "s.extnufkcpu@cqtydbf.ae",
+                "password": "5oozW"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "数据主体",
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "title": "登陆令牌",
+                      "description": "登陆令牌"
+                    },
+                    "userInfo": {
+                      "title": "用户信息",
+                      "$ref": "#/components/schemas/UserInfo",
+                      "x-apifox-overrides": {},
+                      "description": "用户信息"
+                    }
+                  },
+                  "x-apifox-orders": ["token", "userInfo"],
+                  "required": ["token", "userInfo"],
+                  "x-apifox-ignore-properties": [],
+                  "description": "数据主体"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求有误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "title": "错误编码",
+                      "type": "integer",
+                      "description": "错误编码"
+                    },
+                    "msg": {
+                      "title": "错误描述",
+                      "type": "string",
+                      "description": "错误描述"
+                    }
+                  },
+                  "required": ["code", "msg"],
+                  "x-apifox-orders": ["code", "msg"],
+                  "x-apifox-ignore-properties": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45089753-run"
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "用户注册",
+        "x-apifox-folder": "",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "operationId": "UserRegister",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "title": "用户名称",
+                    "description": "用户名称"
+                  },
+                  "password": {
+                    "type": "string",
+                    "title": "登录密码",
+                    "description": "登录密码"
+                  }
+                },
+                "x-apifox-orders": ["username", "password"],
+                "required": ["username", "password"],
+                "x-apifox-ignore-properties": []
+              },
+              "example": {
+                "username": "s.extnufkcpu@cqtydbf.ae",
+                "password": "5oozW"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "数据主体",
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "title": "登陆令牌",
+                      "description": "登陆令牌"
+                    },
+                    "userInfo": {
+                      "title": "用户信息",
+                      "$ref": "#/components/schemas/UserInfo",
+                      "x-apifox-overrides": {},
+                      "description": "用户信息"
+                    }
+                  },
+                  "x-apifox-orders": ["token", "userInfo"],
+                  "required": ["token", "userInfo"],
+                  "x-apifox-ignore-properties": [],
+                  "description": "数据主体"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求有误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "title": "错误编码",
+                      "type": "integer",
+                      "description": "错误编码"
+                    },
+                    "msg": {
+                      "title": "错误描述",
+                      "type": "string",
+                      "description": "错误描述"
+                    }
+                  },
+                  "required": ["code", "msg"],
+                  "x-apifox-orders": ["code", "msg"],
+                  "x-apifox-ignore-properties": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45090185-run"
+      }
+    },
+    "/contacts": {
+      "post": {
+        "summary": "新增联系人",
+        "x-apifox-folder": "联系人",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "operationId": "AddContacts",
+        "tags": ["联系人"],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "x-apifox-overrides": {},
+                "type": "object",
+                "x-apifox-refs": {
+                  "01GFTSBKD232YKPBDNH3SKTS02": {
+                    "title": "用户信息",
+                    "$ref": "#/components/schemas/UserInfo",
+                    "x-apifox-overrides": {},
+                    "description": "用户信息"
+                  }
+                },
+                "x-apifox-orders": ["01GFTSBKD232YKPBDNH3SKTS02"],
+                "properties": {
+                  "userID": {
+                    "type": "string",
+                    "title": "用户ID",
+                    "description": "用户ID"
+                  },
+                  "name": {
+                    "type": "string",
+                    "title": "用户名称",
+                    "description": "用户名称"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "title": "头像地址",
+                    "description": "头像地址"
+                  }
+                },
+                "required": ["userID", "name", "avatar"],
+                "x-apifox-ignore-properties": ["userID", "name", "avatar"]
+              },
+              "example": {
+                "name": "崔勇",
+                "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "成功编码",
+                      "description": "成功编码"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "成功描述",
+                      "description": "成功描述"
+                    }
+                  },
+                  "x-apifox-orders": ["code", "msg"],
+                  "required": ["code", "msg"],
+                  "x-apifox-ignore-properties": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45105379-run"
+      },
+      "get": {
+        "summary": "查询所有联系人",
+        "x-apifox-folder": "联系人",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "operationId": "QueryContacts",
+        "tags": ["联系人"],
+        "parameters": [
+          {
+            "name": "size",
+            "in": "query",
+            "description": "单页数量",
+            "required": false,
+            "example": "{% mock 'integer' , 1 %}",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "当前页数",
+            "required": false,
+            "example": "{% mock 'integer' , 0 %}",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "description": "联系人ID",
+            "required": false,
+            "example": "{% mock 'guid' %}",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "where",
+            "in": "query",
+            "description": "查询条件",
+            "required": false,
+            "example": ["name,like,张", "age,eq,18"],
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "查询字段",
+            "required": false,
+            "example": ["{% mock 'string' %}"],
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序方式",
+            "required": false,
+            "example": ["createdAt,desc"],
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "title": "用户信息",
+                    "$ref": "#/components/schemas/UserInfo",
+                    "x-apifox-overrides": {},
+                    "description": "用户信息"
+                  }
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": [
+                      {
+                        "userID": "Fdf78212-a9A4-4D8A-e1dB-bc7fd6CCBFFB",
+                        "name": "程超",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "52e82Dc0-31fA-AA84-b78F-e3f8C9452a62",
+                        "name": "毛洋",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "DEfb8EE8-4fFE-AbFf-a069-Dfd1D5cfBC78",
+                        "name": "梁秀英",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "7C0dAe8e-bc6C-eECb-C0Ee-817B6c2a56f4",
+                        "name": "孟涛",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "AA66f471-3feb-FDbD-EcE1-49C6e560E3Fe",
+                        "name": "蔡强",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45108523-run"
+      }
+    },
+    "/contacts/{contact_id}": {
+      "delete": {
+        "summary": "删除联系人",
+        "x-apifox-folder": "联系人",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "operationId": "DeleteContacts",
+        "tags": ["联系人"],
+        "parameters": [
+          {
+            "name": "contact_id",
+            "in": "path",
+            "description": "联系人ID",
+            "required": true,
+            "example": "{% mock 'guid' %}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "成功编码",
+                      "description": "成功编码"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "成功描述",
+                      "description": "成功描述"
+                    }
+                  },
+                  "x-apifox-orders": ["code", "msg"],
+                  "required": ["code", "msg"],
+                  "x-apifox-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 200,
+                      "msg": "删除成功"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45106484-run"
+      },
+      "put": {
+        "summary": "修改联系人",
+        "x-apifox-folder": "联系人",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "operationId": "UpdateContact",
+        "tags": ["联系人"],
+        "parameters": [
+          {
+            "name": "contact_id",
+            "in": "path",
+            "description": "联系人ID",
+            "required": true,
+            "example": "{% mock 'guid' %}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "x-apifox-overrides": {},
+                "type": "object",
+                "x-apifox-refs": {
+                  "01GFTT8N0KJ4C9W78BEA7Q5HBJ": {
+                    "title": "用户信息",
+                    "$ref": "#/components/schemas/UserInfo",
+                    "x-apifox-overrides": {},
+                    "description": "用户信息"
+                  }
+                },
+                "x-apifox-orders": ["01GFTT8N0KJ4C9W78BEA7Q5HBJ"],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "用户名称",
+                    "description": "用户名称"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "title": "头像地址",
+                    "description": "头像地址"
+                  }
+                },
+                "required": ["name", "avatar"],
+                "x-apifox-ignore-properties": ["name", "avatar"]
+              },
+              "example": {
+                "name": "戴静",
+                "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "title": "成功编码",
+                      "description": "成功编码"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "title": "成功描述",
+                      "description": "成功描述"
+                    }
+                  },
+                  "x-apifox-orders": ["code", "msg"],
+                  "required": ["code", "msg"],
+                  "x-apifox-ignore-properties": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45106555-run"
+      },
+      "get": {
+        "summary": "查询联系人",
+        "x-apifox-folder": "联系人",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "operationId": "QueryContact",
+        "tags": ["联系人"],
+        "parameters": [
+          {
+            "name": "contact_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "查询字段，数组",
+            "required": false,
+            "example": ["{% mock 'string' %}"],
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "用户信息",
+                  "$ref": "#/components/schemas/UserInfo",
+                  "x-apifox-overrides": {},
+                  "description": "用户信息"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "userID": "E70Ff825-Ac7c-A7BC-03fB-4E3Dcb7d943d",
+                      "name": "姚秀兰",
+                      "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45108567-run"
+      }
+    },
+    "/search": {
+      "get": {
+        "summary": "搜索用户",
+        "x-apifox-folder": "",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "operationId": "UserSearch",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "用户名，eg：张三",
+            "required": true,
+            "example": "{% mock 'ctitle' %}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "title": "用户信息",
+                    "$ref": "#/components/schemas/UserInfo",
+                    "x-apifox-overrides": {},
+                    "description": "用户信息"
+                  },
+                  "title": "数据主体",
+                  "description": "数据主体"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": [
+                      {
+                        "userID": "b8A6c4DE-9a06-e6E2-DCFe-fda5A7CedfD6",
+                        "name": "李霞",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "bc0C9B62-0153-9731-BD6c-1Ce357dd3Fdc",
+                        "name": "黄娟",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "fb2D08C5-D84e-BeAA-8a8f-ebdFB9dd7137",
+                        "name": "张秀英",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "7CFceb1E-aaB4-Ce7C-F8F6-D62BCfD6dAE5",
+                        "name": "苏杰",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      },
+                      {
+                        "userID": "1dc5Ba79-606D-cB8C-F2Ef-1B24A6d2d548",
+                        "name": "朱秀英",
+                        "avatar": "http://dummyimage.com/200x100/4A7BF7&text=Hello"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox'": "https://www.apifox.cn/web/project/1786228/apis/api-45743167-run"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Message": {
+        "type": "object",
+        "properties": {
+          "senderID": {
+            "type": "string",
+            "title": "发起者ID",
+            "description": "发起者ID"
+          },
+          "receiverID": {
+            "type": "string",
+            "title": "接收者ID",
+            "description": "接收者ID"
+          },
+          "dateTime": {
+            "type": "string",
+            "title": "发送时间",
+            "description": "发送时间"
+          },
+          "msgType": {
+            "type": "integer",
+            "enum": [1, 2, 3, 4, 5],
+            "x-apifox": {
+              "enumDescriptions": {
+                "1": "Text",
+                "2": "Image",
+                "3": "Audio",
+                "4": "Video",
+                "5": "File"
+              }
+            },
+            "default": 1,
+            "title": "消息类型",
+            "x-enum-varnames": ["Text", "Image", "Audio", "Video", "File"],
+            "description": "消息类型"
+          },
+          "content": {
+            "type": "string",
+            "title": "消息内容",
+            "description": "消息内容"
+          },
+          "readied": {
+            "type": "boolean",
+            "title": "已读状态",
+            "description": "已读状态"
+          }
+        },
+        "required": [
+          "dateTime",
+          "msgType",
+          "content",
+          "readied",
+          "senderID",
+          "receiverID"
+        ],
+        "x-apifox-orders": [
+          "senderID",
+          "receiverID",
+          "dateTime",
+          "msgType",
+          "content",
+          "readied"
+        ],
+        "title": "用户消息",
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "",
+        "description": "用户消息"
+      },
+      "UserInfo": {
+        "type": "object",
+        "properties": {
+          "userID": {
+            "type": "string",
+            "title": "用户ID",
+            "description": "用户ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "用户名称",
+            "description": "用户名称"
+          },
+          "avatar": {
+            "type": "string",
+            "title": "头像地址",
+            "description": "头像地址"
+          }
+        },
+        "required": ["userID", "name", "avatar"],
+        "x-apifox-orders": ["userID", "name", "avatar"],
+        "title": "用户信息",
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "",
+        "description": "用户信息"
+      }
+    }
+  },
+  "servers": []
+}

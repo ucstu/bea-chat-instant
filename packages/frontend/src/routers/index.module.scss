@@ -1,0 +1,74 @@
+.page-enter {
+  animation: page-enter 0.1s;
+}
+
+@keyframes page-enter {
+  0% {
+    transform: translateX(50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.page-exit {
+  animation: page-exit 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes page-exit {
+  0% {
+    // opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    // opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+.lds-bea {
+  position: relative;
+  display: inline-block;
+  width: 72px;
+  height: 72px;
+
+  div {
+    position: absolute;
+    left: 8px;
+    display: inline-block;
+    width: 10px;
+    background: rgb(147 197 253);
+    animation: lds-bea 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+
+    &:nth-child(1) {
+      left: 8px;
+      animation-delay: -0.24s;
+    }
+
+    &:nth-child(2) {
+      left: 32px;
+      animation-delay: -0.12s;
+    }
+
+    &:nth-child(3) {
+      left: 56px;
+      animation-delay: 0;
+    }
+  }
+}
+
+@keyframes lds-bea {
+  0% {
+    top: 8px;
+    height: 52px;
+  }
+
+  50%,
+  100% {
+    top: 24px;
+    height: 22px;
+  }
+}

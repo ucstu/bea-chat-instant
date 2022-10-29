@@ -1,0 +1,15 @@
+.navbar {
+  &-item {
+    padding-top: 10px;
+    font-size: 17px;
+    line-height: 17px;
+    text-decoration: none;
+
+    &-active {
+      color: rgb(147 197 253);
+      & svg {
+        color: rgb(147 197 253);
+      }
+    }
+  }
+}
