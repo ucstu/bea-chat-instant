@@ -116,6 +116,7 @@ const VideoView = React.memo(
       >
         <video
           id="me"
+          muted
           autoPlay
           className="absolute right-2 top-8 w-2/5 rounded-lg"
         ></video>

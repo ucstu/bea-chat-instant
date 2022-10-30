@@ -131,7 +131,9 @@ const MessageItem = React.memo(
         <div className={styles.messageItemRight}>
           <div className="userName">{userInfo.name}</div>
           <div className={styles.messageItemContent}>
-            {messages[messages.length - 1]?.content}
+            {messages[messages.length - 1]?.content.startsWith("data:image")
+              ? "图片"
+              : messages[messages.length - 1]?.content}
           </div>
         </div>
         <div
