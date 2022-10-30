@@ -17,7 +17,7 @@ import { faBars, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { Model, World } from "lingo3d-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -33,8 +33,8 @@ export default React.memo(() => {
   const { callUser } = useCall();
   const utils = useUtils();
 
-  const displayNode = useRef(null);
-  const nodeRef = useRef(null);
+  const displayNode = useRef<HTMLDivElement>(null);
+  const nodeRef = useRef<HTMLInputElement>(null);
 
   const [animation, setAnimation] = useState<
     "happy" | "phoneCall" | "praying" | "standingClap" | "thankful" | ""
@@ -52,9 +52,10 @@ export default React.memo(() => {
   useEffect(() => {
     if (!messages) return;
     dispatch(readAllRemoteMessage(userID!));
-    (displayNode.current as unknown as HTMLElement).scrollTo(
+
+    displayNode.current!.scrollTo(
       0,
-      64 * (messages?.length || 0)
+      (displayNode.current?.clientHeight || 0) + 99999999999
     );
     if (messages[messages.length - 1].content.includes("开心")) {
       setAnimation("happy");
@@ -71,22 +72,25 @@ export default React.memo(() => {
     }
   }, [messages]);
 
-  function base64(files: FileList) {
+  const base64 = useCallback((files: FileList) => {
     const fileRead = new FileReader();
     fileRead.readAsDataURL(files[0]);
     fileRead.onload = () => {
       sendMessage({
         receiverID: userID!,
-        msgType: Message.msgType.Text,
-        content: fileRead.result as string,
+        msgType: Message.msgType.Image,
+        content: fileRead.result?.toString() as string,
         dateTime: dayjs().toISOString(),
         readied: false,
       });
     };
-  }
+  }, []);
 
   return (
-    <div className="overflow-hidden relative " style={{ height: "100vh" }}>
+    <div
+      className="overflow-hidden relative flex flex-col"
+      style={{ height: "100vh" }}
+    >
       <Header
         left={
           <FontAwesomeIcon icon={faCaretLeft} onClick={() => navigate(-1)} />
@@ -101,7 +105,7 @@ export default React.memo(() => {
       />
       {/* start: 弹出层 */}
       <div className={`${showToolBar ? "" : "hidden"} text-[#dfdfdf]`}>
-        <div className=" absolute top-9 right-4 h-0 w-0 z-50 border-r-8 border-t-8 border-b-8 border-l-8 border-transparent border-b-slate-600 "></div>
+        <div className="absolute top-9 right-4 h-0 w-0 z-50 border-r-8 border-t-8 border-b-8 border-l-8 border-transparent border-b-slate-600 "></div>
         <div className="w-24 h-20 bg-slate-600 absolute top-12 right-2 rounded-md z-50">
           <div className="h-10 leading-10 text-center">
             <label htmlFor="picture">发送图片</label>
@@ -128,11 +132,12 @@ export default React.memo(() => {
       </div>
       {/* end: 弹出层 */}
       {/* start: 消息列表 */}
-      <div className="relative overflow-scroll" ref={displayNode}>
+      <div className="flex-1 relative overflow-scroll" ref={displayNode}>
         {messages?.map((message, index) =>
           message.senderID === userInfo.userID ? (
             <MessageItem
               key={`${message.senderID}-${index}`}
+              msgType={message.msgType}
               position="left"
               content={message.content}
               avatar={userInfo.avatar}
@@ -140,6 +145,7 @@ export default React.memo(() => {
           ) : (
             <MessageItem
               key={`${message.receiverID}-${index}`}
+              msgType={message.msgType}
               position="right"
               content={message.content}
               avatar={ownInfo.avatar}
@@ -170,7 +176,7 @@ export default React.memo(() => {
         </World>
       </div>
       {/* start: 输入块 */}
-      <div className="absolute bg-slate-300 bottom-0 h-12 flex w-full">
+      <div className="sticky bg-slate-300 bottom-0 h-12 flex w-full">
         <input
           type="text"
           ref={nodeRef}
@@ -203,20 +209,27 @@ export default React.memo(() => {
 
 export interface MessageItemProps {
   position: "left" | "right";
+  msgType: Message["msgType"];
   content: string;
   avatar: string;
 }
 // 聊天框
 const MessageItem = (props: MessageItemProps) => {
-  const { content, avatar, position } = props;
+  const { content, avatar, msgType, position } = props;
   return (
     <div
-      className={`h-10 my-3 ${
+      className={`my-3 ${
         position === "right" ? "flex" : "flex flex-row-reverse"
       } leading-10`}
     >
       <div style={{ flexGrow: "1" }}></div>
-      <div className="h-10 p-2 rounded-md leading-6 bg-gray-500">{content}</div>
+      {msgType === Message.msgType.Image ? (
+        <img className="h-20" src={content} alt="img" />
+      ) : (
+        <div className="h-10 p-2 rounded-md leading-6 bg-gray-500">
+          {content}
+        </div>
+      )}
       <img
         className="w-10 h-10 ml-3 mr-3 rounded-lg"
         src={avatar}
