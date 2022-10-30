@@ -71,6 +71,20 @@ export default React.memo(() => {
     }
   }, [messages]);
 
+  function base64(files: FileList) {
+    const fileRead = new FileReader();
+    fileRead.readAsDataURL(files[0]);
+    fileRead.onload = () => {
+      sendMessage({
+        receiverID: userID!,
+        msgType: Message.msgType.Text,
+        content: fileRead.result as string,
+        dateTime: dayjs().toISOString(),
+        readied: false,
+      });
+    };
+  }
+
   return (
     <div className="overflow-hidden relative " style={{ height: "100vh" }}>
       <Header
@@ -98,6 +112,7 @@ export default React.memo(() => {
               multiple
               accept="image/*"
               className="h-0 w-0"
+              onChange={(e) => base64(e.target.files!)}
             />
           </div>
           <div
