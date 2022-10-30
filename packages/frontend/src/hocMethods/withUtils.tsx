@@ -95,7 +95,9 @@ export default (_Component: ComponentType) => {
       <UtilContext.Provider value={utils}>
         <>
           {component}
-          {videoCallElement || loadingElement || toastElement}
+          {videoCallElement}
+          {loadingElement}
+          {toastElement}
         </>
       </UtilContext.Provider>
     );

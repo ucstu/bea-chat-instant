@@ -1,4 +1,5 @@
 import { UserInfo } from "@/apis";
+import ring from "@/assets/ring.mp3";
 import { Store } from "@/stores/types";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,12 +32,12 @@ export default (_Component: ComponentType) => {
     const call = useMemo<CallContextValue>(
       () => ({
         callUser(_userInfo) {
-          const bridge = {} as { stream: MediaStream };
+          const bridge = {} as { stream?: MediaStream };
           utils.showVideoCall(
             <VideoView
               ref={container}
               onCancel={() => {
-                bridge?.stream.getTracks().forEach((track) => track.stop());
+                bridge?.stream?.getTracks().forEach((track) => track.stop());
                 utils.hiddenVideoCall();
               }}
             />
@@ -65,30 +66,46 @@ export default (_Component: ComponentType) => {
       if (!peer) {
         peer = new Peer(`bea-chat-${userInfo.userID}`);
         peer.on("call", (call) => {
-          const bridge = {} as { stream: MediaStream };
+          const username = contacts[call.peer.replace("bea-chat-", "")]?.name;
+          if (username)
+            utils.showToast(
+              <div className="bg-blue-300 rounded">
+                {`${username}正在呼入！`}
+                <audio src={ring} autoPlay loop></audio>
+              </div>,
+              false,
+              60000
+            );
+          const bridge = {} as { stream?: MediaStream };
+          const onApply = () => {
+            utils.hiddenToast();
+            navigator.mediaDevices
+              .getUserMedia({ video: true, audio: true })
+              .then((stream) => {
+                bridge.stream = stream;
+                setStream(container.current!, "me", stream);
+                call.answer(stream);
+                call.on("stream", function (stream) {
+                  setStream(container.current!, "he", stream);
+                });
+              })
+              .catch(() => {
+                utils.hiddenVideoCall();
+                utils.showToast("无法调用摄像头，接听失败");
+              });
+          };
           utils.showVideoCall(
             <VideoView
               ref={container}
+              isCallIn={true}
+              onApply={onApply}
               onCancel={() => {
-                bridge?.stream.getTracks().forEach((track) => track.stop());
+                bridge?.stream?.getTracks().forEach((track) => track.stop());
                 utils.hiddenVideoCall();
+                utils.hiddenToast();
               }}
             />
           );
-          navigator.mediaDevices
-            .getUserMedia({ video: true, audio: true })
-            .then((stream) => {
-              bridge.stream = stream;
-              setStream(container.current!, "me", stream);
-              call.answer(stream);
-              call.on("stream", function (stream) {
-                setStream(container.current!, "he", stream);
-              });
-            })
-            .catch(() => {
-              utils.hiddenVideoCall();
-              utils.showToast("无法调用摄像头，接听失败");
-            });
         });
       }
     }, [userInfo]);
@@ -105,11 +122,16 @@ function setStream(node: HTMLDivElement, name: string, stream: MediaStream) {
 }
 
 export interface VideoViewProps {
+  isCallIn?: boolean;
+  onApply?: () => void;
   onCancel: () => void;
 }
 const VideoView = React.memo(
   React.forwardRef(
-    ({ onCancel }: VideoViewProps, ref: LegacyRef<HTMLDivElement>) => (
+    (
+      { isCallIn, onApply, onCancel }: VideoViewProps,
+      ref: LegacyRef<HTMLDivElement>
+    ) => (
       <div
         ref={ref}
         className="w-full h-full fixed top-0 left-0 bg-black shadow-md shadow-black"
@@ -125,7 +147,14 @@ const VideoView = React.memo(
           autoPlay
           className="h-full absolute top-0 left-0"
         ></video>
-        <div className="w-full h-20 absolute bottom-10 flex justify-center">
+        <div className="w-full h-20 absolute bottom-10 flex justify-around">
+          {isCallIn && (
+            <FontAwesomeIcon
+              icon={faPhone}
+              onClick={onApply}
+              className="h-10 p-5 aspect-square rounded-full pointer-events-auto bg-green-500"
+            />
+          )}
           <FontAwesomeIcon
             icon={faPhone}
             onClick={onCancel}
