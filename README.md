@@ -2,7 +2,7 @@
 
 ## 📃 相关地址
 
-BeaChat即时通讯：[演示地址](https://beachat.ucstu.com) [Github仓库](https://github.com/ucstu/bea-chat)
+BeaChat即时通讯：[演示地址](https://beachat.ucstu.com) [Gitee仓库](https://gitee.com/zxd2219/bea-chat) [Github仓库](https://github.com/ucstu/bea-chat)
 
 ## Ⓜ️ 主要功能
 
